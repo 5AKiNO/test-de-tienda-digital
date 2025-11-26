@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Digital - Juegos y Streaming</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>DigitalStore <i class="fas fa-gamepad"></i></h1>
+        </div>
+        <div class="cart-icon" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="filters">
+            <button onclick="filterProducts('all')">Todos</button>
+            <button onclick="filterProducts('streaming')">Streaming</button>
+            <button onclick="filterProducts('juegos')">Juegos</button>
+        </section>
+
+        <div id="product-container" class="product-grid">
+            </div>
+    </main>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-btn" onclick="toggleCart()">&times;</span>
+            <h2>Tu Pedido</h2>
+            <div id="cart-items">
+                <p>El carrito está vacío.</p>
+            </div>
+            <div class="cart-summary">
+                <h3>Total: $<span id="cart-total">0</span> USD</h3>
+                
+                <label for="payment-method">Método de Pago:</label>
+                <select id="payment-method">
+                    <option value="Transferencia Bancaria">Transferencia / Tarjeta</option>
+                    <option value="USDT/Cripto">Criptomonedas (USDT/BTC)</option>
+                </select>
+
+                <button class="checkout-btn" onclick="checkout()">
+                    <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
