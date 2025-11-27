@@ -137,3 +137,51 @@ button:hover { background-color: #00e676; color: #121212; }
     border-radius: 5px; /* Bordes redondeados */
     margin-bottom: 10px;
 }
+
+/* Footer */
+footer {
+    background-color: #1f1f1f;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: #888;
+    border-top: 1px solid #333;
+}
+
+/* Notificación Flotante (Toast) */
+.toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #00e676; /* Verde éxito */
+    color: #121212;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1001;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+}
+
+.toast.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 50px; /* Sube un poco al aparecer */
+}
+
+/* Botón Vaciar Carrito */
+.empty-cart-btn {
+    background-color: #e53935;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 14px;
+}
+.empty-cart-btn:hover {
+    background-color: #b71c1c;
+    color: white;
+}
