@@ -128,3 +128,12 @@ button:hover { background-color: #00e676; color: #121212; }
     font-weight: bold;
     margin-top: 15px;
 }
+/* --- Estilos para las Imágenes de Productos --- */
+.product-img {
+    width: 100%;       /* Ocupa todo el ancho de la tarjeta */
+    height: 150px;     /* Altura fija para que todas se vean iguales */
+    object-fit: cover; /* Recorta la imagen si es necesario para no deformarla */
+    object-position: center;
+    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 10px;
+}

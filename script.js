@@ -1,15 +1,15 @@
 // 1. Configuración de Productos (Aquí agregas tu inventario)
 const products = [
-    { id: 1, name: "Netflix 1 Pantalla (30 días)", price: 3.00, category: "streaming" },
-    { id: 2, name: "Netflix Premium 4K (30 días)", price: 9.00, category: "streaming" },
-    { id: 3, name: "Spotify Individual (3 meses)", price: 5.00, category: "streaming" },
-    { id: 4, name: "Diamantes FreeFire (100 + Bono)", price: 1.50, category: "juegos" },
-    { id: 5, name: "Pase Elite FreeFire", price: 4.00, category: "juegos" },
-    { id: 6, name: "Diamantes Mobile Legends (50)", price: 1.20, category: "juegos" }
+    { id: 1, name: "Netflix 1 Pantalla", price: 3.00, category: "streaming", image: "img/netflix.jpg" },
+    { id: 2, name: "Netflix Premium 4K", price: 9.00, category: "streaming", image: "img/netflix.jpg" },
+    { id: 3, name: "Spotify Individual", price: 5.00, category: "streaming", image: "img/spotify.jpg" },
+    { id: 4, name: "Diamantes FreeFire", price: 1.50, category: "juegos", image: "img/freefire.jpg" },
+    { id: 5, name: "Pase Elite FreeFire", price: 4.00, category: "juegos", image: "img/freefire.jpg" },
+    { id: 6, name: "Mobile Legends", price: 1.20, category: "juegos", image: "img/mobile-legends.jpg" }
 ];
 
 // Tu número de WhatsApp (IMPORTANTE: Pon tu número real con código de país)
-const myPhoneNumber = "595900000000"; // Ejemplo Paraguay: 595...
+const myPhoneNumber = "595975724454"; // Ejemplo Paraguay: 595...
 
 let cart = [];
 
@@ -26,7 +26,9 @@ function renderProducts(category = 'all') {
     filtered.forEach(product => {
         const card = document.createElement('div');
         card.className = 'product-card';
+        // AQUI ESTÁ EL CAMBIO: Agregamos la etiqueta <img>
         card.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" class="product-img">
             <h3>${product.name}</h3>
             <p class="price">$${product.price.toFixed(2)}</p>
             <button onclick="addToCart(${product.id})">Agregar al Carrito</button>
