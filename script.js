@@ -1,46 +1,62 @@
 // 1. Configuración
-// ¡IMPORTANTE! Pega aquí el enlace que copiaste al dar "Publicar como CSV"
 const googleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvUvaRzmtv38zYONfpRyV-XO4oEZMjhLOJeIebEewkHvmNt_w2eJyA4EZkwc8gVuKcQztKP5vZU6T/pub?gid=0&single=true&output=csv";
 
-const myPhoneNumber = "595984835708"; 
+// --- CAMBIO CLOUDINARY: Pon aquí tu "Cloud Name" ---
+const CLOUDINARY_CLOUD_NAME = "TU_CLOUD_NAME_AQUI"; 
+// Ejemplo: const CLOUDINARY_CLOUD_NAME = "dxy45jk";
+
+const myPhoneNumber = "595984835708";
 let products = [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const productContainer = document.getElementById('product-container');
 
-// 2. Cargar Productos desde Google Sheets
+// 2. Cargar Productos y Generar Categorías
 function loadProducts() {
     Papa.parse(googleSheetURL, {
         download: true,
         header: true,
         complete: function(results) {
-            // PapaParse convierte el CSV en un Array de objetos
             products = results.data;
-            // Filtra filas vacías por si acaso
             products = products.filter(p => p.nombre && p.nombre.length > 0);
-            renderProducts();
+            
+            renderCategories(); // Generamos botones
+            renderProducts();   // Mostramos productos
         },
         error: function(err) {
-            console.error("Error leyendo Google Sheets:", err);
-            alert("Error al cargar productos");
+            console.error("Error:", err);
         }
     });
 }
 
-// 3. Renderizar (Ahora con lógica de Ofertas y Descripción)
+// 3. Renderizar Categorías Dinámicas
+function renderCategories() {
+    const filtersContainer = document.getElementById('filters-container');
+    const uniqueCategories = [...new Set(products.map(p => p.categoria.trim()))];
+
+    let buttonsHTML = '<button onclick="filterProducts(\'all\')">Todos</button>';
+
+    uniqueCategories.forEach(cat => {
+        if (cat) {
+            const displayCat = cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
+            buttonsHTML += `<button onclick="filterProducts('${cat}')">${displayCat}</button>`;
+        }
+    });
+
+    filtersContainer.innerHTML = buttonsHTML;
+}
+
+// 4. Renderizar Productos (CORREGIDO: Aquí faltaba declarar la función)
 function renderProducts(category = 'all') {
     productContainer.innerHTML = '';
-    
-    // Normaliza la categoría (minúsculas y sin espacios) para evitar errores
-    const filtered = category === 'all' 
-        ? products 
+
+    const filtered = category === 'all'
+        ? products
         : products.filter(p => p.categoria.toLowerCase().trim() === category.toLowerCase().trim());
 
     filtered.forEach(product => {
-        // Lógica de Precios
         let priceHTML = '';
         let finalPrice = parseFloat(product.precio_normal);
-        
-        // Verificamos si la columna 'en_oferta' dice SI
+
         if (product.en_oferta.toUpperCase() === 'SI') {
             finalPrice = parseFloat(product.precio_oferta);
             priceHTML = `
@@ -53,18 +69,22 @@ function renderProducts(category = 'all') {
 
         const card = document.createElement('div');
         card.className = 'product-card';
-        // Agregamos clase si está en oferta para darle estilo
         if (product.en_oferta.toUpperCase() === 'SI') card.classList.add('promo-card');
+
+        // --- LÓGICA CLOUDINARY ---
+        // Construimos la URL automáticamente usando tu Cloud Name y el nombre en el Excel
+        // "q_auto,f_auto" son comandos mágicos de Cloudinary para optimizar calidad y formato
+        const imageURL = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${product.imagen}`;
 
         card.innerHTML = `
             <div class="img-container">
                 ${product.en_oferta.toUpperCase() === 'SI' ? '<span class="badge">OFERTA</span>' : ''}
-                <img src="${product.imagen}" alt="${product.nombre}" class="product-img" onerror="this.src='https://via.placeholder.com/150'">
+                <img src="${imageURL}" alt="${product.nombre}" class="product-img" onerror="this.src='https://via.placeholder.com/150'">
             </div>
-            
+
             <h3>${product.nombre}</h3>
             <p class="desc-short">${product.descripcion.substring(0, 50)}...</p>
-            
+
             <div class="price-container">
                 ${priceHTML}
             </div>
@@ -75,18 +95,15 @@ function renderProducts(category = 'all') {
     });
 }
 
-// 4. Lógica del Carrito (Adaptada para leer los precios dinámicos)
+// 5. Lógica del Carrito
 function addToCart(id) {
-    // Buscamos por ID (ahora como string porque viene del CSV)
     const product = products.find(p => p.id === id);
     
-    // Determinamos el precio real a cobrar
     let priceToCharge = parseFloat(product.precio_normal);
     if (product.en_oferta.toUpperCase() === 'SI') {
         priceToCharge = parseFloat(product.precio_oferta);
     }
 
-    // Creamos un objeto item para el carrito
     const item = {
         id: product.id,
         name: product.nombre,
@@ -94,8 +111,8 @@ function addToCart(id) {
     };
 
     cart.push(item);
-    saveCart();      
-    updateCartUI();  
+    saveCart();
+    updateCartUI();
     showToast(`Se agregó ${product.nombre}`);
 }
 
