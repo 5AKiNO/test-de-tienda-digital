@@ -1,57 +1,102 @@
-// 1. Configuración Inicial
-// Ahora 'products' empieza vacío, esperando recibir datos
+// 1. Configuración
+// ¡IMPORTANTE! Pega aquí el enlace que copiaste al dar "Publicar como CSV"
+const googleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvUvaRzmtv38zYONfpRyV-XO4oEZMjhLOJeIebEewkHvmNt_w2eJyA4EZkwc8gVuKcQztKP5vZU6T/pub?gid=0&single=true&output=csv";
+
+const myPhoneNumber = "595984835708"; 
 let products = [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const myPhoneNumber = "595975724454"; 
-
-// ELEMENTOS DEL DOM
 const productContainer = document.getElementById('product-container');
 
-// --- CARGAR PRODUCTOS (FETCH) ---
-async function loadProducts() {
-    try {
-        // Pedimos el archivo JSON
-        const response = await fetch('productos.json');
-        
-        // Convertimos la respuesta a datos usables
-        const data = await response.json();
-        
-        // Guardamos los datos en nuestra variable global
-        products = data;
-        
-        // Una vez que tenemos los datos, pintamos la web
-        renderProducts();
-    } catch (error) {
-        console.error("Error cargando productos:", error);
-        alert("Hubo un error cargando la tienda. Intenta recargar.");
-    }
+// 2. Cargar Productos desde Google Sheets
+function loadProducts() {
+    Papa.parse(googleSheetURL, {
+        download: true,
+        header: true,
+        complete: function(results) {
+            // PapaParse convierte el CSV en un Array de objetos
+            products = results.data;
+            // Filtra filas vacías por si acaso
+            products = products.filter(p => p.nombre && p.nombre.length > 0);
+            renderProducts();
+        },
+        error: function(err) {
+            console.error("Error leyendo Google Sheets:", err);
+            alert("Error al cargar productos");
+        }
+    });
 }
 
-// 2. Renderizar Productos
+// 3. Renderizar (Ahora con lógica de Ofertas y Descripción)
 function renderProducts(category = 'all') {
     productContainer.innerHTML = '';
-    const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+    
+    // Normaliza la categoría (minúsculas y sin espacios) para evitar errores
+    const filtered = category === 'all' 
+        ? products 
+        : products.filter(p => p.categoria.toLowerCase().trim() === category.toLowerCase().trim());
 
     filtered.forEach(product => {
+        // Lógica de Precios
+        let priceHTML = '';
+        let finalPrice = parseFloat(product.precio_normal);
+        
+        // Verificamos si la columna 'en_oferta' dice SI
+        if (product.en_oferta.toUpperCase() === 'SI') {
+            finalPrice = parseFloat(product.precio_oferta);
+            priceHTML = `
+                <span class="old-price">$${parseFloat(product.precio_normal).toFixed(2)}</span>
+                <span class="sale-price">$${finalPrice.toFixed(2)}</span>
+            `;
+        } else {
+            priceHTML = `<span class="price">$${finalPrice.toFixed(2)}</span>`;
+        }
+
         const card = document.createElement('div');
         card.className = 'product-card';
+        // Agregamos clase si está en oferta para darle estilo
+        if (product.en_oferta.toUpperCase() === 'SI') card.classList.add('promo-card');
+
         card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-img" onerror="this.src='https://via.placeholder.com/150'">
-            <h3>${product.name}</h3>
-            <p class="price">$${product.price.toFixed(2)}</p>
-            <button onclick="addToCart(${product.id})">Agregar al Carrito</button>
+            <div class="img-container">
+                ${product.en_oferta.toUpperCase() === 'SI' ? '<span class="badge">OFERTA</span>' : ''}
+                <img src="${product.imagen}" alt="${product.nombre}" class="product-img" onerror="this.src='https://via.placeholder.com/150'">
+            </div>
+            
+            <h3>${product.nombre}</h3>
+            <p class="desc-short">${product.descripcion.substring(0, 50)}...</p>
+            
+            <div class="price-container">
+                ${priceHTML}
+            </div>
+
+            <button onclick="addToCart('${product.id}')">Agregar al Carrito</button>
         `;
         productContainer.appendChild(card);
     });
 }
 
-// 3. Lógica del Carrito
+// 4. Lógica del Carrito (Adaptada para leer los precios dinámicos)
 function addToCart(id) {
+    // Buscamos por ID (ahora como string porque viene del CSV)
     const product = products.find(p => p.id === id);
-    cart.push(product);
+    
+    // Determinamos el precio real a cobrar
+    let priceToCharge = parseFloat(product.precio_normal);
+    if (product.en_oferta.toUpperCase() === 'SI') {
+        priceToCharge = parseFloat(product.precio_oferta);
+    }
+
+    // Creamos un objeto item para el carrito
+    const item = {
+        id: product.id,
+        name: product.nombre,
+        price: priceToCharge
+    };
+
+    cart.push(item);
     saveCart();      
     updateCartUI();  
-    showToast(`Se agregó ${product.name}`);
+    showToast(`Se agregó ${product.nombre}`);
 }
 
 function removeFromCart(index) {
@@ -93,13 +138,13 @@ function updateCartUI() {
     document.getElementById('cart-total').innerText = total.toFixed(2);
 }
 
-// Notificación Visual
+// UI Helpers
 function showToast(message) {
     const toast = document.getElementById("toast");
     if (toast) {
         toast.className = "toast show";
         toast.innerText = message;
-        setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        setTimeout(() => toast.className = toast.className.replace("show", ""), 3000);
     }
 }
 
@@ -114,25 +159,22 @@ function filterProducts(cat) {
 
 function checkout() {
     if (cart.length === 0) {
-        showToast("Tu carrito está vacío 😢");
+        showToast("Tu carrito está vacío");
         return;
     }
     const paymentMethod = document.getElementById('payment-method').value;
     let message = `Hola, quiero realizar el siguiente pedido:\n\n`;
     let total = 0;
     cart.forEach(item => {
-        message += `- ${item.name} ($${item.price})\n`;
+        message += `- ${item.name} ($${item.price.toFixed(2)})\n`;
         total += item.price;
     });
     message += `\n*Total a pagar: $${total.toFixed(2)} USD*`;
     message += `\nMétodo de pago: ${paymentMethod}`;
-    message += `\n\nQuedo a la espera de los datos para pagar.`;
     const url = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 }
 
-// --- INICIALIZACIÓN ---
-// Primero cargamos el carrito guardado
+// INICIALIZAR
 updateCartUI();
-// Luego iniciamos la carga de productos desde el JSON
 loadProducts();

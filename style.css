@@ -185,3 +185,52 @@ footer {
     background-color: #b71c1c;
     color: white;
 }
+
+/* --- Estilos para Ofertas y Descripciones --- */
+
+/* Contenedor de imagen relativo para poner el badge encima */
+.img-container {
+    position: relative;
+}
+
+/* Etiqueta de OFERTA */
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e53935;
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 0.8em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Descripción corta */
+.desc-short {
+    font-size: 0.9em;
+    color: #aaa;
+    margin: 5px 0;
+    min-height: 40px; /* Para alinear tarjetas */
+}
+
+/* Precios */
+.old-price {
+    text-decoration: line-through;
+    color: #777;
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+.sale-price {
+    color: #00e676;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+/* Borde especial para cartas en oferta */
+.promo-card {
+    border: 1px solid #00e676;
+    background-color: #262626; /* Un poco más claro */
+}
