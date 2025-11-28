@@ -1,0 +1,70 @@
+id,nombre,descripcion,categoria,precio_normal,precio_oferta,en_oferta,imagen
+ST-001,Netflix Perfil Extra - 1 Mes,Cuenta oficial extra bajo dominio hogar. Estable garantía y renovable. Pago legal.,Streaming Video,42000,40250,SI,Netflix1mes.jpg
+ST-002,Netflix Perfil Extra - 2 Meses,Cuenta oficial extra bajo dominio hogar. Estable garantía y renovable por 2 meses.,Streaming Video,72000,69000,SI,Icono de calendario de 2 meses con logo de Netflix y escudo de seguridad.
+ST-003,Netflix Premium Extra - Oferta Limitada,Perfil extra en oferta especial (sujeto a disponibilidad de stock).,Streaming Video,34800,33350,SI,Texto OFERTA FLASH en letras de neón rojo con logo de Netflix de fondo.
+ST-004,Flujo TV - 1 Mes (Pantalla),Servicio de TV por streaming. Solo 1 pantalla. Súper estable con garantía.,Streaming TV,24000,23000,SI,Interfaz de televisión moderna con canales variados y logo de Flujo TV.
+ST-005,Flujo TV - 1 Mes (Cuenta Completa),Servicio de TV por streaming. Cuenta completa. Súper estable con garantía.,Streaming TV,36000,34500,SI,Múltiples dispositivos (TV celular tablet) mostrando contenido de Flujo TV.
+ST-006,Magis TV Pro - 1 Mes (Pantalla),Servicio IPTV Pro. 1 pantalla. Incluye canales en vivo y VOD. Renovable.,Streaming TV,21600,20700,SI,Logo de Magis TV con colores vibrantes y fondo de deportes en vivo.
+ST-007,Magis TV Pro - 1 Mes (Cuenta Completa),Servicio IPTV Pro. Cuenta completa. Incluye canales en vivo y VOD. Renovable.,Streaming TV,30000,28750,SI,Smart TV mostrando la interfaz principal de Magis TV Pro.
+ST-008,IPTV Smarters Pro - 1 Mes (Completa),Servicio IPTV estable. Cuenta completa para la app Smarters Pro.,Streaming TV,36000,34500,SI,Logo de Smarters Pro azul en pantalla de tablet y TV.
+ST-009,HBO Max - 1 Mes (Perfil),Perfil individual con garantía. Renovable.,Streaming Video,18000,17250,SI,Logo de HBO Max en color morado degradado sobre fondo oscuro.
+ST-010,HBO Max - 1 Mes (Completa),Cuenta completa privada. Renovable.,Streaming Video,30000,28750,SI,Collage de series populares de HBO (Game of Thrones Last of Us).
+ST-011,HBO Max - 1 Mes (A tu correo),Activación de cuenta completa directamente a tu correo personal.,Streaming Video,42000,40250,SI,Icono de sobre de email abierto con el logo de HBO saliendo de él.
+ST-012,Paramount+ - 1 Mes (Perfil),Perfil individual. Incluye página/bot. Renovable.,Streaming Video,21600,20700,SI,Logo de montaña de Paramount+ con cielo estrellado azul.
+ST-013,Paramount+ - 1 Mes (Completa),Cuenta completa privada. Incluye página/bot. Renovable.,Streaming Video,33600,32200,SI,Logo Paramount+ sobre un fondo de películas de acción.
+ST-014,Crunchyroll - 1 Mes (Perfil),Perfil individual para anime. Incluye página/bot. Renovable.,Anime,18000,17250,SI,Logo de Crunchyroll naranja con personaje de anime popular al lado.
+ST-015,Crunchyroll - 1 Mes (Completa),Cuenta completa privada. Sin anuncios. Renovable.,Anime,30000,28750,SI,Montaje de varios personajes de anime (Naruto One Piece) con logo Crunchyroll.
+ST-016,Prime Video - 1 Mes (Perfil),Perfil individual Amazon Prime. Incluye página/bot.,Streaming Video,18000,17250,SI,Logo de Amazon Prime Video azul con la flecha de sonrisa amarilla.
+ST-017,Prime Video - 1 Mes (Completa),Cuenta completa Amazon Prime. Media posibilidad de renovación.,Streaming Video,30000,28750,SI,Interfaz de usuario de Prime Video mostrando películas recientes.
+ST-018,Prime Video - 1 Mes (A tu correo),Cuenta completa activada a tu correo personal.,Streaming Video,42000,40250,SI,Logo Prime Video junto a un icono de usuario verificado.
+ST-019,Disney+ Premium - 1 Mes (Perfil),Perfil individual Disney+. Alta posibilidad de renovación.,Streaming Video,30000,28750,SI,Logo Disney+ azul neón con el arco característico.
+ST-020,Disney+ Premium - 1 Mes (Completa),Cuenta completa Disney+. Alta posibilidad de renovación.,Streaming Video,66000,63250,SI,Castillo de Disney iluminado con fuegos artificiales de fondo.
+ST-021,Disney+ Premium - 1 Mes (A tu correo),Cuenta completa activada a tu correo. Alta estabilidad.,Streaming Video,78000,74750,SI,Logo Disney+ conectado a un icono de Gmail/Outlook.
+ST-022,Disney+ Premium - Versión Estable (Completa),Versión bajo pedido (24h). Máxima estabilidad garantizada.,Streaming Video,84000,80500,SI,Escudo dorado de garantía sobre el logo de Disney+.
+ST-023,Tigo Sports - 1 Mes (2 Dispositivos),Plan oficial Tigo Sports Paraguay. App oficial.,Deportes,120000,115000,SI,Logo de Tigo Sports con una pelota de fútbol de la liga paraguaya.
+ST-024,Apple TV - 1 Mes (Completa),Cuenta completa Apple TV+ con contenido original.,Streaming Video,36000,34500,SI,Logo de la manzana de Apple TV sobre fondo negro minimalista.
+ST-025,Vix+ Premium - 1 Mes,Cuenta completa para contenido latino y novelas.,Streaming Video,36000,34500,SI,Logo naranja de Vix+ con imágenes de novelas de fondo.
+ST-026,Rakuten Viki - 1 Mes,Dramas asiáticos (Doramas) premium.,Streaming Video,36000,34500,SI,Texto Viki en azul y turquesa con caracteres coreanos de fondo.
+ST-027,Plex - 1 Mes,Acceso a servidor Plex con contenido variado.,Streaming Video,36000,34500,SI,Logo de flecha amarilla de Plex sobre fondo gris oscuro.
+ST-028,Zapping TV Básico - 1 Mes,Televisión en vivo vía internet. Plan básico.,Streaming TV,30000,28750,SI,Logo verde neón de Zapping TV.
+ST-029,DAZN - 1 Mes,Streaming de deportes de combate y fútbol europeo.,Deportes,32400,31050,SI,Logo DAZN en blanco y negro con guantes de boxeo.
+ST-030,DramaBox - 15 Años,Suscripción de largo plazo para dramas cortos.,Streaming Video,60000,57500,SI,Icono de caja de teatro roja con máscara de drama.
+MU-001,Spotify Premium - 1 Mes (Individual 1ra vez),Cuenta individual nueva. Sin anuncios.,Música,24000,23000,SI,Logo verde de Spotify con ondas de sonido alrededor.
+MU-002,Spotify Premium - 1 Mes (Individual Renovación),Renovación de cuenta individual existente.,Música,30000,28750,SI,Icono de reciclaje/renovación sobre el logo de Spotify.
+MU-003,Spotify Premium - 1 Mes (Familiar 1ra vez),Plan familiar nuevo. Hasta 6 cuentas.,Música,78000,74750,SI,Siluetas de una familia escuchando música con audífonos y logo Spotify.
+MU-004,Spotify Premium - 3 Meses (Individual 1ra vez),Cuenta individual nueva por trimeste.,Música,54000,51750,SI,Logo Spotify con un número 3 grande al lado.
+MU-005,YouTube Premium - 1 Mes (Individual 1ra vez),Sin anuncios videos en segundo plano. Cuenta nueva.,Streaming Video/Música,24000,23000,SI,Botón de Play rojo de YouTube con la palabra Premium en dorado.
+MU-006,Apple Music - 1 Mes,Suscripción mensual Apple Music alta calidad.,Música,30000,28750,SI,Nota musical rosada/roja característica de Apple Music.
+MU-007,Amazon Music - 1 Mes,Suscripción mensual Amazon Music Unlimited.,Música,30000,28750,SI,Logo Amazon Music en azul cian.
+MU-008,Deezer Premium - 1 Mes,Suscripción mensual Deezer. Audio de alta fidelidad.,Música,33600,32200,SI,Ecualizador de colores característico del logo de Deezer.
+GM-001,Free Fire - 110 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,9000,8625,SI,Pequeño montón de diamantes azules brillantes.
+GM-002,Free Fire - 341 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,25200,24150,SI,Bolsa mediana de diamantes azules con destellos.
+GM-003,Free Fire - 572 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,37200,35650,SI,Cofre del tesoro abierto lleno de diamantes azules.
+GM-004,Free Fire - 1166 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,72000,69000,SI,Montaña de diamantes con un personaje de Free Fire celebrando.
+GM-005,Free Fire - 2398 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,141600,135700,SI,Gran baúl dorado rebosando diamantes brillantes.
+GM-006,Free Fire - 6160 Diamantes,Recarga vía ID directo. Región LATAM. Pack Mayorista.,Juegos,324000,310500,SI,Lluvia de diamantes cubriendo toda la imagen.
+GM-007,Recarga TikTok - 100 Monedas,Monedas para regalos en lives. 9.900 Gs base.,Redes Sociales,11880,11385,SI,Logo de TikTok 3D con monedas doradas flotando alrededor.
+IA-001,ChatGPT Plus - 1 Mes (Invitación),Acceso a cuenta Plus compartida vía invitación.,Inteligencia Artificial,18000,17250,SI,Logo de OpenAI verde sobre fondo blanco.
+IA-002,ChatGPT Plus - 1 Mes (Completa),Cuenta completa de 4 perfiles.,Inteligencia Artificial,60000,57500,SI,Logo ChatGPT con la palabra PLUS en negrita.
+IA-003,ChatGPT Pro - 1 Dispositivo,Acceso Pro en un solo dispositivo.,Inteligencia Artificial,24000,23000,SI,Smartphone mostrando la interfaz de chat con IA.
+IA-004,Gemini AI Pro + Google One - 1 Año,2TB de almacenamiento y Gemini Advanced. Cuenta nueva.,Inteligencia Artificial,60000,57500,SI,Logo de estrella de Google Gemini combinado con el logo de Google One.
+IA-005,Gemini Ultra - 1 Mes,45.000 créditos para generación de video IA.,Inteligencia Artificial,238800,228850,SI,Icono futurista de una cámara de video formada por nodos de IA.
+IA-006,Perplexity Pro - 1 Año,Motor de búsqueda con IA avanzada.,Inteligencia Artificial,78000,74750,SI,Logo de Perplexity con una lupa digital.
+SW-001,Canva Pro - 1 Mes,Diseño gráfico premium. Plantillas ilimitadas.,Diseño,18000,17250,SI,Logo de Canva en degradado azul y violeta.
+SW-002,Canva Pro - 1 Año,Suscripción anual a herramientas de diseño pro.,Diseño,60000,57500,SI,Calendario anual marcado con el logo de Canva.
+SW-003,Canva Pro - Panel 500 Cuentas (1 Año),Panel para revendedores. Crea 500 cuentas pro.,Diseño B2B,438000,419750,SI,Icono de servidor o dashboard con el logo de Canva.
+SW-004,CapCut Pro - 35 Días (1 Disp),Editor de video premium para celular/PC.,Diseño,24000,23000,SI,Logo de CapCut en blanco y negro con tijeras de edición.
+SW-005,PicsArt Premium - 1 Mes,Editor de fotos con todas las funciones desbloqueadas.,Diseño,30000,28750,SI,Logo de PicsArt con pincel creativo colorido.
+SW-006,Microsoft 365 Pro - 1 Mes (1 Disp),Word Excel PowerPoint. 1 dispositivo.,Productividad,60000,57500,SI,Logos de Office (Word Excel PPT) agrupados en un cubo 3D.
+SW-007,Microsoft 365 Pro - 1 Año (1 Disp),Licencia anual Office 365.,Productividad,78000,74750,SI,Escudo de seguridad Microsoft con año calendario.
+VP-001,HolaVPN - 1 Mes,VPN para 1 dispositivo. Activación por código.,Seguridad/VPN,30000,28750,SI,Llama de fuego sonriente (logo HolaVPN).
+VP-002,Surfshark VPN - 1 Mes,VPN rápida para 1 dispositivo.,Seguridad/VPN,24000,23000,SI,Aleta de tiburón verde azulado sobre ondas de internet.
+VP-003,NordVPN - 1 Mes,VPN líder en seguridad. 1 dispositivo.,Seguridad/VPN,30000,28750,SI,Montaña azul con el nudo de NordVPN.
+AD-001,Pornhub Premium - 1 Mes,Acceso contenido premium sin anuncios.,Adultos 18+,36000,34500,SI,Logo naranja y negro con la etiqueta PREMIUM.
+AD-002,Brazzers Premium - 1 Mes,Acceso sitio exclusivo.,Adultos 18+,42000,40250,SI,Logo de Brazzers estilizado con colores oscuros.
+SV-001,Chatbot Multiplataforma,APK de autotespuesta para redes. Pago único.,Servicios Marketing,60000,57500,SI,Robot amigable saludando desde una pantalla de chat.
+SV-002,CRM WhatsApp - 1 Mes,Respuestas automáticas masivas y flujos.,Servicios Marketing,120000,115000,SI,Icono de WhatsApp verde conectado a engranajes de automatización.
+SV-003,Diseño Logo Básico,Creación de logotipo simple.,Servicios Diseño,60000,57500,SI,Lápiz dibujando un trazo vectorial simple.
+SV-004,Diseño Logo Detallado + Identidad,Logo pro y manual de identidad visual.,Servicios Diseño,180000,172500,SI,Paleta de colores pantone junto a bocetos de logos complejos.
+SV-005,Flyers Publicitarios Pro,Diseño de flyer de alta calidad para redes.,Servicios Diseño,90000,86250,SI,Muestra de varios flyers coloridos y atractivos flotando.
+SV-006,Manejo de Redes - Plan Profesional,Gestión completa mensual de redes sociales.,Servicios Marketing,1500000,1437500,SI,Gráfica de crecimiento de estadísticas con iconos de Instagram y FB.

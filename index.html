@@ -20,10 +20,19 @@
     </header>
 
     <main>
-        <section class="filters" id="filters-container">
-            </section>
-        <div id="product-container" class="product-grid">
+        <section class="filters-wrapper">
+            <div class="filters-main" id="filters-container">
+                <!-- Categorías principales generadas por JS -->
             </div>
+            
+            <div class="filters-sub" id="subfilters-container">
+                <!-- Subcategorías (Marcas) generadas por JS -->
+            </div>
+        </section>
+
+        <div id="product-container" class="product-grid">
+            <!-- Productos generados por JS -->
+        </div>
     </main>
 
     <div id="cart-modal" class="cart-modal">
@@ -50,7 +59,7 @@
         </div>
     </div>
     <div id="toast" class="toast">¡Producto agregado al carrito!</div>
-    
+
     <footer>
         <p>&copy; 2025 HR Store - Todos los derechos reservados.</p>
         <div class="socials">

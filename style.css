@@ -21,12 +21,7 @@ header {
 
 h1 { margin: 0; color: #00e676; }
 
-/* Botones y Filtros */
-.filters {
-    text-align: center;
-    padding: 20px;
-}
-
+/* Botones Generales (Carrito, Checkout, Productos) */
 button {
     background-color: #333;
     color: white;
@@ -39,6 +34,66 @@ button {
 }
 
 button:hover { background-color: #00e676; color: #121212; }
+
+/* --- Filtros Jerárquicos --- */
+.filters-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background-color: #1a1a1a; /* Fondo sutil para separar el área de control */
+    border-bottom: 1px solid #333;
+}
+
+/* Nivel 1: Categorías Grandes */
+.filters-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filters-main button {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    background-color: #333;
+    border: 1px solid #444;
+}
+
+.filters-main button.active {
+    background-color: #00e676;
+    color: #121212;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.5);
+}
+
+/* Nivel 2: Subcategorías (Marcas) */
+.filters-sub {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px; /* Para que no colapse si está vacío */
+}
+
+.sub-filter-btn {
+    font-size: 14px;
+    padding: 6px 15px;
+    background-color: transparent;
+    border: 1px solid #00e676;
+    color: #00e676;
+    border-radius: 20px; /* Estilo píldora */
+    opacity: 0.7;
+}
+
+.sub-filter-btn:hover,
+.sub-filter-btn.active {
+    background-color: #00e676;
+    color: #121212;
+    opacity: 1;
+    transform: translateY(-2px);
+}
 
 /* Cuadrícula de Productos */
 .product-grid {
@@ -128,6 +183,7 @@ button:hover { background-color: #00e676; color: #121212; }
     font-weight: bold;
     margin-top: 15px;
 }
+
 /* --- Estilos para las Imágenes de Productos --- */
 .product-img {
     width: 100%;       /* Ocupa todo el ancho de la tarjeta */
