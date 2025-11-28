@@ -1,14 +1,19 @@
 // 1. Configuración
 const googleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvUvaRzmtv38zYONfpRyV-XO4oEZMjhLOJeIebEewkHvmNt_w2eJyA4EZkwc8gVuKcQztKP5vZU6T/pub?gid=0&single=true&output=csv";
 
-// --- CAMBIO CLOUDINARY: Pon aquí tu "Cloud Name" ---
-const CLOUDINARY_CLOUD_NAME = "darqsjys4"; 
-// Ejemplo: const CLOUDINARY_CLOUD_NAME = "dxy45jk";
+// Cloudinary
+const CLOUDINARY_CLOUD_NAME = "darqsjys4";
 
 const myPhoneNumber = "595984835708";
 let products = [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const productContainer = document.getElementById('product-container');
+
+// --- HELPER: Función para formatear dinero (Paraguay) ---
+// Convierte 50000 -> "50.000"
+function formatPrice(amount) {
+    return Number(amount).toLocaleString('es-PY');
+}
 
 // 2. Cargar Productos y Generar Categorías
 function loadProducts() {
@@ -18,9 +23,9 @@ function loadProducts() {
         complete: function(results) {
             products = results.data;
             products = products.filter(p => p.nombre && p.nombre.length > 0);
-            
-            renderCategories(); // Generamos botones
-            renderProducts();   // Mostramos productos
+
+            renderCategories(); 
+            renderProducts();   
         },
         error: function(err) {
             console.error("Error:", err);
@@ -28,7 +33,7 @@ function loadProducts() {
     });
 }
 
-// 3. Renderizar Categorías Dinámicas
+// 3. Renderizar Categorías
 function renderCategories() {
     const filtersContainer = document.getElementById('filters-container');
     const uniqueCategories = [...new Set(products.map(p => p.categoria.trim()))];
@@ -45,35 +50,34 @@ function renderCategories() {
     filtersContainer.innerHTML = buttonsHTML;
 }
 
-// 4. Renderizar Productos (CORREGIDO: Aquí faltaba declarar la función)
+// 4. Renderizar Productos
 function renderProducts(category = 'all') {
     productContainer.innerHTML = '';
 
-    const filtered = category === 'all'
-        ? products
+    const filtered = category === 'all' 
+        ? products 
         : products.filter(p => p.categoria.toLowerCase().trim() === category.toLowerCase().trim());
 
     filtered.forEach(product => {
         let priceHTML = '';
         let finalPrice = parseFloat(product.precio_normal);
 
+        // Lógica de Oferta
         if (product.en_oferta.toUpperCase() === 'SI') {
             finalPrice = parseFloat(product.precio_oferta);
             priceHTML = `
-                <span class="old-price">$${parseFloat(product.precio_normal).toFixed(2)}</span>
-                <span class="sale-price">$${finalPrice.toFixed(2)}</span>
+                <span class="old-price">Gs. ${formatPrice(product.precio_normal)}</span>
+                <span class="sale-price">Gs. ${formatPrice(finalPrice)}</span>
             `;
         } else {
-            priceHTML = `<span class="price">$${finalPrice.toFixed(2)}</span>`;
+            priceHTML = `<span class="price">Gs. ${formatPrice(finalPrice)}</span>`;
         }
 
         const card = document.createElement('div');
         card.className = 'product-card';
         if (product.en_oferta.toUpperCase() === 'SI') card.classList.add('promo-card');
 
-        // --- LÓGICA CLOUDINARY ---
-        // Construimos la URL automáticamente usando tu Cloud Name y el nombre en el Excel
-        // "q_auto,f_auto" son comandos mágicos de Cloudinary para optimizar calidad y formato
+        // URL de Imagen Cloudinary
         const imageURL = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${product.imagen}`;
 
         card.innerHTML = `
@@ -84,7 +88,7 @@ function renderProducts(category = 'all') {
 
             <h3>${product.nombre}</h3>
             <p class="desc-short">${product.descripcion.substring(0, 50)}...</p>
-
+            
             <div class="price-container">
                 ${priceHTML}
             </div>
@@ -146,13 +150,16 @@ function updateCartUI() {
             cartItemsDiv.innerHTML += `
                 <div class="cart-item">
                     <span>${item.name}</span>
-                    <span>$${item.price.toFixed(2)} <button onclick="removeFromCart(${index})" style="background:red; padding:2px 5px; color:white; border:none; cursor:pointer;">X</button></span>
+                    <span>Gs. ${formatPrice(item.price)} 
+                    <button onclick="removeFromCart(${index})" style="background:red; padding:2px 5px; color:white; border:none; cursor:pointer;">X</button>
+                    </span>
                 </div>
             `;
         });
         cartItemsDiv.innerHTML += `<button onclick="clearCart()" class="empty-cart-btn">Vaciar Carrito</button>`;
     }
-    document.getElementById('cart-total').innerText = total.toFixed(2);
+    // Mostramos el total formateado
+    document.getElementById('cart-total').innerText = formatPrice(total);
 }
 
 // UI Helpers
@@ -180,14 +187,19 @@ function checkout() {
         return;
     }
     const paymentMethod = document.getElementById('payment-method').value;
-    let message = `Hola, quiero realizar el siguiente pedido:\n\n`;
+    
+    // Construcción del mensaje para WhatsApp
+    let message = `Hola HR Store, quiero realizar el siguiente pedido:\n\n`;
     let total = 0;
+    
     cart.forEach(item => {
-        message += `- ${item.name} ($${item.price.toFixed(2)})\n`;
+        message += `- ${item.name} (Gs. ${formatPrice(item.price)})\n`;
         total += item.price;
     });
-    message += `\n*Total a pagar: $${total.toFixed(2)} USD*`;
+    
+    message += `\n*Total a pagar: Gs. ${formatPrice(total)}*`;
     message += `\nMétodo de pago: ${paymentMethod}`;
+    
     const url = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 }
