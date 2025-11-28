@@ -2,7 +2,7 @@
 const googleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvUvaRzmtv38zYONfpRyV-XO4oEZMjhLOJeIebEewkHvmNt_w2eJyA4EZkwc8gVuKcQztKP5vZU6T/pub?gid=0&single=true&output=csv";
 
 // --- CAMBIO CLOUDINARY: Pon aquí tu "Cloud Name" ---
-const CLOUDINARY_CLOUD_NAME = "TU_CLOUD_NAME_AQUI"; 
+const CLOUDINARY_CLOUD_NAME = "darqsjys4"; 
 // Ejemplo: const CLOUDINARY_CLOUD_NAME = "dxy45jk";
 
 const myPhoneNumber = "595984835708";
