@@ -1,6 +1,5 @@
 // 1. Configuración
-// ¡IMPORTANTE! Reemplaza esta URL con la que obtuviste al publicar tu Google Apps Script
-const jsonApiURL = "https://script.google.com/macros/s/CAMBIA_ESTO_POR_TU_URL_DE_APPS_SCRIPT/exec";
+const jsonApiURL = "https://script.google.com/macros/s/AKfycbwYbJdCvQItlE_D5g1VKabHfPdHJQEfuMw6d4Eix_YdYeCIOFb-L9MapRDlQd3MfSe0mg/exec";
 
 // Cloudinary
 const CLOUDINARY_CLOUD_NAME = "darqsjys4";
