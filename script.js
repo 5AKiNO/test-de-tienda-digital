@@ -1,5 +1,6 @@
 // 1. Configuración
-const googleSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvUvaRzmtv38zYONfpRyV-XO4oEZMjhLOJeIebEewkHvmNt_w2eJyA4EZkwc8gVuKcQztKP5vZU6T/pub?gid=0&single=true&output=csv";
+// ¡IMPORTANTE! Reemplaza esta URL con la que obtuviste al publicar tu Google Apps Script
+const jsonApiURL = "https://script.google.com/macros/s/CAMBIA_ESTO_POR_TU_URL_DE_APPS_SCRIPT/exec";
 
 // Cloudinary
 const CLOUDINARY_CLOUD_NAME = "darqsjys4";
@@ -22,35 +23,45 @@ function formatPrice(amount) {
 }
 
 // --- HELPER: Resolver URL de Imagen o Placeholder ---
-// Esta función verifica si la imagen es un archivo válido (.jpg) o texto descriptivo
 function resolveImageURL(imageValue) {
-    // Si está vacío, es null, o NO incluye '.jpg' (insensible a mayúsculas/minúsculas)
-    if (!imageValue || !imageValue.toLowerCase().includes('.jpg')) {
-        // Retorna un placeholder genérico oscuro con texto blanco
+    // Si es null, undefined, o NO incluye '.jpg' (insensible a mayúsculas)
+    if (!imageValue || !imageValue.toString().toLowerCase().includes('.jpg')) {
+        // Retorna un placeholder oscuro
         return 'https://via.placeholder.com/300x200/333333/ffffff?text=HR+Store';
     }
     // Si es válido, construye la URL de Cloudinary
     return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${imageValue}`;
 }
 
-// 2. Cargar Productos
+// 2. Cargar Productos (MODIFICADO PARA JSON)
 function loadProducts() {
-    Papa.parse(googleSheetURL, {
-        download: true,
-        header: true,
-        complete: function(results) {
-            products = results.data;
-            // Filtramos filas vacías
-            products = products.filter(p => p.nombre && p.nombre.length > 0);
+    // Mostrar mensaje de carga temporal
+    productContainer.innerHTML = '<p style="text-align:center; padding: 20px; color:#888;">Cargando catálogo...</p>';
 
-            // Inicializar vista con la nueva lógica
+    fetch(jsonApiURL)
+        .then(response => {
+            if (!response.ok) throw new Error("Error en la red al obtener datos");
+            return response.json();
+        })
+        .then(data => {
+            products = data;
+            
+            // Filtro de seguridad: eliminamos productos sin nombre
+            products = products.filter(p => p.nombre && p.nombre.toString().trim().length > 0);
+
+            if (products.length === 0) {
+                productContainer.innerHTML = '<p style="text-align:center;">No se encontraron productos disponibles.</p>';
+                return;
+            }
+
+            // Inicializar vista
             renderCategories();
             renderProducts();
-        },
-        error: function(err) {
-            console.error("Error:", err);
-        }
-    });
+        })
+        .catch(error => {
+            console.error("Error cargando productos:", error);
+            productContainer.innerHTML = '<p style="text-align:center; color:#e53935;">Hubo un error cargando el catálogo. Por favor recarga la página.</p>';
+        });
 }
 
 // 3. Renderizar Categorías Principales (Nivel 1)
@@ -58,7 +69,8 @@ function renderCategories() {
     const filtersContainer = document.getElementById('filters-container');
     if (!filtersContainer) return;
 
-    const uniqueCategories = [...new Set(products.map(p => p.categoria.trim()))];
+    // Aseguramos que categoria exista antes de hacer trim()
+    const uniqueCategories = [...new Set(products.map(p => p.categoria ? p.categoria.toString().trim() : 'Otros'))];
 
     let buttonsHTML = `<button class="${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">Todos</button>`;
 
@@ -76,9 +88,9 @@ function renderCategories() {
 // 4. Lógica para establecer Categoría Principal
 function setCategory(cat) {
     currentCategory = cat;
-    currentSubCategory = 'all'; 
-    renderCategories(); 
-    renderSubCategories(); 
+    currentSubCategory = 'all';
+    renderCategories();
+    renderSubCategories();
     renderProducts();
 }
 
@@ -92,8 +104,9 @@ function renderSubCategories() {
         return;
     }
 
-    const categoryProducts = products.filter(p => p.categoria.trim() === currentCategory);
+    const categoryProducts = products.filter(p => p.categoria.toString().trim() === currentCategory);
     const brands = new Set();
+    
     categoryProducts.forEach(p => {
         const brandName = getBrandName(p.nombre);
         brands.add(brandName);
@@ -116,7 +129,9 @@ function renderSubCategories() {
 
 // Helper: Extraer nombre de marca
 function getBrandName(fullName) {
-    const lower = fullName.toLowerCase();
+    if (!fullName) return "Generico";
+    const lower = fullName.toString().toLowerCase();
+    
     if (lower.startsWith("free fire")) return "Free Fire";
     if (lower.startsWith("prime video")) return "Prime Video";
     if (lower.startsWith("youtube premium")) return "YouTube";
@@ -126,6 +141,7 @@ function getBrandName(fullName) {
     if (lower.startsWith("magis tv")) return "Magis TV";
     if (lower.startsWith("apple tv")) return "Apple TV";
     if (lower.startsWith("apple music")) return "Apple Music";
+    
     return fullName.split(' ')[0];
 }
 
@@ -143,7 +159,7 @@ function renderProducts() {
     // Filtro Nivel 1: Categoría
     let filtered = currentCategory === 'all'
         ? products
-        : products.filter(p => p.categoria.trim() === currentCategory);
+        : products.filter(p => p.categoria.toString().trim() === currentCategory);
 
     // Filtro Nivel 2: Marca (Subcategoría)
     if (currentSubCategory !== 'all') {
@@ -162,8 +178,9 @@ function renderProducts() {
     filtered.forEach(product => {
         let priceHTML = '';
         let finalPrice = parseFloat(product.precio_normal);
+        let isOffer = product.en_oferta && product.en_oferta.toString().toUpperCase() === 'SI';
 
-        if (product.en_oferta.toUpperCase() === 'SI') {
+        if (isOffer) {
             finalPrice = parseFloat(product.precio_oferta);
             priceHTML = `
                 <span class="old-price">Gs. ${formatPrice(product.precio_normal)}</span>
@@ -175,19 +192,22 @@ function renderProducts() {
 
         const card = document.createElement('div');
         card.className = 'product-card';
-        if (product.en_oferta.toUpperCase() === 'SI') card.classList.add('promo-card');
+        if (isOffer) card.classList.add('promo-card');
 
-        // USAMOS LA NUEVA FUNCIÓN HELPER AQUÍ
+        // Resolver Imagen
         const imageURL = resolveImageURL(product.imagen);
+        
+        // Manejo seguro de descripción
+        const desc = product.descripcion ? product.descripcion.toString().substring(0, 50) : '';
 
         card.innerHTML = `
             <div class="img-container">
-                ${product.en_oferta.toUpperCase() === 'SI' ? '<span class="badge">OFERTA</span>' : ''}
+                ${isOffer ? '<span class="badge">OFERTA</span>' : ''}
                 <img src="${imageURL}" alt="${product.nombre}" class="product-img" loading="lazy">
             </div>
 
             <h3>${product.nombre}</h3>
-            <p class="desc-short">${product.descripcion.substring(0, 50)}...</p>
+            <p class="desc-short">${desc}...</p>
 
             <div class="price-container">
                 ${priceHTML}
@@ -203,9 +223,9 @@ function renderProducts() {
 function renderCarousel(productList) {
     const offersSection = document.getElementById('offers-section');
     const swiperWrapper = document.getElementById('swiper-wrapper');
-    
+
     // Filtrar solo ofertas
-    const offers = productList.filter(p => p.en_oferta.toUpperCase() === 'SI');
+    const offers = productList.filter(p => p.en_oferta && p.en_oferta.toString().toUpperCase() === 'SI');
 
     // Destruir instancia previa si existe
     if (swiperInstance !== null) {
@@ -229,8 +249,6 @@ function renderCarousel(productList) {
         slide.className = 'swiper-slide';
 
         let finalPrice = parseFloat(product.precio_oferta);
-        
-        // USAMOS LA NUEVA FUNCIÓN HELPER AQUÍ TAMBIÉN
         const imageURL = resolveImageURL(product.imagen);
 
         slide.innerHTML = `
@@ -274,10 +292,13 @@ function renderCarousel(productList) {
 
 // 8. Lógica del Carrito
 function addToCart(id) {
-    const product = products.find(p => p.id === id);
+    // Convertimos IDs a string para comparar seguramente
+    const product = products.find(p => p.id.toString() === id.toString());
+
+    if (!product) return;
 
     let priceToCharge = parseFloat(product.precio_normal);
-    if (product.en_oferta.toUpperCase() === 'SI') {
+    if (product.en_oferta && product.en_oferta.toString().toUpperCase() === 'SI') {
         priceToCharge = parseFloat(product.precio_oferta);
     }
 
