@@ -42,7 +42,7 @@ button:hover { background-color: #00e676; color: #121212; }
     align-items: center;
     gap: 15px;
     padding: 20px;
-    background-color: #1a1a1a; /* Fondo sutil para separar el área de control */
+    background-color: #1a1a1a;
     border-bottom: 1px solid #333;
 }
 
@@ -74,7 +74,7 @@ button:hover { background-color: #00e676; color: #121212; }
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
-    min-height: 40px; /* Para que no colapse si está vacío */
+    min-height: 40px;
 }
 
 .sub-filter-btn {
@@ -83,7 +83,7 @@ button:hover { background-color: #00e676; color: #121212; }
     background-color: transparent;
     border: 1px solid #00e676;
     color: #00e676;
-    border-radius: 20px; /* Estilo píldora */
+    border-radius: 20px;
     opacity: 0.7;
 }
 
@@ -143,7 +143,7 @@ button:hover { background-color: #00e676; color: #121212; }
 
 /* Modal del Carrito */
 .cart-modal {
-    display: none; /* Oculto por defecto */
+    display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -178,7 +178,7 @@ button:hover { background-color: #00e676; color: #121212; }
 
 .checkout-btn {
     width: 100%;
-    background-color: #25D366; /* Color WhatsApp */
+    background-color: #25D366;
     font-size: 16px;
     font-weight: bold;
     margin-top: 15px;
@@ -186,11 +186,11 @@ button:hover { background-color: #00e676; color: #121212; }
 
 /* --- Estilos para las Imágenes de Productos --- */
 .product-img {
-    width: 100%;       /* Ocupa todo el ancho de la tarjeta */
-    height: 150px;     /* Altura fija para que todas se vean iguales */
-    object-fit: cover; /* Recorta la imagen si es necesario para no deformarla */
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
     object-position: center;
-    border-radius: 5px; /* Bordes redondeados */
+    border-radius: 5px;
     margin-bottom: 10px;
 }
 
@@ -208,7 +208,7 @@ footer {
 .toast {
     visibility: hidden;
     min-width: 250px;
-    background-color: #00e676; /* Verde éxito */
+    background-color: #00e676;
     color: #121212;
     text-align: center;
     border-radius: 5px;
@@ -227,7 +227,7 @@ footer {
 .toast.show {
     visibility: visible;
     opacity: 1;
-    bottom: 50px; /* Sube un poco al aparecer */
+    bottom: 50px;
 }
 
 /* Botón Vaciar Carrito */
@@ -243,13 +243,10 @@ footer {
 }
 
 /* --- Estilos para Ofertas y Descripciones --- */
-
-/* Contenedor de imagen relativo para poner el badge encima */
 .img-container {
     position: relative;
 }
 
-/* Etiqueta de OFERTA */
 .badge {
     position: absolute;
     top: 10px;
@@ -263,15 +260,13 @@ footer {
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-/* Descripción corta */
 .desc-short {
     font-size: 0.9em;
     color: #aaa;
     margin: 5px 0;
-    min-height: 40px; /* Para alinear tarjetas */
+    min-height: 40px;
 }
 
-/* Precios */
 .old-price {
     text-decoration: line-through;
     color: #777;
@@ -285,8 +280,44 @@ footer {
     font-size: 1.3em;
 }
 
-/* Borde especial para cartas en oferta */
 .promo-card {
     border: 1px solid #00e676;
-    background-color: #262626; /* Un poco más claro */
+    background-color: #262626;
+}
+
+/* ========================================= */
+/* NUEVOS ESTILOS PARA SWIPER JS       */
+/* ========================================= */
+
+.swiper {
+    width: 100%;
+    padding-bottom: 40px !important; /* Espacio para los puntitos */
+}
+
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 300px; /* Ancho base en móviles */
+    height: auto;
+}
+
+/* Asegurar que la tarjeta ocupe el alto completo del slide */
+.swiper-slide .product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Color de los puntitos de paginación */
+.swiper-pagination-bullet {
+    background: #555 !important;
+    opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+    background: #00e676 !important;
+    opacity: 1;
 }

@@ -13,10 +13,24 @@ const productContainer = document.getElementById('product-container');
 let currentCategory = 'all';
 let currentSubCategory = 'all';
 
+// Variable para la instancia de Swiper
+let swiperInstance = null;
+
 // --- HELPER: Función para formatear dinero (Paraguay) ---
-// Convierte 50000 -> "50.000"
 function formatPrice(amount) {
     return Number(amount).toLocaleString('es-PY');
+}
+
+// --- HELPER: Resolver URL de Imagen o Placeholder ---
+// Esta función verifica si la imagen es un archivo válido (.jpg) o texto descriptivo
+function resolveImageURL(imageValue) {
+    // Si está vacío, es null, o NO incluye '.jpg' (insensible a mayúsculas/minúsculas)
+    if (!imageValue || !imageValue.toLowerCase().includes('.jpg')) {
+        // Retorna un placeholder genérico oscuro con texto blanco
+        return 'https://via.placeholder.com/300x200/333333/ffffff?text=HR+Store';
+    }
+    // Si es válido, construye la URL de Cloudinary
+    return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${imageValue}`;
 }
 
 // 2. Cargar Productos
@@ -26,6 +40,7 @@ function loadProducts() {
         header: true,
         complete: function(results) {
             products = results.data;
+            // Filtramos filas vacías
             products = products.filter(p => p.nombre && p.nombre.length > 0);
 
             // Inicializar vista con la nueva lógica
@@ -41,7 +56,6 @@ function loadProducts() {
 // 3. Renderizar Categorías Principales (Nivel 1)
 function renderCategories() {
     const filtersContainer = document.getElementById('filters-container');
-    // Asegurarse de que el contenedor existe, si no, usar fallback o detener
     if (!filtersContainer) return;
 
     const uniqueCategories = [...new Set(products.map(p => p.categoria.trim()))];
@@ -51,7 +65,6 @@ function renderCategories() {
     uniqueCategories.forEach(cat => {
         if (cat) {
             const isActive = currentCategory === cat ? 'active' : '';
-            // Capitalizar primera letra
             const displayCat = cat.charAt(0).toUpperCase() + cat.slice(1);
             buttonsHTML += `<button class="${isActive}" onclick="setCategory('${cat}')">${displayCat}</button>`;
         }
@@ -63,34 +76,29 @@ function renderCategories() {
 // 4. Lógica para establecer Categoría Principal
 function setCategory(cat) {
     currentCategory = cat;
-    currentSubCategory = 'all'; // Resetear subfiltro al cambiar categoría principal
-    renderCategories(); // Para actualizar clases 'active' visualmente
-    renderSubCategories(); // Generar los nuevos subfiltros
+    currentSubCategory = 'all'; 
+    renderCategories(); 
+    renderSubCategories(); 
     renderProducts();
 }
 
-// 5. Renderizar Subcategorías (Marcas) basado en la Categoría Actual
+// 5. Renderizar Subcategorías (Marcas)
 function renderSubCategories() {
     const subContainer = document.getElementById('subfilters-container');
-    if (!subContainer) return; // Validación de existencia en DOM
+    if (!subContainer) return;
 
-    // Si estamos en "Todos", limpiamos los subfiltros
     if (currentCategory === 'all') {
         subContainer.innerHTML = '';
         return;
     }
 
-    // Filtramos productos de la categoría actual para extraer sus marcas
     const categoryProducts = products.filter(p => p.categoria.trim() === currentCategory);
-
-    // Extraemos marcas únicas usando la primera palabra del nombre o excepciones
     const brands = new Set();
     categoryProducts.forEach(p => {
         const brandName = getBrandName(p.nombre);
         brands.add(brandName);
     });
 
-    // Si solo hay 1 marca o ninguna, no mostramos subfiltros
     if (brands.size <= 1) {
         subContainer.innerHTML = '';
         return;
@@ -106,10 +114,9 @@ function renderSubCategories() {
     subContainer.innerHTML = subHTML;
 }
 
-// Helper: Extraer nombre de marca del nombre del producto
+// Helper: Extraer nombre de marca
 function getBrandName(fullName) {
     const lower = fullName.toLowerCase();
-    // Casos especiales de nombres compuestos detectados en el CSV
     if (lower.startsWith("free fire")) return "Free Fire";
     if (lower.startsWith("prime video")) return "Prime Video";
     if (lower.startsWith("youtube premium")) return "YouTube";
@@ -119,19 +126,17 @@ function getBrandName(fullName) {
     if (lower.startsWith("magis tv")) return "Magis TV";
     if (lower.startsWith("apple tv")) return "Apple TV";
     if (lower.startsWith("apple music")) return "Apple Music";
-    
-    // Por defecto, tomar la primera palabra
     return fullName.split(' ')[0];
 }
 
 // 6. Lógica para establecer Subcategoría
 function setSubCategory(brand) {
     currentSubCategory = brand;
-    renderSubCategories(); // Actualizar visualmente cuál está activo
+    renderSubCategories();
     renderProducts();
 }
 
-// 7. Renderizar Productos (Filtrado Final)
+// 7. Renderizar Productos y Carrusel (Filtrado Final)
 function renderProducts() {
     productContainer.innerHTML = '';
 
@@ -145,6 +150,10 @@ function renderProducts() {
         filtered = filtered.filter(p => getBrandName(p.nombre) === currentSubCategory);
     }
 
+    // Renderizar Carrusel de Ofertas
+    renderCarousel(filtered);
+
+    // Renderizar Grilla normal
     if (filtered.length === 0) {
         productContainer.innerHTML = '<p style="text-align:center; width:100%; color:#888;">No se encontraron productos con estos filtros.</p>';
         return;
@@ -154,7 +163,6 @@ function renderProducts() {
         let priceHTML = '';
         let finalPrice = parseFloat(product.precio_normal);
 
-        // Lógica de Oferta
         if (product.en_oferta.toUpperCase() === 'SI') {
             finalPrice = parseFloat(product.precio_oferta);
             priceHTML = `
@@ -169,13 +177,13 @@ function renderProducts() {
         card.className = 'product-card';
         if (product.en_oferta.toUpperCase() === 'SI') card.classList.add('promo-card');
 
-        // URL de Imagen Cloudinary
-        const imageURL = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${product.imagen}`;
+        // USAMOS LA NUEVA FUNCIÓN HELPER AQUÍ
+        const imageURL = resolveImageURL(product.imagen);
 
         card.innerHTML = `
             <div class="img-container">
                 ${product.en_oferta.toUpperCase() === 'SI' ? '<span class="badge">OFERTA</span>' : ''}
-                <img src="${imageURL}" alt="${product.nombre}" class="product-img" onerror="this.src='https://via.placeholder.com/150'">
+                <img src="${imageURL}" alt="${product.nombre}" class="product-img" loading="lazy">
             </div>
 
             <h3>${product.nombre}</h3>
@@ -188,6 +196,79 @@ function renderProducts() {
             <button onclick="addToCart('${product.id}')">Agregar al Carrito</button>
         `;
         productContainer.appendChild(card);
+    });
+}
+
+// --- RENDERIZAR CARRUSEL SWIPER ---
+function renderCarousel(productList) {
+    const offersSection = document.getElementById('offers-section');
+    const swiperWrapper = document.getElementById('swiper-wrapper');
+    
+    // Filtrar solo ofertas
+    const offers = productList.filter(p => p.en_oferta.toUpperCase() === 'SI');
+
+    // Destruir instancia previa si existe
+    if (swiperInstance !== null) {
+        swiperInstance.destroy(true, true);
+        swiperInstance = null;
+    }
+
+    // Ocultar si no hay ofertas
+    if (offers.length === 0) {
+        offersSection.style.display = 'none';
+        return;
+    }
+
+    // Mostrar sección
+    offersSection.style.display = 'block';
+    swiperWrapper.innerHTML = '';
+
+    // Generar Slides
+    offers.forEach(product => {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+
+        let finalPrice = parseFloat(product.precio_oferta);
+        
+        // USAMOS LA NUEVA FUNCIÓN HELPER AQUÍ TAMBIÉN
+        const imageURL = resolveImageURL(product.imagen);
+
+        slide.innerHTML = `
+            <div class="product-card promo-card">
+                <div class="img-container">
+                    <span class="badge">🔥 OFERTA</span>
+                    <img src="${imageURL}" alt="${product.nombre}" class="product-img" loading="lazy">
+                </div>
+                <h3>${product.nombre}</h3>
+                <div class="price-container">
+                     <span class="old-price">Gs. ${formatPrice(product.precio_normal)}</span>
+                     <span class="sale-price">Gs. ${formatPrice(finalPrice)}</span>
+                </div>
+                <button onclick="addToCart('${product.id}')">Agregar</button>
+            </div>
+        `;
+        swiperWrapper.appendChild(slide);
+    });
+
+    // Inicializar Swiper
+    swiperInstance = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        grabCursor: true,
+        loop: offers.length > 3,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            640: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+        },
     });
 }
 
@@ -250,7 +331,6 @@ function updateCartUI() {
         });
         cartItemsDiv.innerHTML += `<button onclick="clearCart()" class="empty-cart-btn">Vaciar Carrito</button>`;
     }
-    // Mostramos el total formateado
     document.getElementById('cart-total').innerText = formatPrice(total);
 }
 
@@ -276,7 +356,6 @@ function checkout() {
     }
     const paymentMethod = document.getElementById('payment-method').value;
 
-    // Construcción del mensaje para WhatsApp
     let message = `Hola HR Store, quiero realizar el siguiente pedido:\n\n`;
     let total = 0;
 
