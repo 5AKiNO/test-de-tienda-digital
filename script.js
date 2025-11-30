@@ -1,7 +1,7 @@
 // 1. Configuración
 const jsonApiURL = "https://script.google.com/macros/s/AKfycbwYbJdCvQItlE_D5g1VKabHfPdHJQEfuMw6d4Eix_YdYeCIOFb-L9MapRDlQd3MfSe0mg/exec";
 const CLOUDINARY_CLOUD_NAME = "darqsjys4";
-const myPhoneNumber = "595984835708";
+const myPhoneNumber = "595984835708"; // Tu número aquí
 
 // Estado Global
 let products = [];
@@ -131,7 +131,7 @@ categorySelect.addEventListener('change', (e) => {
     currentSubCategory = 'all'; // Reset subcategoría
     globalSearchTerm = ''; // Reset buscador
     document.getElementById('search-input').value = '';
-    
+
     populateSubCategoryDropdown();
     renderProducts();
 });
@@ -143,10 +143,10 @@ subCategorySelect.addEventListener('change', (e) => {
 
 function populateCategoryDropdown() {
     const uniqueCategories = [...new Set(products.map(p => p.categoria ? p.categoria.toString().trim() : 'Otros'))];
-    
+
     // Resetear y añadir opción por defecto
     categorySelect.innerHTML = '<option value="all">Todas las Categorías</option>';
-    
+
     uniqueCategories.forEach(cat => {
         if (cat) {
             const option = document.createElement('option');
@@ -232,8 +232,6 @@ function renderProducts() {
 
     filtered.forEach(product => {
         // --- LÓGICA DE STOCK ---
-        // Asumimos stock = SI si la columna no existe o está vacía.
-        // Solo bloqueamos si dice explícitamente NO o 0.
         let hasStock = true;
         if (product.stock && (product.stock.toString().toUpperCase() === 'NO' || product.stock == 0)) {
             hasStock = false;
@@ -273,7 +271,6 @@ function renderProducts() {
         const stockBadge = !hasStock ? `<div class="badge-stock">AGOTADO</div>` : '';
         const offerBadge = (isOffer && hasStock) ? '<span class="badge">OFERTA</span>' : '';
 
-        // SE ELIMINÓ EL EVENTO ONCLICK PARA ABRIR LIGHTBOX
         card.innerHTML = `
             ${stockBadge}
             <i class="${heartClass} fa-heart heart-btn ${activeClass}" onclick="toggleWishlist('${product.id}')"></i>
@@ -357,15 +354,12 @@ function renderFavorites() {
         return;
     }
 
-    // Renderizamos igual que en la grilla normal (simplificado)
     favProducts.forEach(product => {
-        // Reutilizamos lógica visual...
         const imageURL = resolveImageURL(product.imagen);
         const safeName = escapeHTML(product.nombre);
 
         const card = document.createElement('div');
         card.className = 'product-card';
-        // SE ELIMINÓ ZOOM EN FAVORITOS TAMBIÉN
         card.innerHTML = `
              <i class="fas fa-heart heart-btn active" onclick="toggleWishlist('${product.id}')"></i>
              <div class="img-container">
@@ -410,7 +404,6 @@ function renderCarousel(productList) {
         const imageURL = resolveImageURL(product.imagen);
         const safeName = escapeHTML(product.nombre);
 
-        // SE ELIMINÓ ONCLICK PARA ZOOM
         slide.innerHTML = `
             <div class="product-card promo-card">
                 <div class="img-container">
@@ -442,8 +435,6 @@ function renderCarousel(productList) {
         },
     });
 }
-
-// SE ELIMINARON FUNCIONES LIGHTBOX (ZOOM)
 
 // --- CARRITO & MICRO-INTERACCIONES ---
 function addToCart(id) {
@@ -552,7 +543,17 @@ function checkout() {
     window.open(url, '_blank');
 }
 
+// --- FUNCIÓN NUEVA: CONFIGURAR BOTÓN FLOTANTE ---
+function setupWhatsappFloat() {
+    const floatBtn = document.getElementById('whatsapp-sticky');
+    if (floatBtn) {
+        const message = "Hola HR Store, necesito ayuda con un producto o servicio.";
+        floatBtn.href = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`;
+    }
+}
+
 // INICIALIZAR
 updateCartUI();
 updateWishlistCount();
+setupWhatsappFloat(); // Inicializar botón flotante
 loadProducts();
