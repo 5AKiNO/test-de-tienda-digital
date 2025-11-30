@@ -1,0 +1,119 @@
+id,nombre,descripcion,precio_compra,precio_venta,categoria,posibilidad renovacion
+1,Flujo TV,1 mes - Pantalla,"20,000Gs.","24,000Gs.",Streaming & TV,Renovable
+2,Flujo TV,1 mes - Completa,"30,000Gs.","36,000Gs.",Streaming & TV,Renovable
+3,Flujo TV,Panel 30 créditos,"590,000Gs.","708,000Gs.",Streaming & TV,Renovable
+4,MAGIS TV Pro,1 mes - Pantalla,"18,000Gs.","21,600Gs.",Streaming & TV,Renovable
+5,MAGIS TV Pro,1 mes - Completa,"25,000Gs.","30,000Gs.",Streaming & TV,Renovable
+6,MAGIS TV Pro,Panel 30 créditos,"550,000Gs.","660,000Gs.",Streaming & TV,Renovable
+7,IPTV Smarters Pro,1 mes - Completa,"30,000Gs.","36,000Gs.",Streaming & TV,Renovable
+8,IPTV Smarters Pro,Panel 15 créditos,"150,000Gs.","180,000Gs.",Streaming & TV,Renovable
+9,IPTV Smarters Pro,Panel 30 créditos,"280,000Gs.","336,000Gs.",Streaming & TV,Renovable
+10,IPTV Smarters Pro,Panel 50 créditos,"400,000Gs.","480,000Gs.",Streaming & TV,Renovable
+11,IPTV Smarters Pro,Panel 100 créditos,"700,000Gs.","840,000Gs.",Streaming & TV,Renovable
+12,HBO Max,1 mes - Perfil,"15,000Gs.","18,000Gs.",Streaming & TV,Renovable
+13,HBO Max,1 mes - Completa,"25,000Gs.","30,000Gs.",Streaming & TV,Renovable
+14,HBO Max,1 mes - Completa a tu correo,"35,000Gs.","42,000Gs.",Streaming & TV,Renovable
+15,HBO Max,Lote (desde 50 cuentas) c/u,"15,000Gs.","18,000Gs.",Streaming & TV,Renovable
+16,Paramount+,1 mes - Perfil,"18,000Gs.","21,600Gs.",Streaming & TV,Renovable
+17,Paramount+,1 mes - Completa,"28,000Gs.","33,600Gs.",Streaming & TV,Renovable
+18,Crunchyroll,1 mes - Perfil,"15,000Gs.","18,000Gs.",Streaming & TV,Renovable
+19,Crunchyroll,1 mes - Completa,"25,000Gs.","30,000Gs.",Streaming & TV,Renovable
+20,Prime Video,1 mes - Perfil,"15,000Gs.","18,000Gs.",Streaming & TV,Media posibilidad
+21,Prime Video,1 mes - Completa,"25,000Gs.","30,000Gs.",Streaming & TV,Media posibilidad
+22,Prime Video,1 mes - Completa a tu correo,"35,000Gs.","42,000Gs.",Streaming & TV,Media posibilidad
+23,Pornhub,1 mes,"30,000Gs.","36,000Gs.",Adultos,N/A
+24,Pornhub,1 año,"80,000Gs.","96,000Gs.",Adultos,N/A
+25,Brazzers,1 mes,"35,000Gs.","42,000Gs.",Adultos,N/A
+26,Brazzers,1 año,"150,000Gs.","180,000Gs.",Adultos,N/A
+27,Tigo Sports,1 mes - 2 dispositivos (Plan oficial),"100,000Gs.","120,000Gs.",Streaming & TV,Renovable
+28,Apple TV,1 mes - Completa,"30,000Gs.","36,000Gs.",Streaming & TV,N/A
+29,Apple Music,1 mes,"25,000Gs.","30,000Gs.",Música,N/A
+30,Amazon Music,1 mes,"25,000Gs.","30,000Gs.",Música,N/A
+31,Vix+ Premium,1 mes,"30,000Gs.","36,000Gs.",Streaming & TV,N/A
+32,Viki Rakuten,1 mes,"30,000Gs.","36,000Gs.",Streaming & TV,N/A
+33,Plex,1 mes,"30,000Gs.","36,000Gs.",Streaming & TV,N/A
+34,Zapping Básico,1 mes,"25,000Gs.","30,000Gs.",Streaming & TV,N/A
+35,Deezer Premium,1 mes,"28,000Gs.","33,600Gs.",Música,N/A
+36,DAZN,1 mes,"27,000Gs.","32,400Gs.",Streaming & TV,N/A
+37,Stella TV,1 mes,"28,000Gs.","33,600Gs.",Streaming & TV,N/A
+38,DramaBox,15 años (Cuenta larga duración),"50,000Gs.","60,000Gs.",Streaming & TV,N/A
+39,Netflix Premium (Menos estable),1 mes - Perfil,"29,000Gs.","34,800Gs.",Streaming & TV,Media posibilidad
+40,Netflix Premium (Menos estable),1 mes - Extra Perfil,"35,000Gs.","42,000Gs.",Streaming & TV,Media posibilidad
+41,Netflix Premium (Menos estable),1 mes - Completa,"100,000Gs.","120,000Gs.",Streaming & TV,Media posibilidad
+42,Disney+ Premium,1 mes - Perfil,"25,000Gs.","30,000Gs.",Streaming & TV,Alta posibilidad
+43,Disney+ Premium,1 mes - Completa,"55,000Gs.","66,000Gs.",Streaming & TV,Alta posibilidad
+44,Disney+ Premium,1 mes - Completa a tu correo,"65,000Gs.","78,000Gs.",Streaming & TV,Alta posibilidad
+45,Disney+ Premium (Estable),1 mes - Completa (Pedido 24h),"70,000Gs.","84,000Gs.",Streaming & TV,Alta posibilidad
+46,Disney+ Premium (Estable),1 mes - Completa a correo (Pedido 24h),"90,000Gs.","108,000Gs.",Streaming & TV,Alta posibilidad
+47,Spotify Premium,1 mes - Individual 1ra vez,"20,000Gs.","24,000Gs.",Música,Renovable
+48,Spotify Premium,1 mes - Individual Renovación,"25,000Gs.","30,000Gs.",Música,Renovable
+49,Spotify Premium,1 mes - Familiar 1ra vez,"65,000Gs.","78,000Gs.",Música,Renovable
+50,Spotify Premium,1 mes - Familiar Renovación,"80,000Gs.","96,000Gs.",Música,Renovable
+51,Spotify Premium,3 meses - Individual 1ra vez,"45,000Gs.","54,000Gs.",Música,Renovable
+52,Spotify Premium,3 meses - Individual Renovación,"60,000Gs.","72,000Gs.",Música,Renovable
+53,Spotify Premium,3 meses - Familiar 1ra vez,"130,000Gs.","156,000Gs.",Música,Renovable
+54,Spotify Premium,3 meses - Familiar Renovación,"180,000Gs.","216,000Gs.",Música,Renovable
+55,YouTube Premium,1 mes - Individual 1ra vez,"20,000Gs.","24,000Gs.",Streaming & TV,Renovable
+56,YouTube Premium,1 mes - Individual Renovación,"25,000Gs.","30,000Gs.",Streaming & TV,Renovable
+57,YouTube Premium,1 mes - Familiar 1ra vez,"45,000Gs.","54,000Gs.",Streaming & TV,Renovable
+58,YouTube Premium,1 mes - Familiar Renovación,"60,000Gs.","72,000Gs.",Streaming & TV,Renovable
+59,YouTube Premium,3 meses - Individual,"45,000Gs.","54,000Gs.",Streaming & TV,Renovable
+60,YouTube Premium,3 meses - Familiar,"69,000Gs.","82,800Gs.",Streaming & TV,Renovable
+61,ChatGPT 5.1,Go (1 año),"65,000Gs.","78,000Gs.",IA & Herramientas,N/A
+62,ChatGPT Plus,1 mes - 1 cuenta invitación,"15,000Gs.","18,000Gs.",IA & Herramientas,N/A
+63,ChatGPT Plus,1 mes - Completa (4 cuentas),"50,000Gs.","60,000Gs.",IA & Herramientas,N/A
+64,ChatGPT Pro,1 mes - 1 dispositivo,"20,000Gs.","24,000Gs.",IA & Herramientas,N/A
+65,ChatGPT Pro,1 mes - 3 dispositivos,"50,000Gs.","60,000Gs.",IA & Herramientas,N/A
+66,ChatGPT Pro,1 mes - 5 dispositivos,"70,000Gs.","84,000Gs.",IA & Herramientas,N/A
+67,ChatGPT Pro,1 mes - 7 dispositivos,"90,000Gs.","108,000Gs.",IA & Herramientas,N/A
+68,ChatGPT Pro,1 mes - 10 dispositivos,"110,000Gs.","132,000Gs.",IA & Herramientas,N/A
+69,ChatGPT Pro,1 mes - 15 dispositivos,"125,000Gs.","150,000Gs.",IA & Herramientas,N/A
+70,Gemini AI Pro + Google One,1 año - 1 cuenta (2000GB),"50,000Gs.","60,000Gs.",IA & Herramientas,N/A
+71,Gemini AI Pro + Google One,1 año - 5 cuentas (2000GB),"150,000Gs.","180,000Gs.",IA & Herramientas,N/A
+72,Gemini Ultra,1 mes - Genera videos IA,"199,000Gs.","238,800Gs.",IA & Herramientas,N/A
+73,Perplexity Pro,1 año,"65,000Gs.","78,000Gs.",IA & Herramientas,N/A
+74,Canva Pro,1 mes,"15,000Gs.","18,000Gs.",IA & Herramientas,Renovable
+75,Canva Pro,3 meses,"30,000Gs.","36,000Gs.",IA & Herramientas,Renovable
+76,Canva Pro,6 meses,"40,000Gs.","48,000Gs.",IA & Herramientas,Renovable
+77,Canva Pro,1 año,"50,000Gs.","60,000Gs.",IA & Herramientas,Renovable
+78,Canva Pro,3 años,"96,000Gs.","115,200Gs.",IA & Herramientas,Renovable
+79,Canva Pro Panel,1 año - 500 cuentas,"365,000Gs.","438,000Gs.",IA & Herramientas,Renovable
+80,Canva Pro Panel,3 años - 500 cuentas,"500,000Gs.","600,000Gs.",IA & Herramientas,Renovable
+81,CapCut Pro,Promo 35 días - 1 dispositivo,"20,000Gs.","24,000Gs.",IA & Herramientas,N/A
+82,CapCut Pro,Promo 35 días - 3 dispositivos,"35,000Gs.","42,000Gs.",IA & Herramientas,N/A
+83,PicsArt Premium,1 mes,"25,000Gs.","30,000Gs.",IA & Herramientas,N/A
+84,HolaVPN,1 mes / 1 dispositivo,"25,000Gs.","30,000Gs.",VPN,Renovable
+85,Surfshark,1 mes / 1 dispositivo,"20,000Gs.","24,000Gs.",VPN,Renovable
+86,NordVPN,1 mes / 1 dispositivo,"25,000Gs.","30,000Gs.",VPN,Renovable
+87,Microsoft 365 Pro,1 mes - 1 dispositivo,"50,000Gs.","60,000Gs.",Software,N/A
+88,Microsoft 365 Pro,1 mes - 5 dispositivos,"65,000Gs.","78,000Gs.",Software,N/A
+89,Microsoft 365 Pro,1 año - 1 dispositivo,"65,000Gs.","78,000Gs.",Software,N/A
+90,Microsoft 365 Pro,1 año - 5 dispositivos,"130,000Gs.","156,000Gs.",Software,N/A
+91,Chatbot,APK Único pago,"50,000Gs.","60,000Gs.",Automatización,N/A
+92,ManyChat Instagram,Único pago + Guía,"50,000Gs.","60,000Gs.",Automatización,N/A
+93,CRM WhatsApp,1 mes,"100,000Gs.","120,000Gs.",Automatización,N/A
+94,CRM WhatsApp,3 meses,"250,000Gs.","300,000Gs.",Automatización,N/A
+95,CRM WhatsApp,6 meses,"500,000Gs.","600,000Gs.",Automatización,N/A
+96,CRM WhatsApp,1 año,"750,000Gs.","900,000Gs.",Automatización,N/A
+97,Recarga TikTok,100 monedas,"9,900Gs.","11,880Gs.",Otros Servicios,N/A
+98,Pauta Publicitaria,Mínimo (IVA incluido),"250,000Gs.","300,000Gs.",Diseño y Marketing,N/A
+99,Diseño Logo,Básico,"50,000Gs.","60,000Gs.",Diseño y Marketing,N/A
+100,Diseño Logo,Detallado + Identidad,"150,000Gs.","180,000Gs.",Diseño y Marketing,N/A
+101,Diseño Portadas,General,"100,000Gs.","120,000Gs.",Diseño y Marketing,N/A
+102,Diseño Flyers,Básicos,"15,000Gs.","18,000Gs.",Diseño y Marketing,N/A
+103,Diseño Flyers,Pro,"75,000Gs.","90,000Gs.",Diseño y Marketing,N/A
+104,Imágenes Anuncios,General,"50,000Gs.","60,000Gs.",Diseño y Marketing,N/A
+105,IA Imágenes,Generación,"10,000Gs.","12,000Gs.",Diseño y Marketing,N/A
+106,IA Videos,8 segundos,"25,000Gs.","30,000Gs.",Diseño y Marketing,N/A
+107,Manejo Redes,Básico (mensual),"250,000Gs.","300,000Gs.",Diseño y Marketing,N/A
+108,Manejo Redes,Intermedio (mensual),"500,000Gs.","600,000Gs.",Diseño y Marketing,N/A
+109,Manejo Redes,Profesional (mensual),"1,250,000Gs.","1,500,000Gs.",Diseño y Marketing,N/A
+110,Free Fire Diamantes,110 Diamantes,"7,500Gs.","9,000Gs.",Juegos,N/A
+111,Free Fire Diamantes,341 Diamantes,"21,000Gs.","25,200Gs.",Juegos,N/A
+112,Free Fire Diamantes,572 Diamantes,"31,000Gs.","37,200Gs.",Juegos,N/A
+113,Free Fire Diamantes,1166 Diamantes,"60,000Gs.","72,000Gs.",Juegos,N/A
+114,Free Fire Diamantes,2398 Diamantes,"118,000Gs.","141,600Gs.",Juegos,N/A
+115,Free Fire Diamantes,6160 Diamantes,"270,000Gs.","324,000Gs.",Juegos,N/A
+116,Netflix Premium EXTRA,1 mes - Oferta Chat,"35,000Gs.","42,000Gs.",Streaming & TV,Renovable
+117,Netflix Premium EXTRA,2 meses - Oferta Chat,"60,000Gs.","72,000Gs.",Streaming & TV,Renovable
+118,Netflix Premium EXTRA,Stock de reserva (7 unid),"30,000Gs.","36,000Gs.",Streaming & TV,Renovable

@@ -14,7 +14,7 @@
         <div class="logo">
             <h1>HR Store <i class="fas fa-gamepad"></i></h1>
         </div>
-        
+
         <div class="header-actions">
             <div class="fav-icon" onclick="toggleShowFavorites()" title="Ver Favoritos">
                 <i class="fas fa-heart"></i>
@@ -35,11 +35,21 @@
         </div>
 
         <section class="filters-wrapper">
-            <div class="filters-main" id="filters-container">
+            <div class="dropdown-container">
+                <div class="select-group">
+                    <label for="category-select"><i class="fas fa-filter"></i> Categoría</label>
+                    <select id="category-select">
+                        <option value="all">Todas las Categorías</option>
+                    </select>
                 </div>
-
-            <div class="filters-sub" id="subfilters-container">
+                
+                <div class="select-group">
+                    <label for="subcategory-select"><i class="fas fa-tag"></i> Marca/Tipo</label>
+                    <select id="subcategory-select" disabled>
+                        <option value="all">Todas las Marcas</option>
+                    </select>
                 </div>
+            </div>
         </section>
 
         <section id="favorites-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
@@ -86,12 +96,6 @@
                 </button>
             </div>
         </div>
-    </div>
-
-    <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox()">
-        <span class="close-lightbox">&times;</span>
-        <img class="lightbox-content" id="lightbox-img">
-        <div id="caption"></div>
     </div>
 
     <div id="toast" class="toast">¡Producto agregado al carrito!</div>

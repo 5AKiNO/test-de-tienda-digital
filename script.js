@@ -13,6 +13,9 @@ let globalSearchTerm = ''; // Para el buscador
 let swiperInstance = null;
 
 const productContainer = document.getElementById('product-container');
+// Referencias a los Dropdowns
+const categorySelect = document.getElementById('category-select');
+const subCategorySelect = document.getElementById('subcategory-select');
 
 // --- CACHÉ CONFIG ---
 const CACHE_KEY = 'hr_store_data';
@@ -81,7 +84,7 @@ function loadProducts() {
             products = data;
             // Filtro seguridad: eliminar vacíos
             products = products.filter(p => p.nombre && p.nombre.toString().trim().length > 0);
-            
+
             // Guardar en Caché
             localStorage.setItem(CACHE_KEY, JSON.stringify({
                 timestamp: Date.now(),
@@ -101,7 +104,7 @@ function initializeView() {
         productContainer.innerHTML = '<p style="text-align:center;">No hay productos.</p>';
         return;
     }
-    renderCategories();
+    populateCategoryDropdown();
     renderProducts();
     updateWishlistCount();
 }
@@ -113,46 +116,52 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     if (globalSearchTerm.length > 0) {
         currentCategory = 'all';
         currentSubCategory = 'all';
-        // Actualizar visualmente botones de filtro
-        renderCategories(); 
-        document.getElementById('subfilters-container').innerHTML = '';
+        categorySelect.value = 'all';
+        subCategorySelect.innerHTML = '<option value="all">Todas las Marcas</option>';
+        subCategorySelect.disabled = true;
     }
     renderProducts();
 });
 
-// 5. Renderizar Categorías
-function renderCategories() {
-    const filtersContainer = document.getElementById('filters-container');
-    if (!filtersContainer) return;
-    const uniqueCategories = [...new Set(products.map(p => p.categoria ? p.categoria.toString().trim() : 'Otros'))];
+// 5. Lógica de Dropdowns (Selects)
 
-    let buttonsHTML = `<button class="${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">Todos</button>`;
-    uniqueCategories.forEach(cat => {
-        if (cat) {
-            const isActive = currentCategory === cat ? 'active' : '';
-            buttonsHTML += `<button class="${isActive}" onclick="setCategory('${cat}')">${escapeHTML(cat.charAt(0).toUpperCase() + cat.slice(1))}</button>`;
-        }
-    });
-    filtersContainer.innerHTML = buttonsHTML;
-}
-
-function setCategory(cat) {
-    currentCategory = cat;
-    currentSubCategory = 'all';
-    globalSearchTerm = ''; // Limpiar buscador al filtrar
+// Event Listeners para los Selects
+categorySelect.addEventListener('change', (e) => {
+    currentCategory = e.target.value;
+    currentSubCategory = 'all'; // Reset subcategoría
+    globalSearchTerm = ''; // Reset buscador
     document.getElementById('search-input').value = '';
     
-    renderCategories();
-    renderSubCategories();
+    populateSubCategoryDropdown();
     renderProducts();
+});
+
+subCategorySelect.addEventListener('change', (e) => {
+    currentSubCategory = e.target.value;
+    renderProducts();
+});
+
+function populateCategoryDropdown() {
+    const uniqueCategories = [...new Set(products.map(p => p.categoria ? p.categoria.toString().trim() : 'Otros'))];
+    
+    // Resetear y añadir opción por defecto
+    categorySelect.innerHTML = '<option value="all">Todas las Categorías</option>';
+    
+    uniqueCategories.forEach(cat => {
+        if (cat) {
+            const option = document.createElement('option');
+            option.value = cat;
+            option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+            categorySelect.appendChild(option);
+        }
+    });
 }
 
-// 6. Renderizar Subcategorías
-function renderSubCategories() {
-    const subContainer = document.getElementById('subfilters-container');
-    if (!subContainer) return;
+function populateSubCategoryDropdown() {
+    // Si la categoría es 'all', deshabilitar subcategorías
     if (currentCategory === 'all') {
-        subContainer.innerHTML = '';
+        subCategorySelect.innerHTML = '<option value="all">Todas las Marcas</option>';
+        subCategorySelect.disabled = true;
         return;
     }
 
@@ -160,17 +169,22 @@ function renderSubCategories() {
     const brands = new Set();
     categoryProducts.forEach(p => brands.add(getBrandName(p.nombre)));
 
+    // Si solo hay una marca o ninguna, no tiene sentido filtrar
     if (brands.size <= 1) {
-        subContainer.innerHTML = '';
+        subCategorySelect.innerHTML = '<option value="all">Todas las Marcas</option>';
+        subCategorySelect.disabled = true;
         return;
     }
 
-    let subHTML = `<button class="sub-filter-btn ${currentSubCategory === 'all' ? 'active' : ''}" onclick="setSubCategory('all')">Todo</button>`;
+    subCategorySelect.disabled = false;
+    subCategorySelect.innerHTML = '<option value="all">Todas las Marcas</option>';
+
     brands.forEach(brand => {
-        const isActive = currentSubCategory === brand ? 'active' : '';
-        subHTML += `<button class="sub-filter-btn ${isActive}" onclick="setSubCategory('${brand}')">${escapeHTML(brand)}</button>`;
+        const option = document.createElement('option');
+        option.value = brand;
+        option.textContent = brand;
+        subCategorySelect.appendChild(option);
     });
-    subContainer.innerHTML = subHTML;
 }
 
 function getBrandName(fullName) {
@@ -182,12 +196,6 @@ function getBrandName(fullName) {
     if (lower.startsWith("chatgpt")) return "ChatGPT";
     if (lower.startsWith("microsoft 365")) return "Microsoft";
     return fullName.split(' ')[0];
-}
-
-function setSubCategory(brand) {
-    currentSubCategory = brand;
-    renderSubCategories();
-    renderProducts();
 }
 
 // 7. RENDERIZAR PRODUCTOS (Core)
@@ -224,7 +232,7 @@ function renderProducts() {
 
     filtered.forEach(product => {
         // --- LÓGICA DE STOCK ---
-        // Asumimos stock = SI si la columna no existe o está vacía. 
+        // Asumimos stock = SI si la columna no existe o está vacía.
         // Solo bloqueamos si dice explícitamente NO o 0.
         let hasStock = true;
         if (product.stock && (product.stock.toString().toUpperCase() === 'NO' || product.stock == 0)) {
@@ -252,24 +260,25 @@ function renderProducts() {
         // --- CREAR TARJETA ---
         const card = document.createElement('div');
         card.className = `product-card ${hasStock ? '' : 'out-of-stock'} ${isOffer ? 'promo-card' : ''}`;
-        
+
         const imageURL = resolveImageURL(product.imagen);
         const safeName = escapeHTML(product.nombre);
         const safeDesc = escapeHTML(product.descripcion ? product.descripcion.toString().substring(0, 50) : '');
 
         // Botón: Habilitado o Deshabilitado
-        const btnHTML = hasStock 
+        const btnHTML = hasStock
             ? `<button onclick="addToCart('${product.id}')">Agregar al Carrito</button>`
             : `<button disabled>Agotado</button>`;
 
         const stockBadge = !hasStock ? `<div class="badge-stock">AGOTADO</div>` : '';
         const offerBadge = (isOffer && hasStock) ? '<span class="badge">OFERTA</span>' : '';
 
+        // SE ELIMINÓ EL EVENTO ONCLICK PARA ABRIR LIGHTBOX
         card.innerHTML = `
             ${stockBadge}
             <i class="${heartClass} fa-heart heart-btn ${activeClass}" onclick="toggleWishlist('${product.id}')"></i>
-            
-            <div class="img-container" onclick="openLightbox('${imageURL}', '${safeName}')">
+
+            <div class="img-container">
                 ${offerBadge}
                 <img src="${imageURL}" alt="${safeName}" class="product-img" loading="lazy">
             </div>
@@ -298,7 +307,7 @@ function toggleWishlist(id) {
     }
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     updateWishlistCount();
-    
+
     // Si estamos en la vista de favoritos, refrescar
     const favSection = document.getElementById('favorites-section');
     if (favSection.style.display !== 'none') {
@@ -340,9 +349,9 @@ function toggleShowFavorites() {
 function renderFavorites() {
     const favGrid = document.getElementById('favorites-grid');
     favGrid.innerHTML = '';
-    
+
     const favProducts = products.filter(p => wishlist.includes(p.id));
-    
+
     if (favProducts.length === 0) {
         favGrid.innerHTML = '<p>No tienes favoritos aún.</p>';
         return;
@@ -353,9 +362,10 @@ function renderFavorites() {
         // Reutilizamos lógica visual...
         const imageURL = resolveImageURL(product.imagen);
         const safeName = escapeHTML(product.nombre);
-        
+
         const card = document.createElement('div');
         card.className = 'product-card';
+        // SE ELIMINÓ ZOOM EN FAVORITOS TAMBIÉN
         card.innerHTML = `
              <i class="fas fa-heart heart-btn active" onclick="toggleWishlist('${product.id}')"></i>
              <div class="img-container">
@@ -374,9 +384,9 @@ function renderCarousel(productList) {
     const swiperWrapper = document.getElementById('swiper-wrapper');
 
     // Filtramos ofertas que tengan stock
-    const offers = productList.filter(p => 
-        p.en_oferta && 
-        p.en_oferta.toString().toUpperCase() === 'SI' && 
+    const offers = productList.filter(p =>
+        p.en_oferta &&
+        p.en_oferta.toString().toUpperCase() === 'SI' &&
         (!p.stock || (p.stock.toString().toUpperCase() !== 'NO' && p.stock != 0))
     );
 
@@ -400,9 +410,10 @@ function renderCarousel(productList) {
         const imageURL = resolveImageURL(product.imagen);
         const safeName = escapeHTML(product.nombre);
 
+        // SE ELIMINÓ ONCLICK PARA ZOOM
         slide.innerHTML = `
             <div class="product-card promo-card">
-                <div class="img-container" onclick="openLightbox('${imageURL}', '${safeName}')">
+                <div class="img-container">
                     <span class="badge">🔥 OFERTA</span>
                     <img src="${imageURL}" alt="${safeName}" class="product-img" loading="lazy">
                 </div>
@@ -432,19 +443,7 @@ function renderCarousel(productList) {
     });
 }
 
-// --- LIGHTBOX (ZOOM) ---
-function openLightbox(src, caption) {
-    const modal = document.getElementById('lightbox-modal');
-    const img = document.getElementById('lightbox-img');
-    const text = document.getElementById('caption');
-    modal.style.display = "block";
-    img.src = src;
-    text.innerHTML = caption;
-}
-
-function closeLightbox() {
-    document.getElementById('lightbox-modal').style.display = "none";
-}
+// SE ELIMINARON FUNCIONES LIGHTBOX (ZOOM)
 
 // --- CARRITO & MICRO-INTERACCIONES ---
 function addToCart(id) {
