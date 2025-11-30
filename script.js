@@ -1,103 +1,156 @@
 // 1. Configuración
 const jsonApiURL = "https://script.google.com/macros/s/AKfycbwYbJdCvQItlE_D5g1VKabHfPdHJQEfuMw6d4Eix_YdYeCIOFb-L9MapRDlQd3MfSe0mg/exec";
-
-// Cloudinary
 const CLOUDINARY_CLOUD_NAME = "darqsjys4";
-
 const myPhoneNumber = "595984835708";
+
+// Estado Global
 let products = [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-const productContainer = document.getElementById('product-container');
-
-// Variables de estado global para filtros
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || []; // IDs de favoritos
 let currentCategory = 'all';
 let currentSubCategory = 'all';
-
-// Variable para la instancia de Swiper
+let globalSearchTerm = ''; // Para el buscador
 let swiperInstance = null;
 
-// --- HELPER: Función para formatear dinero (Paraguay) ---
+const productContainer = document.getElementById('product-container');
+
+// --- CACHÉ CONFIG ---
+const CACHE_KEY = 'hr_store_data';
+const CACHE_TIME = 5 * 60 * 1000; // 5 minutos
+
+// --- HELPER: Seguridad (Sanitización) ---
+function escapeHTML(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// --- HELPER: Formatear dinero ---
 function formatPrice(amount) {
     return Number(amount).toLocaleString('es-PY');
 }
 
-// --- HELPER: Resolver URL de Imagen o Placeholder ---
+// --- HELPER: Imagen o Placeholder ---
 function resolveImageURL(imageValue) {
-    // Si es null, undefined, o NO incluye '.jpg' (insensible a mayúsculas)
     if (!imageValue || !imageValue.toString().toLowerCase().includes('.jpg')) {
-        // Retorna un placeholder oscuro
         return 'https://via.placeholder.com/300x200/333333/ffffff?text=HR+Store';
     }
-    // Si es válido, construye la URL de Cloudinary
     return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${imageValue}`;
 }
 
-// 2. Cargar Productos (MODIFICADO PARA JSON)
-function loadProducts() {
-    // Mostrar mensaje de carga temporal
-    productContainer.innerHTML = '<p style="text-align:center; padding: 20px; color:#888;">Cargando catálogo...</p>';
+// 2. Renderizar SKELETON (Carga visual)
+function renderSkeleton() {
+    productContainer.innerHTML = '';
+    // Mostramos 8 esqueletos mientras carga
+    for(let i=0; i<8; i++) {
+        productContainer.innerHTML += `
+            <div class="skeleton">
+                <div class="skeleton-img"></div>
+                <div class="skeleton-text"></div>
+                <div class="skeleton-text" style="width: 60%"></div>
+                <div class="skeleton-btn"></div>
+            </div>
+        `;
+    }
+}
 
+// 3. Cargar Productos (Con Caché y Skeleton)
+function loadProducts() {
+    renderSkeleton(); // Mostrar animación
+
+    // Chequear Caché
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+        const { timestamp, data } = JSON.parse(cached);
+        if (Date.now() - timestamp < CACHE_TIME) {
+            console.log("Cargando desde caché...");
+            products = data;
+            initializeView();
+            return;
+        }
+    }
+
+    // Si no hay caché o expiró, Fetch
     fetch(jsonApiURL)
         .then(response => {
-            if (!response.ok) throw new Error("Error en la red al obtener datos");
+            if (!response.ok) throw new Error("Error en la red");
             return response.json();
         })
         .then(data => {
             products = data;
-            
-            // Filtro de seguridad: eliminamos productos sin nombre
+            // Filtro seguridad: eliminar vacíos
             products = products.filter(p => p.nombre && p.nombre.toString().trim().length > 0);
+            
+            // Guardar en Caché
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+                timestamp: Date.now(),
+                data: products
+            }));
 
-            if (products.length === 0) {
-                productContainer.innerHTML = '<p style="text-align:center;">No se encontraron productos disponibles.</p>';
-                return;
-            }
-
-            // Inicializar vista
-            renderCategories();
-            renderProducts();
+            initializeView();
         })
         .catch(error => {
-            console.error("Error cargando productos:", error);
-            productContainer.innerHTML = '<p style="text-align:center; color:#e53935;">Hubo un error cargando el catálogo. Por favor recarga la página.</p>';
+            console.error("Error:", error);
+            productContainer.innerHTML = '<p style="text-align:center; color:#e53935;">Error cargando catálogo.</p>';
         });
 }
 
-// 3. Renderizar Categorías Principales (Nivel 1)
+function initializeView() {
+    if (products.length === 0) {
+        productContainer.innerHTML = '<p style="text-align:center;">No hay productos.</p>';
+        return;
+    }
+    renderCategories();
+    renderProducts();
+    updateWishlistCount();
+}
+
+// 4. Lógica del Buscador
+document.getElementById('search-input').addEventListener('input', (e) => {
+    globalSearchTerm = e.target.value.toLowerCase().trim();
+    // Resetear filtros de categoría al buscar para buscar en TODO
+    if (globalSearchTerm.length > 0) {
+        currentCategory = 'all';
+        currentSubCategory = 'all';
+        // Actualizar visualmente botones de filtro
+        renderCategories(); 
+        document.getElementById('subfilters-container').innerHTML = '';
+    }
+    renderProducts();
+});
+
+// 5. Renderizar Categorías
 function renderCategories() {
     const filtersContainer = document.getElementById('filters-container');
     if (!filtersContainer) return;
-
-    // Aseguramos que categoria exista antes de hacer trim()
     const uniqueCategories = [...new Set(products.map(p => p.categoria ? p.categoria.toString().trim() : 'Otros'))];
 
     let buttonsHTML = `<button class="${currentCategory === 'all' ? 'active' : ''}" onclick="setCategory('all')">Todos</button>`;
-
     uniqueCategories.forEach(cat => {
         if (cat) {
             const isActive = currentCategory === cat ? 'active' : '';
-            const displayCat = cat.charAt(0).toUpperCase() + cat.slice(1);
-            buttonsHTML += `<button class="${isActive}" onclick="setCategory('${cat}')">${displayCat}</button>`;
+            buttonsHTML += `<button class="${isActive}" onclick="setCategory('${cat}')">${escapeHTML(cat.charAt(0).toUpperCase() + cat.slice(1))}</button>`;
         }
     });
-
     filtersContainer.innerHTML = buttonsHTML;
 }
 
-// 4. Lógica para establecer Categoría Principal
 function setCategory(cat) {
     currentCategory = cat;
     currentSubCategory = 'all';
+    globalSearchTerm = ''; // Limpiar buscador al filtrar
+    document.getElementById('search-input').value = '';
+    
     renderCategories();
     renderSubCategories();
     renderProducts();
 }
 
-// 5. Renderizar Subcategorías (Marcas)
+// 6. Renderizar Subcategorías
 function renderSubCategories() {
     const subContainer = document.getElementById('subfilters-container');
     if (!subContainer) return;
-
     if (currentCategory === 'all') {
         subContainer.innerHTML = '';
         return;
@@ -105,79 +158,83 @@ function renderSubCategories() {
 
     const categoryProducts = products.filter(p => p.categoria.toString().trim() === currentCategory);
     const brands = new Set();
-    
-    categoryProducts.forEach(p => {
-        const brandName = getBrandName(p.nombre);
-        brands.add(brandName);
-    });
+    categoryProducts.forEach(p => brands.add(getBrandName(p.nombre)));
 
     if (brands.size <= 1) {
         subContainer.innerHTML = '';
         return;
     }
 
-    let subHTML = `<button class="sub-filter-btn ${currentSubCategory === 'all' ? 'active' : ''}" onclick="setSubCategory('all')">Todo en ${currentCategory}</button>`;
-
+    let subHTML = `<button class="sub-filter-btn ${currentSubCategory === 'all' ? 'active' : ''}" onclick="setSubCategory('all')">Todo</button>`;
     brands.forEach(brand => {
         const isActive = currentSubCategory === brand ? 'active' : '';
-        subHTML += `<button class="sub-filter-btn ${isActive}" onclick="setSubCategory('${brand}')">${brand}</button>`;
+        subHTML += `<button class="sub-filter-btn ${isActive}" onclick="setSubCategory('${brand}')">${escapeHTML(brand)}</button>`;
     });
-
     subContainer.innerHTML = subHTML;
 }
 
-// Helper: Extraer nombre de marca
 function getBrandName(fullName) {
     if (!fullName) return "Generico";
     const lower = fullName.toString().toLowerCase();
-    
     if (lower.startsWith("free fire")) return "Free Fire";
     if (lower.startsWith("prime video")) return "Prime Video";
     if (lower.startsWith("youtube premium")) return "YouTube";
     if (lower.startsWith("chatgpt")) return "ChatGPT";
     if (lower.startsWith("microsoft 365")) return "Microsoft";
-    if (lower.startsWith("flujo tv")) return "Flujo TV";
-    if (lower.startsWith("magis tv")) return "Magis TV";
-    if (lower.startsWith("apple tv")) return "Apple TV";
-    if (lower.startsWith("apple music")) return "Apple Music";
-    
     return fullName.split(' ')[0];
 }
 
-// 6. Lógica para establecer Subcategoría
 function setSubCategory(brand) {
     currentSubCategory = brand;
     renderSubCategories();
     renderProducts();
 }
 
-// 7. Renderizar Productos y Carrusel (Filtrado Final)
+// 7. RENDERIZAR PRODUCTOS (Core)
 function renderProducts() {
     productContainer.innerHTML = '';
 
-    // Filtro Nivel 1: Categoría
-    let filtered = currentCategory === 'all'
-        ? products
-        : products.filter(p => p.categoria.toString().trim() === currentCategory);
+    // Filtrado Principal
+    let filtered = products;
 
-    // Filtro Nivel 2: Marca (Subcategoría)
-    if (currentSubCategory !== 'all') {
-        filtered = filtered.filter(p => getBrandName(p.nombre) === currentSubCategory);
+    // 1. Buscador
+    if (globalSearchTerm) {
+        filtered = filtered.filter(p => p.nombre.toLowerCase().includes(globalSearchTerm));
+    } else {
+        // 2. Categoría y Sub
+        if (currentCategory !== 'all') {
+            filtered = filtered.filter(p => p.categoria.toString().trim() === currentCategory);
+        }
+        if (currentSubCategory !== 'all') {
+            filtered = filtered.filter(p => getBrandName(p.nombre) === currentSubCategory);
+        }
     }
 
-    // Renderizar Carrusel de Ofertas
-    renderCarousel(filtered);
+    // Renderizar Carrusel (solo si no estamos buscando)
+    if (!globalSearchTerm) {
+        renderCarousel(filtered);
+    } else {
+        document.getElementById('offers-section').style.display = 'none';
+    }
 
-    // Renderizar Grilla normal
     if (filtered.length === 0) {
-        productContainer.innerHTML = '<p style="text-align:center; width:100%; color:#888;">No se encontraron productos con estos filtros.</p>';
+        productContainer.innerHTML = '<p style="text-align:center; width:100%; color:#888;">No se encontraron resultados.</p>';
         return;
     }
 
     filtered.forEach(product => {
-        let priceHTML = '';
+        // --- LÓGICA DE STOCK ---
+        // Asumimos stock = SI si la columna no existe o está vacía. 
+        // Solo bloqueamos si dice explícitamente NO o 0.
+        let hasStock = true;
+        if (product.stock && (product.stock.toString().toUpperCase() === 'NO' || product.stock == 0)) {
+            hasStock = false;
+        }
+
+        // --- LÓGICA DE PRECIO ---
         let finalPrice = parseFloat(product.precio_normal);
         let isOffer = product.en_oferta && product.en_oferta.toString().toUpperCase() === 'SI';
+        let priceHTML = `<span class="price">Gs. ${formatPrice(finalPrice)}</span>`;
 
         if (isOffer) {
             finalPrice = parseFloat(product.precio_oferta);
@@ -185,78 +242,171 @@ function renderProducts() {
                 <span class="old-price">Gs. ${formatPrice(product.precio_normal)}</span>
                 <span class="sale-price">Gs. ${formatPrice(finalPrice)}</span>
             `;
-        } else {
-            priceHTML = `<span class="price">Gs. ${formatPrice(finalPrice)}</span>`;
         }
 
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        if (isOffer) card.classList.add('promo-card');
+        // --- FAVORITOS ---
+        const isFav = wishlist.includes(product.id);
+        const heartClass = isFav ? 'fas' : 'far';
+        const activeClass = isFav ? 'active' : '';
 
-        // Resolver Imagen
-        const imageURL = resolveImageURL(product.imagen);
+        // --- CREAR TARJETA ---
+        const card = document.createElement('div');
+        card.className = `product-card ${hasStock ? '' : 'out-of-stock'} ${isOffer ? 'promo-card' : ''}`;
         
-        // Manejo seguro de descripción
-        const desc = product.descripcion ? product.descripcion.toString().substring(0, 50) : '';
+        const imageURL = resolveImageURL(product.imagen);
+        const safeName = escapeHTML(product.nombre);
+        const safeDesc = escapeHTML(product.descripcion ? product.descripcion.toString().substring(0, 50) : '');
+
+        // Botón: Habilitado o Deshabilitado
+        const btnHTML = hasStock 
+            ? `<button onclick="addToCart('${product.id}')">Agregar al Carrito</button>`
+            : `<button disabled>Agotado</button>`;
+
+        const stockBadge = !hasStock ? `<div class="badge-stock">AGOTADO</div>` : '';
+        const offerBadge = (isOffer && hasStock) ? '<span class="badge">OFERTA</span>' : '';
 
         card.innerHTML = `
-            <div class="img-container">
-                ${isOffer ? '<span class="badge">OFERTA</span>' : ''}
-                <img src="${imageURL}" alt="${product.nombre}" class="product-img" loading="lazy">
+            ${stockBadge}
+            <i class="${heartClass} fa-heart heart-btn ${activeClass}" onclick="toggleWishlist('${product.id}')"></i>
+            
+            <div class="img-container" onclick="openLightbox('${imageURL}', '${safeName}')">
+                ${offerBadge}
+                <img src="${imageURL}" alt="${safeName}" class="product-img" loading="lazy">
             </div>
 
-            <h3>${product.nombre}</h3>
-            <p class="desc-short">${desc}...</p>
+            <h3>${safeName}</h3>
+            <p class="desc-short">${safeDesc}...</p>
 
             <div class="price-container">
                 ${priceHTML}
             </div>
 
-            <button onclick="addToCart('${product.id}')">Agregar al Carrito</button>
+            ${btnHTML}
         `;
         productContainer.appendChild(card);
     });
 }
 
-// --- RENDERIZAR CARRUSEL SWIPER ---
+// --- FAVORITOS (Wishlist) ---
+function toggleWishlist(id) {
+    if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(itemId => itemId !== id);
+        showToast("Eliminado de favoritos");
+    } else {
+        wishlist.push(id);
+        showToast("Agregado a favoritos");
+    }
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    updateWishlistCount();
+    
+    // Si estamos en la vista de favoritos, refrescar
+    const favSection = document.getElementById('favorites-section');
+    if (favSection.style.display !== 'none') {
+        renderFavorites();
+    } else {
+        renderProducts(); // Refrescar iconos en la grilla principal
+    }
+}
+
+function updateWishlistCount() {
+    document.getElementById('fav-count').innerText = wishlist.length;
+}
+
+function toggleShowFavorites() {
+    const mainGrid = document.getElementById('product-container');
+    const filters = document.querySelector('.filters-wrapper');
+    const offers = document.getElementById('offers-section');
+    const favSection = document.getElementById('favorites-section');
+    const search = document.querySelector('.search-container');
+
+    if (favSection.style.display === 'none') {
+        // Mostrar Favoritos
+        mainGrid.style.display = 'none';
+        filters.style.display = 'none';
+        offers.style.display = 'none';
+        search.style.display = 'none';
+        favSection.style.display = 'block';
+        renderFavorites();
+    } else {
+        // Volver a Home
+        mainGrid.style.display = 'grid';
+        filters.style.display = 'flex';
+        search.style.display = 'flex';
+        favSection.style.display = 'none';
+        renderProducts(); // Restaurar vista principal
+    }
+}
+
+function renderFavorites() {
+    const favGrid = document.getElementById('favorites-grid');
+    favGrid.innerHTML = '';
+    
+    const favProducts = products.filter(p => wishlist.includes(p.id));
+    
+    if (favProducts.length === 0) {
+        favGrid.innerHTML = '<p>No tienes favoritos aún.</p>';
+        return;
+    }
+
+    // Renderizamos igual que en la grilla normal (simplificado)
+    favProducts.forEach(product => {
+        // Reutilizamos lógica visual...
+        const imageURL = resolveImageURL(product.imagen);
+        const safeName = escapeHTML(product.nombre);
+        
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+             <i class="fas fa-heart heart-btn active" onclick="toggleWishlist('${product.id}')"></i>
+             <div class="img-container">
+                <img src="${imageURL}" class="product-img">
+             </div>
+             <h3>${safeName}</h3>
+             <button onclick="addToCart('${product.id}')">Agregar</button>
+        `;
+        favGrid.appendChild(card);
+    });
+}
+
+// --- CARRUSEL SWIPER ---
 function renderCarousel(productList) {
     const offersSection = document.getElementById('offers-section');
     const swiperWrapper = document.getElementById('swiper-wrapper');
 
-    // Filtrar solo ofertas
-    const offers = productList.filter(p => p.en_oferta && p.en_oferta.toString().toUpperCase() === 'SI');
+    // Filtramos ofertas que tengan stock
+    const offers = productList.filter(p => 
+        p.en_oferta && 
+        p.en_oferta.toString().toUpperCase() === 'SI' && 
+        (!p.stock || (p.stock.toString().toUpperCase() !== 'NO' && p.stock != 0))
+    );
 
-    // Destruir instancia previa si existe
     if (swiperInstance !== null) {
         swiperInstance.destroy(true, true);
         swiperInstance = null;
     }
 
-    // Ocultar si no hay ofertas
     if (offers.length === 0) {
         offersSection.style.display = 'none';
         return;
     }
 
-    // Mostrar sección
     offersSection.style.display = 'block';
     swiperWrapper.innerHTML = '';
 
-    // Generar Slides
     offers.forEach(product => {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
-
         let finalPrice = parseFloat(product.precio_oferta);
         const imageURL = resolveImageURL(product.imagen);
+        const safeName = escapeHTML(product.nombre);
 
         slide.innerHTML = `
             <div class="product-card promo-card">
-                <div class="img-container">
+                <div class="img-container" onclick="openLightbox('${imageURL}', '${safeName}')">
                     <span class="badge">🔥 OFERTA</span>
-                    <img src="${imageURL}" alt="${product.nombre}" class="product-img" loading="lazy">
+                    <img src="${imageURL}" alt="${safeName}" class="product-img" loading="lazy">
                 </div>
-                <h3>${product.nombre}</h3>
+                <h3>${safeName}</h3>
                 <div class="price-container">
                      <span class="old-price">Gs. ${formatPrice(product.precio_normal)}</span>
                      <span class="sale-price">Gs. ${formatPrice(finalPrice)}</span>
@@ -267,20 +417,13 @@ function renderCarousel(productList) {
         swiperWrapper.appendChild(slide);
     });
 
-    // Inicializar Swiper
     swiperInstance = new Swiper(".mySwiper", {
         slidesPerView: 1,
         spaceBetween: 20,
         grabCursor: true,
         loop: offers.length > 3,
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
+        autoplay: { delay: 2500, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
         breakpoints: {
             640: { slidesPerView: 2 },
             768: { slidesPerView: 3 },
@@ -289,11 +432,23 @@ function renderCarousel(productList) {
     });
 }
 
-// 8. Lógica del Carrito
-function addToCart(id) {
-    // Convertimos IDs a string para comparar seguramente
-    const product = products.find(p => p.id.toString() === id.toString());
+// --- LIGHTBOX (ZOOM) ---
+function openLightbox(src, caption) {
+    const modal = document.getElementById('lightbox-modal');
+    const img = document.getElementById('lightbox-img');
+    const text = document.getElementById('caption');
+    modal.style.display = "block";
+    img.src = src;
+    text.innerHTML = caption;
+}
 
+function closeLightbox() {
+    document.getElementById('lightbox-modal').style.display = "none";
+}
+
+// --- CARRITO & MICRO-INTERACCIONES ---
+function addToCart(id) {
+    const product = products.find(p => p.id.toString() === id.toString());
     if (!product) return;
 
     let priceToCharge = parseFloat(product.precio_normal);
@@ -310,7 +465,14 @@ function addToCart(id) {
     cart.push(item);
     saveCart();
     updateCartUI();
+    animateCart(); // Micro-interacción
     showToast(`Se agregó ${product.nombre}`);
+}
+
+function animateCart() {
+    const icon = document.getElementById('cart-icon-container');
+    icon.classList.add('bounce');
+    setTimeout(() => icon.classList.remove('bounce'), 500);
 }
 
 function removeFromCart(index) {
@@ -393,4 +555,5 @@ function checkout() {
 
 // INICIALIZAR
 updateCartUI();
+updateWishlistCount();
 loadProducts();

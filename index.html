@@ -14,19 +14,39 @@
         <div class="logo">
             <h1>HR Store <i class="fas fa-gamepad"></i></h1>
         </div>
-        <div class="cart-icon" onclick="toggleCart()">
-            <i class="fas fa-shopping-cart"></i>
-            <span id="cart-count">0</span>
+        
+        <div class="header-actions">
+            <div class="fav-icon" onclick="toggleShowFavorites()" title="Ver Favoritos">
+                <i class="fas fa-heart"></i>
+                <span id="fav-count">0</span>
+            </div>
+
+            <div class="cart-icon" id="cart-icon-container" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </div>
         </div>
     </header>
 
     <main>
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="Buscar productos (ej. Netflix, FIFA)...">
+        </div>
+
         <section class="filters-wrapper">
             <div class="filters-main" id="filters-container">
                 </div>
 
             <div class="filters-sub" id="subfilters-container">
                 </div>
+        </section>
+
+        <section id="favorites-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
+            <h2 style="color: #e53935; margin-bottom: 15px;"><i class="fas fa-heart"></i> Mis Favoritos</h2>
+            <div id="favorites-grid" class="product-grid"></div>
+            <button onclick="toggleShowFavorites()" style="margin-top:20px; background:#333;">Volver al catálogo</button>
+            <hr style="border-color: #333; margin-top: 20px;">
         </section>
 
         <section id="offers-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
@@ -67,6 +87,13 @@
             </div>
         </div>
     </div>
+
+    <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="caption"></div>
+    </div>
+
     <div id="toast" class="toast">¡Producto agregado al carrito!</div>
 
     <footer>
@@ -78,7 +105,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
