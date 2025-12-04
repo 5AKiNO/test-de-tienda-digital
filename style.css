@@ -27,7 +27,7 @@ header {
     flex-direction: column; /* Móvil: Columna */
     align-items: center;
     /* CAMBIO: position relative para que NO siga al usuario al scrollear */
-    position: relative; 
+    position: static; 
     top: 0;
     z-index: 1000;
     border-bottom: 2px solid var(--citrus-orange);
