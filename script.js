@@ -17,7 +17,7 @@ const categorySelect = document.getElementById('category-select');
 const subCategorySelect = document.getElementById('subcategory-select');
 
 // --- CACHÉ CONFIG ---
-const CACHE_KEY = 'otano_brothers_data_v2'; 
+const CACHE_KEY = 'otano_brothers_data_v2';
 const CACHE_TIME = 5 * 60 * 1000; // 5 minutos
 
 // --- HELPER: Seguridad ---
@@ -301,9 +301,9 @@ function toggleShowFavorites() {
     const filters = document.querySelector('.filters-wrapper');
     const offers = document.getElementById('offers-section');
     const favSection = document.getElementById('favorites-section');
-    
+
     // El buscador ya no se oculta porque está en el header
-    
+
     if (favSection.style.display === 'none') {
         mainGrid.style.display = 'none';
         filters.style.display = 'none';
@@ -350,8 +350,8 @@ function renderCarousel(productList) {
     const offersSection = document.getElementById('offers-section');
     const swiperWrapper = document.getElementById('swiper-wrapper');
 
-    const offers = productList.filter(p => 
-        p.en_oferta && 
+    const offers = productList.filter(p =>
+        p.en_oferta &&
         p.en_oferta.toString().toUpperCase() === 'SI' &&
         (!p.stock || (p.stock.toString().toUpperCase() !== 'NO' && p.stock != 0))
     );

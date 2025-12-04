@@ -1,3 +1,12 @@
+/* --- CARGA DE FUENTE PERSONALIZADA --- */
+@font-face {
+    font-family: 'MolleCustom';
+    src: url('https://res.cloudinary.com/darqsjys4/raw/upload/v1764871479/Molle-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
 /* VARIABLES CÍTRICAS */
 :root {
     --bg-dark: #050505;          /* Fondo casi negro */
@@ -8,7 +17,8 @@
     --citrus-alert: #ff3d00;     /* Rojo naranja (Alertas/Corazón) */
     --text-main: #fafafa;
     --text-muted: #a8a8a8;
-    --font-retro: "Molle", cursive; /* Fuente Solicitada */
+    /* Cambio aquí para usar la fuente cargada arriba */
+    --font-retro: "MolleCustom", cursive;
 }
 
 body {
@@ -26,8 +36,7 @@ header {
     display: flex;
     flex-direction: column; /* Móvil: Columna */
     align-items: center;
-    /* CAMBIO: position relative para que NO siga al usuario al scrollear */
-    position: relative; 
+    position: relative;
     top: 0;
     z-index: 1000;
     border-bottom: 2px solid var(--citrus-orange);
@@ -38,11 +47,10 @@ header {
 /* --- LOGICA DESKTOP REORGANIZADA --- */
 @media (min-width: 1024px) {
     header {
-        /* Usamos Grid para acomodar libremente los elementos en PC */
         display: grid;
         grid-template-columns: auto 1fr auto; /* Imagen | Buscador/Nombre | Iconos */
         grid-template-rows: auto auto;
-        grid-template-areas: 
+        grid-template-areas:
             "img info actions"
             "img search actions";
         column-gap: 20px;
@@ -51,7 +59,7 @@ header {
         align-items: center;
     }
 
-    /* TRUCO: display: contents hace que los contenedores intermedios 
+    /* TRUCO: display: contents hace que los contenedores intermedios
        desaparezcan visualmente para que Grid controle a los hijos directos */
     .brand-section, .insta-profile-container {
         display: contents;
@@ -84,10 +92,10 @@ header {
 
     /* Ajuste de tamaños para PC */
     .profile-pic-wrapper {
-        width: 150px; 
+        width: 150px;
         height: 150px;
     }
-    
+
     .profile-info h1 {
         font-size: 2.2rem; /* Nombre más grande en PC */
         margin-bottom: 0;
@@ -134,18 +142,18 @@ header {
     margin-top: 5px;
 }
 
-/* CAMBIO: Fuente Molle Italic aplicada aquí */
+/* CAMBIO: Fuente Molle Personalizada aplicada aquí */
 .profile-info h1 {
-    font-family: var(--font-retro); /* Usa Molle definido en :root */
+    font-family: var(--font-retro); 
     font-weight: 400;
     font-style: italic;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     margin: 10px 0 5px 0;
     color: var(--citrus-yellow);
     text-shadow: 3px 3px 0px #ff3d00;
     line-height: 1.4;
     letter-spacing: 1px;
-    text-transform: none; /* Quitamos uppercase para que se vea bien la fuente Molle */
+    text-transform: none; 
 }
 
 .profile-info .bio {
@@ -174,7 +182,7 @@ header {
 .search-container input {
     width: 100%;
     padding: 15px 15px 15px 45px;
-    border-radius: 0px; 
+    border-radius: 0px;
     border: 2px solid #363636;
     background-color: #000;
     color: var(--citrus-yellow);
