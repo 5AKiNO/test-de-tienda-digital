@@ -12,7 +12,11 @@
     <meta property="og:image" content="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/banner-whatsapp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
@@ -22,14 +26,21 @@
 <body>
 
     <header>
-        <div class="insta-profile-container">
-            <div class="profile-pic-wrapper">
-                <img src="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/photoprofile.jpg" alt="Logo The Otaño Brothers" class="profile-pic">
+        <div class="brand-section">
+            <div class="insta-profile-container">
+                <div class="profile-pic-wrapper">
+                    <img src="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/photoprofile.jpg" alt="Logo The Otaño Brothers" class="profile-pic">
+                </div>
+                <div class="profile-info">
+                    <h1>The Otaño Brothers</h1>
+                    <span class="bio">ARCADE & STREAMING</span>
+                </div>
             </div>
-            <div class="profile-info">
-                <h1>The Otaño Brothers</h1>
-                <span class="bio">Videojuegos & Streaming</span>
-            </div>
+        </div>
+
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="Buscar (Netflix, Free Fire)...">
         </div>
 
         <div class="header-actions">
@@ -46,11 +57,6 @@
     </header>
 
     <main>
-        <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="search-input" placeholder="Buscar productos (ej. Netflix, Free Fire)...">
-        </div>
-
         <section class="filters-wrapper">
             <div class="dropdown-container">
                 <div class="select-group">
@@ -70,14 +76,16 @@
         </section>
 
         <section id="favorites-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
-            <h2 style="color: var(--citrus-orange); margin-bottom: 15px;"><i class="fas fa-heart"></i> Mis Favoritos</h2>
+            <h2 style="color: var(--citrus-orange); margin-bottom: 15px; font-family: 'Press Start 2P', cursive; font-size: 1.2rem;">
+                <i class="fas fa-heart"></i> Mis Favoritos
+            </h2>
             <div id="favorites-grid" class="product-grid"></div>
             <button onclick="toggleShowFavorites()" style="margin-top:20px; background:#333;">Volver al catálogo</button>
             <hr style="border-color: #333; margin-top: 20px;">
         </section>
 
         <section id="offers-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
-            <h2 style="color: var(--citrus-lime); margin-bottom: 15px; margin-left: 10px;">
+            <h2 style="color: var(--citrus-lime); margin-bottom: 15px; margin-left: 10px; font-family: 'Press Start 2P', cursive; font-size: 1rem;">
                 <i class="fas fa-fire"></i> Ofertas Cítricas
             </h2>
             <div class="swiper mySwiper">
@@ -94,7 +102,7 @@
     <div id="cart-modal" class="cart-modal">
         <div class="cart-content">
             <span class="close-btn" onclick="toggleCart()">&times;</span>
-            <h2>Tu Pedido</h2>
+            <h2 style="font-family: 'Press Start 2P', cursive; color: var(--citrus-yellow); font-size: 1.2rem;">Tu Pedido</h2>
             <div id="cart-items">
                 <p>El carrito está vacío.</p>
             </div>

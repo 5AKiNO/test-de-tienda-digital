@@ -1,6 +1,6 @@
 /* VARIABLES CÍTRICAS */
 :root {
-    --bg-dark: #000000;          /* Fondo Instagram */
+    --bg-dark: #050505;          /* Fondo casi negro */
     --bg-card: #121212;          /* Tarjetas */
     --citrus-orange: #ff9100;    /* Naranja Principal */
     --citrus-yellow: #ffea00;    /* Amarillo Acento */
@@ -8,6 +8,7 @@
     --citrus-alert: #ff3d00;     /* Rojo naranja (Alertas/Corazón) */
     --text-main: #fafafa;
     --text-muted: #a8a8a8;
+    --font-retro: 'Press Start 2P', cursive; /* Fuente Ochentera */
 }
 
 body {
@@ -18,34 +19,65 @@ body {
     padding: 0;
 }
 
-/* --- HEADER ESTILO INSTAGRAM --- */
+/* --- HEADER ESTÁTICO Y GRANDE --- */
 header {
-    background-color: var(--bg-dark);
+    background-color: rgba(5, 5, 5, 0.95); /* Un poco de transparencia */
     padding: 15px 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Alineación superior */
-    position: sticky;
+    flex-direction: column; /* Móvil: Columna */
+    align-items: center;
+    position: sticky; /* ESTÁTICO */
     top: 0;
-    z-index: 100;
-    border-bottom: 1px solid #262626;
+    z-index: 1000;
+    border-bottom: 2px solid var(--citrus-orange);
+    box-shadow: 0 4px 20px rgba(255, 145, 0, 0.2);
+    gap: 15px;
 }
 
-/* Contenedor del perfil (Izquierda) */
+@media (min-width: 1024px) {
+    header {
+        flex-direction: row; /* Desktop: Fila */
+        justify-content: space-between;
+        align-items: center; /* Centrado vertical */
+        padding: 10px 40px;
+        height: auto;
+    }
+}
+
+/* Contenedor del Logo y Texto */
+.brand-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .brand-section { width: auto; }
+}
+
 .insta-profile-container {
     display: flex;
-    flex-direction: column; /* Apilado vertical: Foto arriba, nombre abajo */
-    align-items: flex-start;
-    gap: 8px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Círculo de la foto con borde degradado cítrico */
+/* Círculo de la foto - CAMBIO: TAMAÑO GRANDE */
 .profile-pic-wrapper {
-    width: 70px;
-    height: 70px;
+    width: 140px; /* Tamaño móvil decente */
+    height: 140px;
     border-radius: 50%;
-    padding: 3px; /* Espacio para el borde */
-    background: linear-gradient(45deg, var(--citrus-yellow), var(--citrus-orange));
+    padding: 5px;
+    background: linear-gradient(180deg, var(--citrus-yellow), var(--citrus-alert));
+    box-shadow: 0 0 15px var(--citrus-orange);
+    transition: all 0.3s ease;
+}
+
+@media (min-width: 1024px) {
+    .profile-pic-wrapper {
+        width: 256px; /* TAMAÑO SOLICITADO PARA PC */
+        height: 256px;
+    }
 }
 
 .profile-pic {
@@ -53,62 +85,86 @@ header {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--bg-dark); /* Borde interno negro */
+    border: 4px solid var(--bg-dark);
     display: block;
 }
 
+/* Texto Retro Vintage */
+.profile-info {
+    text-align: center;
+    margin-top: 5px;
+}
+
 .profile-info h1 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--text-main);
-    letter-spacing: 0.5px;
+    font-family: var(--font-retro);
+    font-size: 1.2rem; /* Móvil */
+    margin: 10px 0 5px 0;
+    color: var(--citrus-yellow);
+    text-shadow: 3px 3px 0px #ff3d00; /* Sombra Retro 3D */
+    line-height: 1.4;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+    .profile-info h1 {
+        font-size: 1.8rem; /* Más grande en PC */
+    }
 }
 
 .profile-info .bio {
-    font-size: 0.85rem;
-    color: var(--text-muted);
+    font-family: var(--font-retro);
+    font-size: 0.7rem;
+    color: var(--citrus-lime);
+    letter-spacing: 2px;
 }
 
-/* Acciones derecha (Carrito/Fav) */
-.header-actions {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-    margin-top: 20px; /* Ajuste visual para alinear con el centro visual de la cabecera */
-}
-
-/* --- Buscador --- */
+/* --- Buscador INTEGRADO --- */
 .search-container {
-    max-width: 600px;
-    margin: 20px auto 10px auto;
-    padding: 0 20px;
+    width: 100%;
+    max-width: 500px;
     position: relative;
     display: flex;
     align-items: center;
 }
 
+@media (min-width: 1024px) {
+    .search-container {
+        margin: 0 20px; /* Espacio a los lados en PC */
+    }
+}
+
 .search-container i {
     position: absolute;
-    left: 35px;
-    color: var(--text-muted);
+    left: 15px;
+    color: var(--citrus-orange);
 }
 
 .search-container input {
     width: 100%;
-    padding: 12px 12px 12px 40px;
-    border-radius: 8px; /* Bordes más cuadrados estilo UI moderna */
-    border: 1px solid #363636;
-    background-color: #262626;
-    color: white;
+    padding: 15px 15px 15px 45px;
+    border-radius: 0px; /* Borde cuadrado retro */
+    border: 2px solid #363636;
+    background-color: #000;
+    color: var(--citrus-yellow);
+    font-family: 'Courier New', monospace; /* Fuente tipo código */
+    font-weight: bold;
     font-size: 16px;
     outline: none;
     transition: 0.3s;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
 }
 
 .search-container input:focus {
-    border-color: var(--citrus-yellow);
-    box-shadow: 0 0 5px rgba(255, 234, 0, 0.2);
+    border-color: var(--citrus-lime);
+    box-shadow: 0 0 10px rgba(118, 255, 3, 0.4);
+}
+
+/* Acciones derecha (Carrito/Fav) */
+.header-actions {
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
 
 /* Botones Generales */
@@ -116,30 +172,35 @@ button {
     background-color: #363636;
     color: white;
     border: none;
-    padding: 8px 16px; /* Botones estilo Insta (Follow) */
+    padding: 10px 18px;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 4px; /* Menos redondeado para estilo retro */
     cursor: pointer;
     transition: 0.3s;
+    font-family: inherit;
+    text-transform: uppercase;
 }
 
-button:hover { 
-    background-color: var(--citrus-orange); 
-    color: black; 
+button:hover {
+    background-color: var(--citrus-orange);
+    color: black;
+    box-shadow: 0 0 10px var(--citrus-orange);
 }
 
-button:disabled { 
-    background-color: #333; 
-    color: #666; 
-    cursor: not-allowed; 
+button:disabled {
+    background-color: #222;
+    color: #555;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 /* --- DROPDOWNS --- */
 .filters-wrapper {
-    padding: 10px 20px 20px 20px;
+    padding: 20px;
     background-color: var(--bg-dark);
     display: flex;
     justify-content: center;
+    border-bottom: 1px solid #222;
 }
 
 .dropdown-container {
@@ -164,10 +225,12 @@ button:disabled {
 }
 
 .select-group label {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--citrus-orange);
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
+    font-family: var(--font-retro);
+    letter-spacing: 1px;
 }
 
 .select-group select {
@@ -175,7 +238,7 @@ button:disabled {
     color: white;
     border: 1px solid #363636;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 4px;
     font-size: 16px;
     outline: none;
     cursor: pointer;
@@ -185,8 +248,9 @@ button:disabled {
 /* --- Cuadrícula de Productos --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Grilla más densa estilo móvil */
-    gap: 5px; /* Espacio reducido estilo galería */
+    /* CAMBIO: Forzar 2 columnas en móvil */
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     padding: 10px;
     max-width: 1200px;
     margin: 0 auto;
@@ -194,61 +258,68 @@ button:disabled {
 
 @media (min-width: 768px) {
     .product-grid {
+        /* Desktop: Automático según espacio */
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 20px;
-        padding: 20px;
+        gap: 25px;
+        padding: 25px;
     }
 }
 
 .product-card {
     background-color: var(--bg-card);
-    border-radius: 4px; /* Bordes sutiles */
+    border-radius: 0px; /* Cuadrado retro */
     padding: 10px;
     text-align: left;
     transition: transform 0.2s;
-    border: 1px solid transparent;
+    border: 1px solid #222;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.product-card:hover { 
-    border-color: var(--citrus-orange); 
+.product-card:hover {
+    border-color: var(--citrus-lime);
+    box-shadow: 0 0 10px rgba(118, 255, 3, 0.2);
+    transform: translateY(-2px);
 }
 
 .product-card.out-of-stock {
     opacity: 0.6;
+    filter: grayscale(1);
 }
 
 .badge-stock {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0,0,0,0.8);
-    color: white;
+    background-color: rgba(0,0,0,0.9);
+    color: var(--citrus-alert);
     padding: 5px 10px;
     font-weight: bold;
-    border: 1px solid var(--text-muted);
+    border: 2px solid var(--citrus-alert);
     z-index: 5;
     pointer-events: none;
+    font-family: var(--font-retro);
+    font-size: 0.8rem;
 }
 
 /* Favoritos */
 .heart-btn {
     position: absolute;
     top: 8px;
-    right: 8px; /* Corazón a la derecha */
-    left: auto;
+    right: 8px;
     font-size: 1.3rem;
     color: rgba(255,255,255,0.7);
     cursor: pointer;
     z-index: 10;
+    filter: drop-shadow(0 0 2px black);
 }
 .heart-btn.active { color: var(--citrus-alert); }
 
 .price-container {
-    margin-top: 5px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .price {
@@ -256,42 +327,51 @@ button:disabled {
     color: var(--citrus-lime);
     font-weight: bold;
     display: block;
+    text-shadow: 0 0 5px rgba(118, 255, 3, 0.5);
 }
 
 .product-card h3 {
-    font-size: 0.95rem;
-    margin: 8px 0 4px 0;
+    font-size: 0.9rem;
+    margin: 10px 0 5px 0;
     color: var(--text-main);
+    line-height: 1.3;
+    font-weight: 700;
 }
 
 .desc-short {
-    font-size: 0.8em;
+    font-size: 0.75em;
     color: var(--text-muted);
     margin: 0 0 10px 0;
-    min-height: 30px;
+    min-height: 25px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* --- Iconos Header --- */
 .cart-icon, .fav-icon {
-    font-size: 24px;
+    font-size: 26px;
     cursor: pointer;
     position: relative;
     color: var(--text-main);
     transition: 0.2s;
 }
 
-.fav-icon:hover, .cart-icon:hover { color: var(--citrus-orange); }
+.fav-icon:hover, .cart-icon:hover { color: var(--citrus-yellow); transform: scale(1.1); }
 
 #cart-count, #fav-count {
     background-color: var(--citrus-alert);
     color: white;
-    border-radius: 50%;
+    border-radius: 0; /* Cuadrado (Pixel art style) */
     padding: 2px 5px;
-    font-size: 11px;
+    font-size: 10px;
     position: absolute;
-    top: -8px;
-    right: -8px;
+    top: -10px;
+    right: -10px;
     font-weight: bold;
+    font-family: var(--font-retro);
+    border: 1px solid white;
 }
 
 /* Animación Rebote */
@@ -308,36 +388,38 @@ button:disabled {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.85);
-    z-index: 1000;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 2000; /* Mayor que el header */
     justify-content: center;
     align-items: center;
 }
 
 .cart-content {
     background-color: #1a1a1a;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 25px;
+    border-radius: 0;
     width: 90%;
     max-width: 500px;
     position: relative;
-    border: 1px solid #333;
+    border: 2px solid var(--citrus-orange);
+    box-shadow: 0 0 20px rgba(255, 145, 0, 0.3);
 }
 
 .close-btn {
     position: absolute;
-    top: 15px; right: 20px;
-    font-size: 28px;
+    top: 10px; right: 15px;
+    font-size: 32px;
     cursor: pointer;
-    color: var(--text-muted);
+    color: var(--citrus-alert);
 }
 
 .cart-item {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px dashed #333;
     padding: 12px 0;
     color: #ddd;
+    font-size: 0.9rem;
 }
 
 .checkout-btn {
@@ -347,36 +429,43 @@ button:disabled {
     font-weight: bold;
     margin-top: 15px;
     color: white;
-    padding: 12px;
+    padding: 15px;
+    border: none;
+    text-shadow: 1px 1px 0 #000;
 }
+.checkout-btn:hover { background-color: #1ebc57; box-shadow: 0 0 10px #25D366; }
 
 /* --- Imágenes --- */
 .product-img {
     width: 100%;
-    aspect-ratio: 1 / 1; /* Imágenes cuadradas estilo feed */
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: 0;
     margin-bottom: 5px;
+    border: 1px solid #222;
 }
 
 /* --- Footer --- */
 footer {
-    background-color: var(--bg-dark);
+    background-color: #000;
     text-align: center;
-    padding: 30px;
+    padding: 40px 20px;
     margin-top: 40px;
     color: var(--text-muted);
-    border-top: 1px solid #262626;
-    font-size: 0.9rem;
+    border-top: 2px solid var(--citrus-orange);
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
 }
 
 .socials {
-    margin-top: 10px;
-    font-size: 1.5rem;
-    gap: 15px;
+    margin-top: 15px;
+    font-size: 1.8rem;
+    gap: 20px;
     display: flex;
     justify-content: center;
 }
+.socials i { color: var(--text-main); transition: 0.3s; }
+.socials i:hover { color: var(--citrus-yellow); text-shadow: 0 0 10px var(--citrus-yellow); }
 
 /* --- Toast --- */
 .toast {
@@ -385,10 +474,10 @@ footer {
     background-color: var(--citrus-lime);
     color: black;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 0;
     padding: 16px;
     position: fixed;
-    z-index: 1001;
+    z-index: 3000;
     left: 50%;
     bottom: 30px;
     transform: translateX(-50%);
@@ -396,6 +485,9 @@ footer {
     font-weight: bold;
     opacity: 0;
     transition: opacity 0.5s, bottom 0.5s;
+    font-family: var(--font-retro);
+    font-size: 0.8rem;
+    border: 2px solid black;
 }
 
 .toast.show { visibility: visible; opacity: 1; bottom: 80px; }
@@ -406,29 +498,30 @@ footer {
     border: 1px solid var(--citrus-alert);
     color: var(--citrus-alert);
     width: 100%;
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: 15px;
+    font-size: 12px;
 }
 .empty-cart-btn:hover { background-color: var(--citrus-alert); color: white; }
 
 /* --- Ofertas --- */
-.img-container { position: relative; }
+.img-container { position: relative; overflow: hidden; }
 
 .badge {
     position: absolute;
-    top: 5px; left: 5px;
-    background-color: var(--citrus-orange);
+    top: 0; left: 0;
+    background-color: var(--citrus-yellow);
     color: black;
-    padding: 3px 8px;
+    padding: 4px 8px;
     font-weight: bold;
-    border-radius: 4px;
-    font-size: 0.75em;
+    font-family: var(--font-retro);
+    font-size: 0.6em;
     z-index: 2;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
 }
 
-.old-price { text-decoration: line-through; color: var(--text-muted); margin-right: 8px; font-size: 0.9em; }
-.sale-price { color: var(--citrus-yellow); font-weight: bold; font-size: 1.2em; }
-.promo-card { border: 1px solid var(--citrus-lime); background-color: #1a1a1a; }
+.old-price { text-decoration: line-through; color: var(--citrus-alert); margin-right: 5px; font-size: 0.8em; }
+.sale-price { color: var(--citrus-yellow); font-weight: bold; font-size: 1.2em; text-shadow: 0 0 5px var(--citrus-orange); }
+.promo-card { border: 1px solid var(--citrus-lime); background-color: #0a0a0a; }
 
 /* --- Swiper --- */
 .swiper { width: 100%; padding-bottom: 40px !important; }
@@ -440,7 +533,6 @@ footer {
 .skeleton {
     background-color: var(--bg-card);
     border: 1px solid #333;
-    border-radius: 4px;
     padding: 10px;
     height: 300px;
     display: flex;
@@ -450,7 +542,6 @@ footer {
 
 .skeleton-img, .skeleton-text, .skeleton-btn {
     background: #333;
-    border-radius: 4px;
     animation: shimmer 1.5s infinite linear;
     background: linear-gradient(to right, #333 4%, #444 25%, #333 36%);
     background-size: 1000px 100%;
@@ -480,41 +571,28 @@ footer {
 .whatsapp-sticky:hover { transform: scale(1.05); }
 
 .whatsapp-icon-container {
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     background-color: #25D366;
     color: white;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 32px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     position: relative;
-}
-
-.whatsapp-icon-container::after {
-    content: '';
-    position: absolute;
-    width: 100%; height: 100%;
-    border-radius: 50%;
-    border: 2px solid #25D366;
-    animation: pulse-border 1.5s infinite;
-}
-
-@keyframes pulse-border {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(1.5); opacity: 0; }
+    border: 2px solid white;
 }
 
 .whatsapp-label {
     background-color: var(--bg-card);
     color: var(--text-main);
-    border: 1px solid #333;
+    border: 1px solid var(--citrus-lime);
     padding: 8px 12px;
-    border-radius: 20px;
+    border-radius: 4px;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    position: relative;
+    font-family: var(--font-retro);
 }

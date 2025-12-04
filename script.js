@@ -17,7 +17,7 @@ const categorySelect = document.getElementById('category-select');
 const subCategorySelect = document.getElementById('subcategory-select');
 
 // --- CACHÉ CONFIG ---
-const CACHE_KEY = 'otano_brothers_data'; // Clave cambiada para nueva tienda
+const CACHE_KEY = 'otano_brothers_data_v2'; 
 const CACHE_TIME = 5 * 60 * 1000; // 5 minutos
 
 // --- HELPER: Seguridad ---
@@ -105,6 +105,7 @@ function initializeView() {
 }
 
 // 4. Lógica del Buscador
+// El listener sigue funcionando aunque el input esté en el header
 document.getElementById('search-input').addEventListener('input', (e) => {
     globalSearchTerm = e.target.value.toLowerCase().trim();
     if (globalSearchTerm.length > 0) {
@@ -300,19 +301,18 @@ function toggleShowFavorites() {
     const filters = document.querySelector('.filters-wrapper');
     const offers = document.getElementById('offers-section');
     const favSection = document.getElementById('favorites-section');
-    const search = document.querySelector('.search-container');
-
+    
+    // El buscador ya no se oculta porque está en el header
+    
     if (favSection.style.display === 'none') {
         mainGrid.style.display = 'none';
         filters.style.display = 'none';
         offers.style.display = 'none';
-        search.style.display = 'none';
         favSection.style.display = 'block';
         renderFavorites();
     } else {
         mainGrid.style.display = 'grid';
         filters.style.display = 'flex';
-        search.style.display = 'flex';
         favSection.style.display = 'none';
         renderProducts();
     }
@@ -350,8 +350,8 @@ function renderCarousel(productList) {
     const offersSection = document.getElementById('offers-section');
     const swiperWrapper = document.getElementById('swiper-wrapper');
 
-    const offers = productList.filter(p =>
-        p.en_oferta &&
+    const offers = productList.filter(p => 
+        p.en_oferta && 
         p.en_oferta.toString().toUpperCase() === 'SI' &&
         (!p.stock || (p.stock.toString().toUpperCase() !== 'NO' && p.stock != 0))
     );
@@ -394,7 +394,7 @@ function renderCarousel(productList) {
     });
 
     swiperInstance = new Swiper(".mySwiper", {
-        slidesPerView: 1.5, // Mostrar parte del siguiente slide (estilo app móvil)
+        slidesPerView: 1.5,
         spaceBetween: 15,
         grabCursor: true,
         loop: offers.length > 3,
@@ -500,7 +500,6 @@ function checkout() {
     }
     const paymentMethod = document.getElementById('payment-method').value;
 
-    // ACTUALIZADO: Nombre en el mensaje
     let message = `Hola The Otaño Brothers, quiero realizar el siguiente pedido:\n\n`;
     let total = 0;
 
@@ -520,7 +519,6 @@ function checkout() {
 function setupWhatsappFloat() {
     const floatBtn = document.getElementById('whatsapp-sticky');
     if (floatBtn) {
-        // ACTUALIZADO: Nombre en el mensaje
         const message = "Hola The Otaño Brothers, necesito ayuda con un producto o servicio.";
         floatBtn.href = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`;
     }
