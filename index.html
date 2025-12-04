@@ -3,24 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>HR Store Digital | Juegos y Servicios</title>
-    <meta name="description" content="Tu tienda de confianza para juegos digitales, recargas y servicios de streaming (Netflix, FIFA, Free Fire). Atención rápida y segura.">
-    
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/686/686589.png" type="image/png">
+    <link rel="icon" href="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto,w_101/favicon1" type="image/jpg">
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tutienda.com/"> <meta property="og:title" content="HR Store Digital 🎮">
-    <meta property="og:description" content="🔥 Las mejores ofertas en Streaming y Videojuegos. ¡Entra y mira nuestro catálogo!">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630/121212/00e676?text=HR+Store+Digital"> <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta property="og:url" content="https://tutienda.com/">
+    <meta property="og:title" content="The Otaño Brothers">
+    <meta property="og:description" content="Las mejores ofertas en Streaming y Videojuegos ¡Entra y mira nuestro catálogo!">
+    <meta property="og:image" content="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/banner-whatsapp">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <title>The Otaño Brothers</title>
 </head>
 <body>
 
     <header>
-        <div class="logo">
-            <h1>HR Store <i class="fas fa-gamepad"></i></h1>
+        <div class="insta-profile-container">
+            <div class="profile-pic-wrapper">
+                <img src="https://via.placeholder.com/150/ff9100/000000?text=OB" alt="Logo The Otaño Brothers" class="profile-pic">
+            </div>
+            <div class="profile-info">
+                <h1>The Otaño Brothers</h1>
+                <span class="bio">Videojuegos & Streaming</span>
+            </div>
         </div>
 
         <div class="header-actions">
@@ -39,7 +48,7 @@
     <main>
         <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" id="search-input" placeholder="Buscar productos (ej. Netflix, FIFA)...">
+            <input type="text" id="search-input" placeholder="Buscar productos (ej. Netflix, Free Fire)...">
         </div>
 
         <section class="filters-wrapper">
@@ -61,15 +70,15 @@
         </section>
 
         <section id="favorites-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
-            <h2 style="color: #e53935; margin-bottom: 15px;"><i class="fas fa-heart"></i> Mis Favoritos</h2>
+            <h2 style="color: var(--citrus-orange); margin-bottom: 15px;"><i class="fas fa-heart"></i> Mis Favoritos</h2>
             <div id="favorites-grid" class="product-grid"></div>
             <button onclick="toggleShowFavorites()" style="margin-top:20px; background:#333;">Volver al catálogo</button>
             <hr style="border-color: #333; margin-top: 20px;">
         </section>
 
         <section id="offers-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
-            <h2 style="color: #00e676; margin-bottom: 15px; margin-left: 10px;">
-                <i class="fas fa-fire"></i> Ofertas Destacadas
+            <h2 style="color: var(--citrus-lime); margin-bottom: 15px; margin-left: 10px;">
+                <i class="fas fa-fire"></i> Ofertas Cítricas
             </h2>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper" id="swiper-wrapper">
@@ -116,7 +125,7 @@
     </a>
 
     <footer>
-        <p>&copy; 2025 HR Store - Todos los derechos reservados.</p>
+        <p>&copy; 2025 The Otaño Brothers - Todos los derechos reservados.</p>
         <div class="socials">
             <i class="fab fa-instagram"></i>
             <i class="fab fa-facebook"></i>

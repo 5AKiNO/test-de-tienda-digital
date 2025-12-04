@@ -6,22 +6,21 @@ const myPhoneNumber = "595984835708"; // Tu número aquí
 // Estado Global
 let products = [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-let wishlist = JSON.parse(localStorage.getItem('wishlist')) || []; // IDs de favoritos
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 let currentCategory = 'all';
 let currentSubCategory = 'all';
-let globalSearchTerm = ''; // Para el buscador
+let globalSearchTerm = '';
 let swiperInstance = null;
 
 const productContainer = document.getElementById('product-container');
-// Referencias a los Dropdowns
 const categorySelect = document.getElementById('category-select');
 const subCategorySelect = document.getElementById('subcategory-select');
 
 // --- CACHÉ CONFIG ---
-const CACHE_KEY = 'hr_store_data';
+const CACHE_KEY = 'otano_brothers_data'; // Clave cambiada para nueva tienda
 const CACHE_TIME = 5 * 60 * 1000; // 5 minutos
 
-// --- HELPER: Seguridad (Sanitización) ---
+// --- HELPER: Seguridad ---
 function escapeHTML(str) {
     if (!str) return '';
     const div = document.createElement('div');
@@ -37,15 +36,15 @@ function formatPrice(amount) {
 // --- HELPER: Imagen o Placeholder ---
 function resolveImageURL(imageValue) {
     if (!imageValue || !imageValue.toString().toLowerCase().includes('.jpg')) {
-        return 'https://via.placeholder.com/300x200/333333/ffffff?text=HR+Store';
+        // Placeholder con colores cítricos
+        return 'https://via.placeholder.com/300x300/121212/ff9100?text=The+Otaño+Bros';
     }
     return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/q_auto,f_auto/${imageValue}`;
 }
 
-// 2. Renderizar SKELETON (Carga visual)
+// 2. Renderizar SKELETON
 function renderSkeleton() {
     productContainer.innerHTML = '';
-    // Mostramos 8 esqueletos mientras carga
     for(let i=0; i<8; i++) {
         productContainer.innerHTML += `
             <div class="skeleton">
@@ -58,11 +57,10 @@ function renderSkeleton() {
     }
 }
 
-// 3. Cargar Productos (Con Caché y Skeleton)
+// 3. Cargar Productos
 function loadProducts() {
-    renderSkeleton(); // Mostrar animación
+    renderSkeleton();
 
-    // Chequear Caché
     const cached = localStorage.getItem(CACHE_KEY);
     if (cached) {
         const { timestamp, data } = JSON.parse(cached);
@@ -74,7 +72,6 @@ function loadProducts() {
         }
     }
 
-    // Si no hay caché o expiró, Fetch
     fetch(jsonApiURL)
         .then(response => {
             if (!response.ok) throw new Error("Error en la red");
@@ -82,10 +79,8 @@ function loadProducts() {
         })
         .then(data => {
             products = data;
-            // Filtro seguridad: eliminar vacíos
             products = products.filter(p => p.nombre && p.nombre.toString().trim().length > 0);
 
-            // Guardar en Caché
             localStorage.setItem(CACHE_KEY, JSON.stringify({
                 timestamp: Date.now(),
                 data: products
@@ -95,13 +90,13 @@ function loadProducts() {
         })
         .catch(error => {
             console.error("Error:", error);
-            productContainer.innerHTML = '<p style="text-align:center; color:#e53935;">Error cargando catálogo.</p>';
+            productContainer.innerHTML = '<p style="text-align:center; color:#ff3d00;">Error cargando catálogo.</p>';
         });
 }
 
 function initializeView() {
     if (products.length === 0) {
-        productContainer.innerHTML = '<p style="text-align:center;">No hay productos.</p>';
+        productContainer.innerHTML = '<p style="text-align:center;">No hay productos disponibles.</p>';
         return;
     }
     populateCategoryDropdown();
@@ -112,7 +107,6 @@ function initializeView() {
 // 4. Lógica del Buscador
 document.getElementById('search-input').addEventListener('input', (e) => {
     globalSearchTerm = e.target.value.toLowerCase().trim();
-    // Resetear filtros de categoría al buscar para buscar en TODO
     if (globalSearchTerm.length > 0) {
         currentCategory = 'all';
         currentSubCategory = 'all';
@@ -123,13 +117,11 @@ document.getElementById('search-input').addEventListener('input', (e) => {
     renderProducts();
 });
 
-// 5. Lógica de Dropdowns (Selects)
-
-// Event Listeners para los Selects
+// 5. Lógica de Dropdowns
 categorySelect.addEventListener('change', (e) => {
     currentCategory = e.target.value;
-    currentSubCategory = 'all'; // Reset subcategoría
-    globalSearchTerm = ''; // Reset buscador
+    currentSubCategory = 'all';
+    globalSearchTerm = '';
     document.getElementById('search-input').value = '';
 
     populateSubCategoryDropdown();
@@ -143,8 +135,6 @@ subCategorySelect.addEventListener('change', (e) => {
 
 function populateCategoryDropdown() {
     const uniqueCategories = [...new Set(products.map(p => p.categoria ? p.categoria.toString().trim() : 'Otros'))];
-
-    // Resetear y añadir opción por defecto
     categorySelect.innerHTML = '<option value="all">Todas las Categorías</option>';
 
     uniqueCategories.forEach(cat => {
@@ -158,7 +148,6 @@ function populateCategoryDropdown() {
 }
 
 function populateSubCategoryDropdown() {
-    // Si la categoría es 'all', deshabilitar subcategorías
     if (currentCategory === 'all') {
         subCategorySelect.innerHTML = '<option value="all">Todas las Marcas</option>';
         subCategorySelect.disabled = true;
@@ -169,7 +158,6 @@ function populateSubCategoryDropdown() {
     const brands = new Set();
     categoryProducts.forEach(p => brands.add(getBrandName(p.nombre)));
 
-    // Si solo hay una marca o ninguna, no tiene sentido filtrar
     if (brands.size <= 1) {
         subCategorySelect.innerHTML = '<option value="all">Todas las Marcas</option>';
         subCategorySelect.disabled = true;
@@ -198,18 +186,14 @@ function getBrandName(fullName) {
     return fullName.split(' ')[0];
 }
 
-// 7. RENDERIZAR PRODUCTOS (Core)
+// 7. RENDERIZAR PRODUCTOS
 function renderProducts() {
     productContainer.innerHTML = '';
-
-    // Filtrado Principal
     let filtered = products;
 
-    // 1. Buscador
     if (globalSearchTerm) {
         filtered = filtered.filter(p => p.nombre.toLowerCase().includes(globalSearchTerm));
     } else {
-        // 2. Categoría y Sub
         if (currentCategory !== 'all') {
             filtered = filtered.filter(p => p.categoria.toString().trim() === currentCategory);
         }
@@ -218,7 +202,6 @@ function renderProducts() {
         }
     }
 
-    // Renderizar Carrusel (solo si no estamos buscando)
     if (!globalSearchTerm) {
         renderCarousel(filtered);
     } else {
@@ -231,13 +214,11 @@ function renderProducts() {
     }
 
     filtered.forEach(product => {
-        // --- LÓGICA DE STOCK ---
         let hasStock = true;
         if (product.stock && (product.stock.toString().toUpperCase() === 'NO' || product.stock == 0)) {
             hasStock = false;
         }
 
-        // --- LÓGICA DE PRECIO ---
         let finalPrice = parseFloat(product.precio_normal);
         let isOffer = product.en_oferta && product.en_oferta.toString().toUpperCase() === 'SI';
         let priceHTML = `<span class="price">Gs. ${formatPrice(finalPrice)}</span>`;
@@ -250,12 +231,10 @@ function renderProducts() {
             `;
         }
 
-        // --- FAVORITOS ---
         const isFav = wishlist.includes(product.id);
         const heartClass = isFav ? 'fas' : 'far';
         const activeClass = isFav ? 'active' : '';
 
-        // --- CREAR TARJETA ---
         const card = document.createElement('div');
         card.className = `product-card ${hasStock ? '' : 'out-of-stock'} ${isOffer ? 'promo-card' : ''}`;
 
@@ -263,13 +242,12 @@ function renderProducts() {
         const safeName = escapeHTML(product.nombre);
         const safeDesc = escapeHTML(product.descripcion ? product.descripcion.toString().substring(0, 50) : '');
 
-        // Botón: Habilitado o Deshabilitado
         const btnHTML = hasStock
-            ? `<button onclick="addToCart('${product.id}')">Agregar al Carrito</button>`
+            ? `<button onclick="addToCart('${product.id}')">Agregar</button>`
             : `<button disabled>Agotado</button>`;
 
         const stockBadge = !hasStock ? `<div class="badge-stock">AGOTADO</div>` : '';
-        const offerBadge = (isOffer && hasStock) ? '<span class="badge">OFERTA</span>' : '';
+        const offerBadge = (isOffer && hasStock) ? '<span class="badge">OFERTA 🔥</span>' : '';
 
         card.innerHTML = `
             ${stockBadge}
@@ -305,12 +283,11 @@ function toggleWishlist(id) {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     updateWishlistCount();
 
-    // Si estamos en la vista de favoritos, refrescar
     const favSection = document.getElementById('favorites-section');
     if (favSection.style.display !== 'none') {
         renderFavorites();
     } else {
-        renderProducts(); // Refrescar iconos en la grilla principal
+        renderProducts();
     }
 }
 
@@ -326,7 +303,6 @@ function toggleShowFavorites() {
     const search = document.querySelector('.search-container');
 
     if (favSection.style.display === 'none') {
-        // Mostrar Favoritos
         mainGrid.style.display = 'none';
         filters.style.display = 'none';
         offers.style.display = 'none';
@@ -334,19 +310,17 @@ function toggleShowFavorites() {
         favSection.style.display = 'block';
         renderFavorites();
     } else {
-        // Volver a Home
         mainGrid.style.display = 'grid';
         filters.style.display = 'flex';
         search.style.display = 'flex';
         favSection.style.display = 'none';
-        renderProducts(); // Restaurar vista principal
+        renderProducts();
     }
 }
 
 function renderFavorites() {
     const favGrid = document.getElementById('favorites-grid');
     favGrid.innerHTML = '';
-
     const favProducts = products.filter(p => wishlist.includes(p.id));
 
     if (favProducts.length === 0) {
@@ -357,7 +331,6 @@ function renderFavorites() {
     favProducts.forEach(product => {
         const imageURL = resolveImageURL(product.imagen);
         const safeName = escapeHTML(product.nombre);
-
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
@@ -377,7 +350,6 @@ function renderCarousel(productList) {
     const offersSection = document.getElementById('offers-section');
     const swiperWrapper = document.getElementById('swiper-wrapper');
 
-    // Filtramos ofertas que tengan stock
     const offers = productList.filter(p =>
         p.en_oferta &&
         p.en_oferta.toString().toUpperCase() === 'SI' &&
@@ -422,21 +394,21 @@ function renderCarousel(productList) {
     });
 
     swiperInstance = new Swiper(".mySwiper", {
-        slidesPerView: 1,
-        spaceBetween: 20,
+        slidesPerView: 1.5, // Mostrar parte del siguiente slide (estilo app móvil)
+        spaceBetween: 15,
         grabCursor: true,
         loop: offers.length > 3,
-        autoplay: { delay: 2500, disableOnInteraction: false },
+        autoplay: { delay: 3000, disableOnInteraction: false },
         pagination: { el: ".swiper-pagination", clickable: true },
         breakpoints: {
-            640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
+            640: { slidesPerView: 2.5 },
+            768: { slidesPerView: 3.5 },
+            1024: { slidesPerView: 4.5 },
         },
     });
 }
 
-// --- CARRITO & MICRO-INTERACCIONES ---
+// --- CARRITO ---
 function addToCart(id) {
     const product = products.find(p => p.id.toString() === id.toString());
     if (!product) return;
@@ -455,7 +427,7 @@ function addToCart(id) {
     cart.push(item);
     saveCart();
     updateCartUI();
-    animateCart(); // Micro-interacción
+    animateCart();
     showToast(`Se agregó ${product.nombre}`);
 }
 
@@ -496,7 +468,7 @@ function updateCartUI() {
                 <div class="cart-item">
                     <span>${item.name}</span>
                     <span>Gs. ${formatPrice(item.price)}
-                    <button onclick="removeFromCart(${index})" style="background:red; padding:2px 5px; color:white; border:none; cursor:pointer;">X</button>
+                    <button onclick="removeFromCart(${index})" style="background:transparent; padding:0 5px; color:#ff3d00; border:none; cursor:pointer; font-size:16px;">&times;</button>
                     </span>
                 </div>
             `;
@@ -528,7 +500,8 @@ function checkout() {
     }
     const paymentMethod = document.getElementById('payment-method').value;
 
-    let message = `Hola HR Store, quiero realizar el siguiente pedido:\n\n`;
+    // ACTUALIZADO: Nombre en el mensaje
+    let message = `Hola The Otaño Brothers, quiero realizar el siguiente pedido:\n\n`;
     let total = 0;
 
     cart.forEach(item => {
@@ -543,11 +516,12 @@ function checkout() {
     window.open(url, '_blank');
 }
 
-// --- FUNCIÓN NUEVA: CONFIGURAR BOTÓN FLOTANTE ---
+// Configurar Botón Flotante
 function setupWhatsappFloat() {
     const floatBtn = document.getElementById('whatsapp-sticky');
     if (floatBtn) {
-        const message = "Hola HR Store, necesito ayuda con un producto o servicio.";
+        // ACTUALIZADO: Nombre en el mensaje
+        const message = "Hola The Otaño Brothers, necesito ayuda con un producto o servicio.";
         floatBtn.href = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`;
     }
 }
@@ -555,5 +529,5 @@ function setupWhatsappFloat() {
 // INICIALIZAR
 updateCartUI();
 updateWishlistCount();
-setupWhatsappFloat(); // Inicializar botón flotante
+setupWhatsappFloat();
 loadProducts();
