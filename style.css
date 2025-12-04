@@ -59,7 +59,7 @@ header {
         align-items: center;
     }
     .brand-section, .insta-profile-container { display: contents; }
-    .profile-pic-wrapper { grid-area: img; margin: 0; width: 200px; height: 200px; }
+    .profile-pic-wrapper { grid-area: img; margin: 0; width: 250px; height: 250px; }
     .profile-info { grid-area: info; text-align: left; margin-top: 0; align-self: end; padding-bottom: 5px; }
     .search-container { grid-area: search; margin: 0 !important; align-self: start; max-width: 100%; }
     .header-actions { grid-area: actions; }
@@ -70,7 +70,7 @@ header {
 .insta-profile-container { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 
 .profile-pic-wrapper {
-    width: 140px; height: 140px;
+    width: 200px; height: 200px;
     border-radius: 50%;
     padding: 5px;
     background: linear-gradient(180deg, var(--citrus-yellow), var(--citrus-alert));
@@ -89,14 +89,14 @@ header {
 .profile-info h1 {
     font-family: var(--font-retro);
     font-weight: 400; font-style: italic;
-    font-size: 1.5rem; margin: 10px 0 5px 0;
+    font-size: 2rem; margin: 10px 0 5px 0;
     color: var(--citrus-yellow);
     text-shadow: 3px 3px 0px #ff3d00;
     line-height: 1.4; letter-spacing: 1px;
 }
 .profile-info .bio {
     font-family: 'Courier New', monospace;
-    font-weight: bold; font-size: 0.7rem;
+    font-weight: bold; font-size: 1rem;
     color: var(--citrus-lime); letter-spacing: 2px;
 }
 
