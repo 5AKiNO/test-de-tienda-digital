@@ -8,7 +8,7 @@
     --citrus-alert: #ff3d00;     /* Rojo naranja (Alertas/Corazón) */
     --text-main: #fafafa;
     --text-muted: #a8a8a8;
-    --font-retro: 'Press Start 2P', cursive; /* Fuente Ochentera */
+    --font-retro: "Molle", cursive; /* Fuente Ochentera */
 }
 
 body {
