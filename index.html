@@ -2,18 +2,17 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" href="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto,w_101/favicon1" type="image/jpg">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tutienda.com/">
-    <meta property="og:title" content="The Otaño Brothers">
-    <meta property="og:description" content="Las mejores ofertas en Streaming y Videojuegos ¡Entra y mira nuestro catálogo!">
+    <meta property="og:title" content="The Otaño Brothers | Tienda Digital">
+    <meta property="og:description" content="Las mejores ofertas en Streaming y Videojuegos. ¡Entra y mira nuestro catálogo!">
     <meta property="og:image" content="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/banner-whatsapp">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
@@ -22,160 +21,156 @@
 </head>
 <body>
 
-    <header>
-        <div class="brand-section">
-            <div class="insta-profile-container">
-                <div class="profile-pic-wrapper">
-                    <img src="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/photoprofile.jpg" alt="Logo The Otaño Brothers" class="profile-pic">
-                </div>
-                <div class="profile-info">
+    <header id="main-header">
+        <div class="header-top">
+            <div class="brand-info">
+                <img src="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/photoprofile.jpg" alt="Logo" class="mini-profile-pic">
+                <div class="brand-text">
                     <h1>The Otaño Brothers</h1>
                     <span class="bio">ALL KIND STORE</span>
                 </div>
             </div>
-        </div>
-
-        <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="search-input" placeholder="Buscar (Netflix, Free Fire)...">
-        </div>
-
-        <div class="header-actions">
-            <div class="fav-icon" onclick="toggleShowFavorites()" title="Ver Favoritos">
-                <i class="fas fa-heart"></i>
-                <span id="fav-count">0</span>
+            
+            <div class="header-icons">
+                <div class="icon-wrapper" onclick="toggleShowFavorites()">
+                    <i class="fas fa-heart"></i>
+                    <span id="fav-count" class="counter-badge">0</span>
+                </div>
+                <div class="icon-wrapper" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart" id="cart-icon-main"></i>
+                    <span id="cart-count" class="counter-badge">0</span>
+                </div>
             </div>
+        </div>
 
-            <div class="cart-icon" id="cart-icon-container" onclick="toggleCart()">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cart-count">0</span>
+        <div class="search-bar-wrapper">
+            <div class="search-input-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Buscar (Netflix, Free Fire)...">
             </div>
         </div>
     </header>
 
     <main>
         <section class="filters-wrapper">
-            <div class="dropdown-container">
-                <div class="select-group">
-                    <label for="category-select"><i class="fas fa-filter"></i> Categoría</label>
-                    <select id="category-select">
-                        <option value="all">Todas las Categorías</option>
-                    </select>
-                </div>
-
-                <div class="select-group">
-                    <label for="subcategory-select"><i class="fas fa-tag"></i> Marca/Tipo</label>
-                    <select id="subcategory-select" disabled>
-                        <option value="all">Todas las Marcas</option>
-                    </select>
-                </div>
+            <div class="filter-pill">
+                <select id="category-select">
+                    <option value="all">Todas las Categorías</option>
+                </select>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="filter-pill">
+                <select id="subcategory-select" disabled>
+                    <option value="all">Todas las Marcas</option>
+                </select>
+                <i class="fas fa-chevron-down"></i>
             </div>
         </section>
 
-        <section id="favorites-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
-            <h2 style="color: var(--citrus-orange); margin-bottom: 15px; font-family: 'Press Start 2P', cursive; font-size: 1.2rem;">
-                <i class="fas fa-heart"></i> Mis Favoritos
-            </h2>
+        <section id="favorites-section" class="hidden-section">
+            <div class="section-header">
+                <h2 class="title-retro"><i class="fas fa-heart"></i> Mis Favoritos</h2>
+                <button class="btn-outline" onclick="toggleShowFavorites()">Volver</button>
+            </div>
             <div id="favorites-grid" class="product-grid"></div>
-            <button onclick="toggleShowFavorites()" style="margin-top:20px; background:#333;">Volver al catálogo</button>
-            <hr style="border-color: #333; margin-top: 20px;">
         </section>
 
-        <section id="offers-section" style="display: none; padding: 20px; max-width: 1200px; margin: 0 auto;">
-            <h2 style="color: var(--citrus-lime); margin-bottom: 15px; margin-left: 10px; font-family: 'Press Start 2P', cursive; font-size: 1rem;">
-                <i class="fas fa-fire"></i> Ofertas Cítricas
-            </h2>
+        <section id="offers-section" class="hidden-section">
+            <h2 class="title-retro text-lime"><i class="fas fa-fire"></i> Ofertas Cítricas</h2>
             <div class="swiper mySwiper">
-                <div class="swiper-wrapper" id="swiper-wrapper">
-                    </div>
+                <div class="swiper-wrapper" id="swiper-wrapper"></div>
                 <div class="swiper-pagination"></div>
             </div>
         </section>
 
-        <div id="product-container" class="product-grid">
-        </div>
+        <div id="product-container" class="product-grid"></div>
     </main>
 
-    <div id="cart-modal" class="cart-modal">
-        <div class="cart-content">
-            <span class="close-btn" onclick="toggleCart()">&times;</span>
-            <h2 style="font-family: var(--font-retro); color: var(--citrus-yellow); font-size: 1.5rem;">Tu Pedido</h2>
-            <div id="cart-items">
-                <p>El carrito está vacío.</p>
+    <div id="cart-modal" class="modal-overlay">
+        <div class="modal-content cart-content">
+            <div class="modal-header">
+                <h2>Tu Pedido</h2>
+                <span class="close-btn" onclick="toggleCart()">&times;</span>
             </div>
-            <div class="cart-summary">
-                <h3>Total: <span id="cart-total">0</span> Gs.</h3>
+            
+            <div id="cart-items" class="cart-items-scroll">
+                </div>
 
-                <label for="payment-method">Método de Pago:</label>
-                <select id="payment-method">
-                    <option value="Transferencia Bancaria">Transferencia / Billetera</option>
-                    <option value="Efectivo">Efectivo / Giros</option>
-                    <option value="USDT/Cripto">Criptomonedas (USDT/BTC)</option>
-                </select>
+            <div class="cart-footer">
+                <div class="total-row">
+                    <span>Total:</span>
+                    <span id="cart-total">0 Gs.</span>
+                </div>
+                
+                <div class="payment-selector">
+                    <label>Método de Pago:</label>
+                    <select id="payment-method">
+                        <option value="Transferencia Bancaria">Transferencia / Billetera</option>
+                        <option value="Efectivo">Efectivo / Giros</option>
+                        <option value="USDT/Cripto">Criptomonedas (USDT/BTC)</option>
+                    </select>
+                </div>
 
-                <button class="checkout-btn" onclick="checkout()">
-                    <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
+                <button class="btn-whatsapp" onclick="checkout()">
+                    <i class="fab fa-whatsapp"></i> Finalizar Pedido
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="product-detail-modal" class="detail-modal">
-        <div class="detail-content">
-            <span class="close-detail-btn" onclick="closeDetailModal()">&times;</span>
+    <div id="product-detail-modal" class="modal-overlay">
+        <div class="modal-content detail-content">
+            <span class="close-detail-btn" onclick="closeDetailModal()"><i class="fas fa-arrow-left"></i></span>
             
-            <div class="detail-grid">
-                <div class="detail-image-section">
+            <div class="detail-layout">
+                <div class="detail-img-box">
                     <img id="detail-img" src="" alt="Producto">
                     <div id="detail-status-badge" class="detail-status-pill"></div>
                 </div>
 
-                <div class="detail-info-section">
+                <div class="detail-data">
                     <p id="detail-category" class="detail-cat">Categoría</p>
                     <h2 id="detail-title">Nombre del Producto</h2>
                     
-                    <div class="detail-price-box">
+                    <div class="price-big-box">
                         <span id="detail-price">0 Gs.</span>
                     </div>
 
                     <div class="duration-selector">
-                        <span class="duration-label">Elige tu plan:</span>
-                        <div class="duration-options">
+                        <p>Elige duración:</p>
+                        <div class="duration-grid">
                             <button class="dur-btn active" onclick="selectDuration(1)" id="btn-1m">1 Mes</button>
                             <button class="dur-btn" onclick="selectDuration(3)" id="btn-3m">3 Meses</button>
                             <button class="dur-btn" onclick="selectDuration(12)" id="btn-12m">1 Año</button>
                         </div>
                     </div>
 
-                    <div class="detail-actions">
-                        <button id="detail-add-cart" class="action-btn cart-btn-lg">
-                            <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                    <div class="detail-actions-row">
+                        <button id="detail-add-cart" class="btn-add-lg">
+                            Agregar al Carrito
                         </button>
-                        <button id="detail-fav" class="action-btn fav-btn-lg">
+                        <button id="detail-fav" class="btn-fav-lg">
                             <i class="far fa-heart"></i>
                         </button>
                     </div>
 
-                    <div class="detail-footer-info">
-                        <p><i class="fas fa-shield-alt"></i> Garantía Completa</p>
-                        <p><i class="fas fa-bolt"></i> Entrega Rápida</p>
+                    <div class="trust-badges">
+                        <span><i class="fas fa-check-circle"></i> Garantía</span>
+                        <span><i class="fas fa-bolt"></i> Entrega Rápida</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="toast">¡Producto agregado al carrito!</div>
+    <div id="toast" class="toast"></div>
 
-    <a href="#" class="whatsapp-sticky" id="whatsapp-sticky" target="_blank">
-        <span class="whatsapp-label">¿Ayuda?</span>
-        <div class="whatsapp-icon-container">
-            <i class="fab fa-whatsapp"></i>
-        </div>
+    <a href="#" class="whatsapp-float" id="whatsapp-sticky" target="_blank">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
     <footer>
-        <p>&copy; 2025 The Otaño Brothers - Todos los derechos reservados.</p>
+        <p>&copy; 2025 The Otaño Brothers</p>
         <div class="socials">
             <i class="fab fa-instagram"></i>
             <i class="fab fa-facebook"></i>
