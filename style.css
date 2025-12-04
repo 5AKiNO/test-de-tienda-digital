@@ -41,7 +41,7 @@ header {
     flex-direction: column;
     align-items: center;
     position: relative;
-    z-index: 900;
+    z-index: 1200;
     border-bottom: 2px solid var(--citrus-orange);
     box-shadow: 0 4px 20px rgba(255, 145, 0, 0.2);
     gap: 15px;
@@ -59,11 +59,11 @@ header {
         align-items: center;
     }
     .brand-section, .insta-profile-container { display: contents; }
-    .profile-pic-wrapper { grid-area: img; margin: 0; width: 150px; height: 150px; }
+    .profile-pic-wrapper { grid-area: img; margin: 0; width: 200px; height: 200px; }
     .profile-info { grid-area: info; text-align: left; margin-top: 0; align-self: end; padding-bottom: 5px; }
     .search-container { grid-area: search; margin: 0 !important; align-self: start; max-width: 100%; }
     .header-actions { grid-area: actions; }
-    .profile-info h1 { font-size: 2.2rem; margin-bottom: 0; }
+    .profile-info h1 { font-size: 2.5rem; margin-bottom: 0; }
 }
 
 .brand-section { display: flex; justify-content: center; width: 100%; }
