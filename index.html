@@ -10,8 +10,6 @@
     <meta property="og:title" content="The Otaño Brothers">
     <meta property="og:description" content="Las mejores ofertas en Streaming y Videojuegos ¡Entra y mira nuestro catálogo!">
     <meta property="og:image" content="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/banner-whatsapp">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -89,7 +87,7 @@
             </h2>
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper" id="swiper-wrapper">
-                </div>
+                    </div>
                 <div class="swiper-pagination"></div>
             </div>
         </section>
@@ -101,7 +99,7 @@
     <div id="cart-modal" class="cart-modal">
         <div class="cart-content">
             <span class="close-btn" onclick="toggleCart()">&times;</span>
-            <h2 style="font-family: 'Press Start 2P', cursive; color: var(--citrus-yellow); font-size: 1.2rem;">Tu Pedido</h2>
+            <h2 style="font-family: var(--font-retro); color: var(--citrus-yellow); font-size: 1.5rem;">Tu Pedido</h2>
             <div id="cart-items">
                 <p>El carrito está vacío.</p>
             </div>
@@ -118,6 +116,51 @@
                 <button class="checkout-btn" onclick="checkout()">
                     <i class="fab fa-whatsapp"></i> Enviar Pedido por WhatsApp
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="product-detail-modal" class="detail-modal">
+        <div class="detail-content">
+            <span class="close-detail-btn" onclick="closeDetailModal()">&times;</span>
+            
+            <div class="detail-grid">
+                <div class="detail-image-section">
+                    <img id="detail-img" src="" alt="Producto">
+                    <div id="detail-status-badge" class="detail-status-pill"></div>
+                </div>
+
+                <div class="detail-info-section">
+                    <p id="detail-category" class="detail-cat">Categoría</p>
+                    <h2 id="detail-title">Nombre del Producto</h2>
+                    
+                    <div class="detail-price-box">
+                        <span id="detail-price">0 Gs.</span>
+                    </div>
+
+                    <div class="duration-selector">
+                        <span class="duration-label">Elige tu plan:</span>
+                        <div class="duration-options">
+                            <button class="dur-btn active" onclick="selectDuration(1)" id="btn-1m">1 Mes</button>
+                            <button class="dur-btn" onclick="selectDuration(3)" id="btn-3m">3 Meses</button>
+                            <button class="dur-btn" onclick="selectDuration(12)" id="btn-12m">1 Año</button>
+                        </div>
+                    </div>
+
+                    <div class="detail-actions">
+                        <button id="detail-add-cart" class="action-btn cart-btn-lg">
+                            <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                        </button>
+                        <button id="detail-fav" class="action-btn fav-btn-lg">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+
+                    <div class="detail-footer-info">
+                        <p><i class="fas fa-shield-alt"></i> Garantía Completa</p>
+                        <p><i class="fas fa-bolt"></i> Entrega Rápida</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,70 +1,70 @@
-id,nombre,descripcion,categoria,precio_normal,precio_oferta,en_oferta,imagen,stock
-ST-001,Netflix Perfil Extra - 1 Mes,Cuenta oficial extra bajo dominio hogar. Estable garantía y renovable. Pago legal.,Streaming,42000,40250,NO,Netflix1mes.jpg,20
-ST-002,Netflix Perfil Extra - 2 Meses,Cuenta oficial extra bajo dominio hogar. Estable garantía y renovable por 2 meses.,Streaming,72000,69000,NO,Netflix2mes.jpg,20
-ST-003,Netflix Premium Extra - Oferta Limitada,Perfil extra en oferta especial (sujeto a disponibilidad de stock).,Streaming,34800,33350,NO,netflixPremiumExtra.jpg,20
-ST-004,Flujo TV - 1 Mes (Pantalla),Servicio de TV por streaming. Solo 1 pantalla. Súper estable con garantía.,Streaming,24000,23000,NO,FlujoTV1mes.jpg,20
-ST-005,Flujo TV - 1 Mes (Cuenta Completa),Servicio de TV por streaming. Cuenta completa. Súper estable con garantía.,Streaming,36000,34500,SI,FlujoTV1mesCompleto.jpg,20
-ST-006,Magis TV Pro - 1 Mes (Pantalla),Servicio IPTV Pro. 1 pantalla. Incluye canales en vivo y VOD. Renovable.,Streaming,21600,20700,NO,MagisTVPro1mesPantalla.jpg,20
-ST-007,Magis TV Pro - 1 Mes (Cuenta Completa),Servicio IPTV Pro. Cuenta completa. Incluye canales en vivo y VOD. Renovable.,Streaming,30000,28750,NO,MagisTVPro1mesCompleto.jpg,20
-ST-008,IPTV Smarters Pro - 1 Mes (Completa),Servicio IPTV estable. Cuenta completa para la app Smarters Pro.,Streaming,36000,34500,NO,IPTVSmartersPro1mesCompleto.jpg,20
-ST-009,HBO Max - 1 Mes (Perfil),Perfil individual con garantía. Renovable.,Streaming,18000,17250,NO,HBOMax1mesPerfil.jpg,20
-ST-010,HBO Max - 1 Mes (Completa),Cuenta completa privada. Renovable.,Streaming,30000,28750,SI,HBOMax1mesCompleto.jpg,20
-ST-011,HBO Max - 1 Mes (A tu correo),Activación de cuenta completa directamente a tu correo personal.,Streaming,42000,40250,NO,HBOMax1mesCorreo.jpg,20
-ST-012,Paramount+ - 1 Mes (Perfil),Perfil individual. Incluye página/bot. Renovable.,Streaming,21600,20700,NO,Paramount_1mesPerfil.jpg,20
-ST-013,Paramount+ - 1 Mes (Completa),Cuenta completa privada. Incluye página/bot. Renovable.,Streaming,33600,32200,NO,Paramount_1mesCompleto.jpg,20
-ST-014,Crunchyroll - 1 Mes (Perfil),Perfil individual para anime. Incluye página/bot. Renovable.,Streaming,18000,17250,NO,Crunchyroll1mesPerfil.jpg,20
-ST-015,Crunchyroll - 1 Mes (Completa),Cuenta completa privada. Sin anuncios. Renovable.,Streaming,30000,28750,SI,Crunchyroll1mesCompleto.jpg,20
-ST-016,Prime Video - 1 Mes (Perfil),Perfil individual Amazon Prime. Incluye página/bot.,Streaming,18000,17250,NO,PrimeVideo1mesPerfil.jpg,20
-ST-017,Prime Video - 1 Mes (Completa),Cuenta completa Amazon Prime. Media posibilidad de renovación.,Streaming,30000,28750,NO,PrimeVideo1mesCompleto.jpg,20
-ST-018,Prime Video - 1 Mes (A tu correo),Cuenta completa activada a tu correo personal.,Streaming,42000,40250,NO,PrimeVideo1mesCorreo.jpg,20
-ST-019,Disney+ Premium - 1 Mes (Perfil),Perfil individual Disney+. Alta posibilidad de renovación.,Streaming,30000,28750,NO,Disney_Premium1mesPerfil.jpg,20
-ST-020,Disney+ Premium - 1 Mes (Completa),Cuenta completa Disney+. Alta posibilidad de renovación.,Streaming,66000,63250,SI,Disney_Premium1mesCompleto.jpg,20
-ST-021,Disney+ Premium - 1 Mes (A tu correo),Cuenta completa activada a tu correo. Alta estabilidad.,Streaming,78000,74750,NO,Disney_Premium1mesCorreo.jpg,20
-ST-022,Disney+ Premium - Versión Estable (Completa),Versión bajo pedido (24h). Máxima estabilidad garantizada.,Streaming,84000,80500,NO,Escudo dorado de garantía sobre el logo de Disney+.,20
-ST-023,Tigo Sports - 1 Mes (2 Dispositivos),Plan oficial Tigo Sports Paraguay. App oficial.,Streaming,120000,115000,NO,Logo de Tigo Sports con una pelota de fútbol de la liga paraguaya.,20
-ST-024,Apple TV - 1 Mes (Completa),Cuenta completa Apple TV+ con contenido original.,Streaming,36000,34500,NO,Logo de la manzana de Apple TV sobre fondo negro minimalista.,20
-ST-025,Vix+ Premium - 1 Mes,Cuenta completa para contenido latino y novelas.,Streaming,36000,34500,SI,Logo naranja de Vix+ con imágenes de novelas de fondo.,20
-ST-026,Rakuten Viki - 1 Mes,Dramas asiáticos (Doramas) premium.,Streaming,36000,34500,NO,Texto Viki en azul y turquesa con caracteres coreanos de fondo.,20
-ST-027,Plex - 1 Mes,Acceso a servidor Plex con contenido variado.,Streaming,36000,34500,NO,Logo de flecha amarilla de Plex sobre fondo gris oscuro.,20
-ST-028,Zapping TV Básico - 1 Mes,Televisión en vivo vía internet. Plan básico.,Streaming,30000,28750,NO,Logo verde neón de Zapping TV.,20
-ST-029,DAZN - 1 Mes,Streaming de deportes de combate y fútbol europeo.,Streaming,32400,31050,NO,Logo DAZN en blanco y negro con guantes de boxeo.,20
-ST-030,DramaBox - 15 Años,Suscripción de largo plazo para dramas cortos.,Streaming,60000,57500,SI,Icono de caja de teatro roja con máscara de drama.,20
-MU-001,Spotify Premium - 1 Mes (Individual 1ra vez),Cuenta individual nueva. Sin anuncios.,Música,24000,23000,NO,Logo verde de Spotify con ondas de sonido alrededor.,20
-MU-002,Spotify Premium - 1 Mes (Individual Renovación),Renovación de cuenta individual existente.,Música,30000,28750,NO,Icono de reciclaje/renovación sobre el logo de Spotify.,20
-MU-003,Spotify Premium - 1 Mes (Familiar 1ra vez),Plan familiar nuevo. Hasta 6 cuentas.,Música,78000,74750,NO,Siluetas de una familia escuchando música con audífonos y logo Spotify.,20
-MU-004,Spotify Premium - 3 Meses (Individual 1ra vez),Cuenta individual nueva por trimeste.,Música,54000,51750,NO,Logo Spotify con un número 3 grande al lado.,20
-MU-005,YouTube Premium - 1 Mes (Individual 1ra vez),Sin anuncios videos en segundo plano. Cuenta nueva.,Streaming,24000,23000,SI,Botón de Play rojo de YouTube con la palabra Premium en dorado.,20
-MU-006,Apple Music - 1 Mes,Suscripción mensual Apple Music alta calidad.,Música,30000,28750,NO,Nota musical rosada/roja característica de Apple Music.,20
-MU-007,Amazon Music - 1 Mes,Suscripción mensual Amazon Music Unlimited.,Música,30000,28750,NO,Logo Amazon Music en azul cian.,20
-MU-008,Deezer Premium - 1 Mes,Suscripción mensual Deezer. Audio de alta fidelidad.,Música,33600,32200,NO,Ecualizador de colores característico del logo de Deezer.,20
-GM-001,Free Fire - 110 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,9000,8625,NO,Pequeño montón de diamantes azules brillantes.,20
-GM-002,Free Fire - 341 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,25200,24150,SI,Bolsa mediana de diamantes azules con destellos.,20
-GM-003,Free Fire - 572 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,37200,35650,NO,Cofre del tesoro abierto lleno de diamantes azules.,20
-GM-004,Free Fire - 1166 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,72000,69000,NO,Montaña de diamantes con un personaje de Free Fire celebrando.,20
-GM-005,Free Fire - 2398 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,141600,135700,NO,Gran baúl dorado rebosando diamantes brillantes.,20
-GM-006,Free Fire - 6160 Diamantes,Recarga vía ID directo. Región LATAM. Pack Mayorista.,Juegos,324000,310500,NO,Lluvia de diamantes cubriendo toda la imagen.,20
-GM-007,Recarga TikTok - 100 Monedas,Monedas para regalos en lives. 9.900 Gs base.,Redes Sociales,11880,11385,SI,Logo de TikTok 3D con monedas doradas flotando alrededor.,20
-IA-001,ChatGPT Plus - 1 Mes (Invitación),Acceso a cuenta Plus compartida vía invitación.,Inteligencia Artificial,18000,17250,NO,Logo de OpenAI verde sobre fondo blanco.,20
-IA-002,ChatGPT Plus - 1 Mes (Completa),Cuenta completa de 4 perfiles.,Inteligencia Artificial,60000,57500,NO,Logo ChatGPT con la palabra PLUS en negrita.,20
-IA-003,ChatGPT Pro - 1 Dispositivo,Acceso Pro en un solo dispositivo.,Inteligencia Artificial,24000,23000,NO,Smartphone mostrando la interfaz de chat con IA.,20
-IA-004,Gemini AI Pro + Google One - 1 Año,2TB de almacenamiento y Gemini Advanced. Cuenta nueva.,Inteligencia Artificial,60000,57500,NO,Logo de estrella de Google Gemini combinado con el logo de Google One.,20
-IA-005,Gemini Ultra - 1 Mes,45.000 créditos para generación de video IA.,Inteligencia Artificial,238800,228850,SI,Icono futurista de una cámara de video formada por nodos de IA.,20
-IA-006,Perplexity Pro - 1 Año,Motor de búsqueda con IA avanzada.,Inteligencia Artificial,78000,74750,NO,Logo de Perplexity con una lupa digital.,20
-SW-001,Canva Pro - 1 Mes,Diseño gráfico premium. Plantillas ilimitadas.,Diseño,18000,17250,NO,Logo de Canva en degradado azul y violeta.,20
-SW-002,Canva Pro - 1 Año,Suscripción anual a herramientas de diseño pro.,Diseño,60000,57500,NO,Calendario anual marcado con el logo de Canva.,20
-SW-003,Canva Pro - Panel 500 Cuentas (1 Año),Panel para revendedores. Crea 500 cuentas pro.,Diseño,438000,419750,NO,Icono de servidor o dashboard con el logo de Canva.,20
-SW-004,CapCut Pro - 35 Días (1 Disp),Editor de video premium para celular/PC.,Diseño,24000,23000,SI,Logo de CapCut en blanco y negro con tijeras de edición.,20
-SW-005,PicsArt Premium - 1 Mes,Editor de fotos con todas las funciones desbloqueadas.,Diseño,30000,28750,NO,Logo de PicsArt con pincel creativo colorido.,20
-SW-006,Microsoft 365 Pro - 1 Mes (1 Disp),Word Excel PowerPoint. 1 dispositivo.,Office,60000,57500,NO,Logos de Office (Word Excel PPT) agrupados en un cubo 3D.,20
-SW-007,Microsoft 365 Pro - 1 Año (1 Disp),Licencia anual Office 365.,Office,78000,74750,NO,Escudo de seguridad Microsoft con año calendario.,20
-VP-001,HolaVPN - 1 Mes,VPN para 1 dispositivo. Activación por código.,VPN,30000,28750,NO,Llama de fuego sonriente (logo HolaVPN).,20
-VP-002,Surfshark VPN - 1 Mes,VPN rápida para 1 dispositivo.,VPN,24000,23000,SI,Aleta de tiburón verde azulado sobre ondas de internet.,20
-VP-003,NordVPN - 1 Mes,VPN líder en seguridad. 1 dispositivo.,VPN,30000,28750,NO,Montaña azul con el nudo de NordVPN.,20
-AD-001,Pornhub Premium - 1 Mes,Acceso contenido premium sin anuncios.,Adultos 18+,36000,34500,NO,Logo naranja y negro con la etiqueta PREMIUM.,20
-AD-002,Brazzers Premium - 1 Mes,Acceso sitio exclusivo.,Adultos 18+,42000,40250,NO,Logo de Brazzers estilizado con colores oscuros.,20
-SV-001,Marketing Chatbot Multiplataforma,APK de autotespuesta para redes. Pago único.,Servicios,60000,57500,NO,Robot amigable saludando desde una pantalla de chat.,20
-SV-002,Marketing CRM WhatsApp - 1 Mes,Respuestas automáticas masivas y flujos.,Servicios,120000,115000,SI,Icono de WhatsApp verde conectado a engranajes de automatización.,20
-SV-003,Diseño Logo Básico,Creación de logotipo simple.,Servicios,60000,57500,NO,Lápiz dibujando un trazo vectorial simple.,20
-SV-004,Diseño Logo Detallado + Identidad,Logo pro y manual de identidad visual.,Servicios,180000,172500,NO,Paleta de colores pantone junto a bocetos de logos complejos.,20
-SV-005,Diseño Flyers Publicitarios Pro,Diseño de flyer de alta calidad para redes.,Servicios,90000,86250,NO,Muestra de varios flyers coloridos y atractivos flotando.,20
-SV-006,Diseño Manejo de Redes - Plan Profesional,Gestión completa mensual de redes sociales.,Servicios,1500000,1437500,NO,Gráfica de crecimiento de estadísticas con iconos de Instagram y FB.,20
+id,nombre,descripcion,categoria,precio_normal,precio_oferta,en_oferta,imagen,stock,
+ST-001,Netflix Perfil Extra - 1 Mes,Cuenta oficial extra bajo dominio hogar. Estable garantía y renovable. Pago legal.,Streaming,42000,40250,SI,Netflix1mes.jpg,SI,
+ST-002,Netflix Perfil Extra - 2 Meses,Cuenta oficial extra bajo dominio hogar. Estable garantía y renovable por 2 meses.,Streaming,72000,69000,NO,Netflix2mes.jpg,SI,
+ST-003,Netflix Premium Extra - Oferta Limitada,Perfil extra en oferta especial (sujeto a disponibilidad de stock).,Streaming,34800,33350,NO,netflixPremiumExtra.jpg,SI,
+ST-004,Flujo TV - 1 Mes (Pantalla),Servicio de TV por streaming. Solo 1 pantalla. Súper estable con garantía.,Streaming,24000,23000,NO,FlujoTV1mes.jpg,SI,
+ST-005,Flujo TV - 1 Mes (Cuenta Completa),Servicio de TV por streaming. Cuenta completa. Súper estable con garantía.,Streaming,36000,34500,NO,FlujoTV1mesCompleto.jpg,NO,
+ST-006,Magis TV Pro - 1 Mes (Pantalla),Servicio IPTV Pro. 1 pantalla. Incluye canales en vivo y VOD. Renovable.,Streaming,21600,20700,SI,MagisTVPro1mesPantalla.jpg,SI,
+ST-007,Magis TV Pro - 1 Mes (Cuenta Completa),Servicio IPTV Pro. Cuenta completa. Incluye canales en vivo y VOD. Renovable.,Streaming,30000,28750,NO,MagisTVPro1mesCompleto.jpg,SI,
+ST-008,IPTV Smarters Pro - 1 Mes (Completa),Servicio IPTV estable. Cuenta completa para la app Smarters Pro.,Streaming,36000,34500,NO,IPTVSmartersPro1mesCompleto.jpg,SI,
+ST-009,HBO Max - 1 Mes (Perfil),Perfil individual con garantía. Renovable.,Streaming,18000,17250,NO,HBOMax1mesPerfil.jpg,SI,
+ST-010,HBO Max - 1 Mes (Completa),Cuenta completa privada. Renovable.,Streaming,30000,28750,NO,HBOMax1mesCompleto.jpg,NO,
+ST-011,HBO Max - 1 Mes (A tu correo),Activación de cuenta completa directamente a tu correo personal.,Streaming,42000,40250,SI,HBOMax1mesCorreo.jpg,SI,
+ST-012,Paramount+ - 1 Mes (Perfil),Perfil individual. Incluye página/bot. Renovable.,Streaming,21600,20700,NO,Paramount_1mesPerfil.jpg,SI,
+ST-013,Paramount+ - 1 Mes (Completa),Cuenta completa privada. Incluye página/bot. Renovable.,Streaming,33600,32200,NO,Paramount_1mesCompleto.jpg,SI,
+ST-014,Crunchyroll - 1 Mes (Perfil),Perfil individual para anime. Incluye página/bot. Renovable.,Streaming,18000,17250,NO,Crunchyroll1mesPerfil.jpg,SI,
+ST-015,Crunchyroll - 1 Mes (Completa),Cuenta completa privada. Sin anuncios. Renovable.,Streaming,30000,28750,NO,Crunchyroll1mesCompleto.jpg,NO,
+ST-016,Prime Video - 1 Mes (Perfil),Perfil individual Amazon Prime. Incluye página/bot.,Streaming,18000,17250,SI,PrimeVideo1mesPerfil.jpg,SI,
+ST-017,Prime Video - 1 Mes (Completa),Cuenta completa Amazon Prime. Media posibilidad de renovación.,Streaming,30000,28750,NO,PrimeVideo1mesCompleto.jpg,SI,
+ST-018,Prime Video - 1 Mes (A tu correo),Cuenta completa activada a tu correo personal.,Streaming,42000,40250,NO,PrimeVideo1mesCorreo.jpg,SI,
+ST-019,Disney+ Premium - 1 Mes (Perfil),Perfil individual Disney+. Alta posibilidad de renovación.,Streaming,30000,28750,NO,Disney_Premium1mesPerfil.jpg,SI,
+ST-020,Disney+ Premium - 1 Mes (Completa),Cuenta completa Disney+. Alta posibilidad de renovación.,Streaming,66000,63250,NO,Disney_Premium1mesCompleto.jpg,NO,
+ST-021,Disney+ Premium - 1 Mes (A tu correo),Cuenta completa activada a tu correo. Alta estabilidad.,Streaming,78000,74750,SI,Disney_Premium1mesCorreo.jpg,SI,
+ST-022,Disney+ Premium - Versión Estable (Completa),Versión bajo pedido (24h). Máxima estabilidad garantizada.,Streaming,84000,80500,NO,placeholder.jpg,SI,Escudo dorado de garantía sobre el logo de Disney+.
+ST-023,Tigo Sports - 1 Mes (2 Dispositivos),Plan oficial Tigo Sports Paraguay. App oficial.,Streaming,120000,115000,NO,placeholder.jpg,SI,Logo de Tigo Sports con una pelota de fútbol de la liga paraguaya.
+ST-024,Apple TV - 1 Mes (Completa),Cuenta completa Apple TV+ con contenido original.,Streaming,36000,34500,NO,placeholder.jpg,SI,Logo de la manzana de Apple TV sobre fondo negro minimalista.
+ST-025,Vix+ Premium - 1 Mes,Cuenta completa para contenido latino y novelas.,Streaming,36000,34500,NO,placeholder.jpg,NO,Logo naranja de Vix+ con imágenes de novelas de fondo.
+ST-026,Rakuten Viki - 1 Mes,Dramas asiáticos (Doramas) premium.,Streaming,36000,34500,SI,placeholder.jpg,SI,Texto Viki en azul y turquesa con caracteres coreanos de fondo.
+ST-027,Plex - 1 Mes,Acceso a servidor Plex con contenido variado.,Streaming,36000,34500,NO,placeholder.jpg,SI,Logo de flecha amarilla de Plex sobre fondo gris oscuro.
+ST-028,Zapping TV Básico - 1 Mes,Televisión en vivo vía internet. Plan básico.,Streaming,30000,28750,NO,placeholder.jpg,SI,Logo verde neón de Zapping TV.
+ST-029,DAZN - 1 Mes,Streaming de deportes de combate y fútbol europeo.,Streaming,32400,31050,NO,placeholder.jpg,SI,Logo DAZN en blanco y negro con guantes de boxeo.
+ST-030,DramaBox - 15 Años,Suscripción de largo plazo para dramas cortos.,Streaming,60000,57500,NO,placeholder.jpg,NO,Icono de caja de teatro roja con máscara de drama.
+MU-001,Spotify Premium - 1 Mes (Individual 1ra vez),Cuenta individual nueva. Sin anuncios.,Música,24000,23000,SI,placeholder.jpg,SI,Logo verde de Spotify con ondas de sonido alrededor.
+MU-002,Spotify Premium - 1 Mes (Individual Renovación),Renovación de cuenta individual existente.,Música,30000,28750,NO,placeholder.jpg,SI,Icono de reciclaje/renovación sobre el logo de Spotify.
+MU-003,Spotify Premium - 1 Mes (Familiar 1ra vez),Plan familiar nuevo. Hasta 6 cuentas.,Música,78000,74750,NO,placeholder.jpg,SI,Siluetas de una familia escuchando música con audífonos y logo Spotify.
+MU-004,Spotify Premium - 3 Meses (Individual 1ra vez),Cuenta individual nueva por trimeste.,Música,54000,51750,NO,placeholder.jpg,SI,Logo Spotify con un número 3 grande al lado.
+MU-005,YouTube Premium - 1 Mes (Individual 1ra vez),Sin anuncios videos en segundo plano. Cuenta nueva.,Streaming,24000,23000,NO,placeholder.jpg,NO,Botón de Play rojo de YouTube con la palabra Premium en dorado.
+MU-006,Apple Music - 1 Mes,Suscripción mensual Apple Music alta calidad.,Música,30000,28750,SI,placeholder.jpg,SI,Nota musical rosada/roja característica de Apple Music.
+MU-007,Amazon Music - 1 Mes,Suscripción mensual Amazon Music Unlimited.,Música,30000,28750,NO,placeholder.jpg,SI,Logo Amazon Music en azul cian.
+MU-008,Deezer Premium - 1 Mes,Suscripción mensual Deezer. Audio de alta fidelidad.,Música,33600,32200,NO,placeholder.jpg,SI,Ecualizador de colores característico del logo de Deezer.
+GM-001,Free Fire - 110 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,9000,8625,NO,placeholder.jpg,SI,Pequeño montón de diamantes azules brillantes.
+GM-002,Free Fire - 341 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,25200,24150,NO,placeholder.jpg,NO,Bolsa mediana de diamantes azules con destellos.
+GM-003,Free Fire - 572 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,37200,35650,SI,placeholder.jpg,SI,Cofre del tesoro abierto lleno de diamantes azules.
+GM-004,Free Fire - 1166 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,72000,69000,NO,placeholder.jpg,SI,Montaña de diamantes con un personaje de Free Fire celebrando.
+GM-005,Free Fire - 2398 Diamantes,Recarga vía ID directo. Región LATAM.,Juegos,141600,135700,NO,placeholder.jpg,SI,Gran baúl dorado rebosando diamantes brillantes.
+GM-006,Free Fire - 6160 Diamantes,Recarga vía ID directo. Región LATAM. Pack Mayorista.,Juegos,324000,310500,NO,placeholder.jpg,SI,Lluvia de diamantes cubriendo toda la imagen.
+GM-007,Recarga TikTok - 100 Monedas,Monedas para regalos en lives. 9.900 Gs base.,Redes Sociales,11880,11385,NO,placeholder.jpg,NO,Logo de TikTok 3D con monedas doradas flotando alrededor.
+IA-001,ChatGPT Plus - 1 Mes (Invitación),Acceso a cuenta Plus compartida vía invitación.,Inteligencia Artificial,18000,17250,SI,placeholder.jpg,SI,Logo de OpenAI verde sobre fondo blanco.
+IA-002,ChatGPT Plus - 1 Mes (Completa),Cuenta completa de 4 perfiles.,Inteligencia Artificial,60000,57500,NO,placeholder.jpg,SI,Logo ChatGPT con la palabra PLUS en negrita.
+IA-003,ChatGPT Pro - 1 Dispositivo,Acceso Pro en un solo dispositivo.,Inteligencia Artificial,24000,23000,NO,placeholder.jpg,SI,Smartphone mostrando la interfaz de chat con IA.
+IA-004,Gemini AI Pro + Google One - 1 Año,2TB de almacenamiento y Gemini Advanced. Cuenta nueva.,Inteligencia Artificial,60000,57500,NO,placeholder.jpg,SI,Logo de estrella de Google Gemini combinado con el logo de Google One.
+IA-005,Gemini Ultra - 1 Mes,45.000 créditos para generación de video IA.,Inteligencia Artificial,238800,228850,NO,placeholder.jpg,NO,Icono futurista de una cámara de video formada por nodos de IA.
+IA-006,Perplexity Pro - 1 Año,Motor de búsqueda con IA avanzada.,Inteligencia Artificial,78000,74750,SI,placeholder.jpg,SI,Logo de Perplexity con una lupa digital.
+SW-001,Canva Pro - 1 Mes,Diseño gráfico premium. Plantillas ilimitadas.,Diseño,18000,17250,NO,placeholder.jpg,SI,Logo de Canva en degradado azul y violeta.
+SW-002,Canva Pro - 1 Año,Suscripción anual a herramientas de diseño pro.,Diseño,60000,57500,NO,placeholder.jpg,SI,Calendario anual marcado con el logo de Canva.
+SW-003,Canva Pro - Panel 500 Cuentas (1 Año),Panel para revendedores. Crea 500 cuentas pro.,Diseño,438000,419750,NO,placeholder.jpg,SI,Icono de servidor o dashboard con el logo de Canva.
+SW-004,CapCut Pro - 35 Días (1 Disp),Editor de video premium para celular/PC.,Diseño,24000,23000,NO,placeholder.jpg,NO,Logo de CapCut en blanco y negro con tijeras de edición.
+SW-005,PicsArt Premium - 1 Mes,Editor de fotos con todas las funciones desbloqueadas.,Diseño,30000,28750,SI,placeholder.jpg,SI,Logo de PicsArt con pincel creativo colorido.
+SW-006,Microsoft 365 Pro - 1 Mes (1 Disp),Word Excel PowerPoint. 1 dispositivo.,Office,60000,57500,NO,placeholder.jpg,SI,Logos de Office (Word Excel PPT) agrupados en un cubo 3D.
+SW-007,Microsoft 365 Pro - 1 Año (1 Disp),Licencia anual Office 365.,Office,78000,74750,NO,placeholder.jpg,SI,Escudo de seguridad Microsoft con año calendario.
+VP-001,HolaVPN - 1 Mes,VPN para 1 dispositivo. Activación por código.,VPN,30000,28750,NO,placeholder.jpg,SI,Llama de fuego sonriente (logo HolaVPN).
+VP-002,Surfshark VPN - 1 Mes,VPN rápida para 1 dispositivo.,VPN,24000,23000,NO,placeholder.jpg,NO,Aleta de tiburón verde azulado sobre ondas de internet.
+VP-003,NordVPN - 1 Mes,VPN líder en seguridad. 1 dispositivo.,VPN,30000,28750,SI,placeholder.jpg,SI,Montaña azul con el nudo de NordVPN.
+AD-001,Pornhub Premium - 1 Mes,Acceso contenido premium sin anuncios.,Adultos 18+,36000,34500,NO,placeholder.jpg,SI,Logo naranja y negro con la etiqueta PREMIUM.
+AD-002,Brazzers Premium - 1 Mes,Acceso sitio exclusivo.,Adultos 18+,42000,40250,NO,placeholder.jpg,SI,Logo de Brazzers estilizado con colores oscuros.
+SV-001,Marketing Chatbot Multiplataforma,APK de autotespuesta para redes. Pago único.,Servicios,60000,57500,NO,placeholder.jpg,SI,Robot amigable saludando desde una pantalla de chat.
+SV-002,Marketing CRM WhatsApp - 1 Mes,Respuestas automáticas masivas y flujos.,Servicios,120000,115000,NO,placeholder.jpg,NO,Icono de WhatsApp verde conectado a engranajes de automatización.
+SV-003,Diseño Logo Básico,Creación de logotipo simple.,Servicios,60000,57500,SI,placeholder.jpg,SI,Lápiz dibujando un trazo vectorial simple.
+SV-004,Diseño Logo Detallado + Identidad,Logo pro y manual de identidad visual.,Servicios,180000,172500,NO,placeholder.jpg,SI,Paleta de colores pantone junto a bocetos de logos complejos.
+SV-005,Diseño Flyers Publicitarios Pro,Diseño de flyer de alta calidad para redes.,Servicios,90000,86250,NO,placeholder.jpg,SI,Muestra de varios flyers coloridos y atractivos flotando.
+SV-006,Diseño Manejo de Redes - Plan Profesional,Gestión completa mensual de redes sociales.,Servicios,1500000,1437500,NO,placeholder.jpg,SI,Gráfica de crecimiento de estadísticas con iconos de Instagram y FB.
