@@ -24,7 +24,10 @@
     <header id="main-header">
         <div class="header-top">
             <div class="brand-info">
-                <img src="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/photoprofile.jpg" alt="Logo" class="mini-profile-pic">
+                <img src="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/photoprofile.jpg" 
+                     alt="Logo" 
+                     class="mini-profile-pic" 
+                     onclick="openProfileZoom()">
                 <div class="brand-text">
                     <h1>The Otaño Brothers</h1>
                     <span class="bio">ALL KIND STORE</span>
@@ -161,6 +164,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="profile-zoom-modal" class="profile-zoom-overlay" onclick="closeProfileZoom()">
+        <img src="https://res.cloudinary.com/darqsjys4/image/upload/q_auto,f_auto/photoprofile.jpg" class="profile-zoom-img">
     </div>
 
     <div id="toast" class="toast"></div>

@@ -432,3 +432,12 @@ function initSwiper() {
         }
     });
 }
+
+// --- FUNCIONES ZOOM PERFIL (NUEVO) ---
+function openProfileZoom() {
+    document.getElementById('profile-zoom-modal').style.display = 'flex';
+}
+
+function closeProfileZoom() {
+    document.getElementById('profile-zoom-modal').style.display = 'none';
+}
