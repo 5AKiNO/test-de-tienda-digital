@@ -356,9 +356,15 @@ function renderFavorites() {
     grid.innerHTML = favs.map(p => createProductCard(p)).join('');
 }
 
+// MODIFICADO: Lógica para ocultar si es 0
 function updateCounters() {
+    // Carrito
     dom.cartCount.textContent = state.cart.length;
+    dom.cartCount.style.display = state.cart.length > 0 ? 'block' : 'none';
+
+    // Favoritos
     dom.favCount.textContent = state.wishlist.length;
+    dom.favCount.style.display = state.wishlist.length > 0 ? 'block' : 'none';
 }
 
 function saveCart() {
